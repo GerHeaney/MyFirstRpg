@@ -1,0 +1,77 @@
+#ifndef MAINCLASS_H
+#define MAINCLASS_H
+
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <stdio.h>
+#include <string>
+#include <iostream>
+#include <math.h>
+#include "sdl_setup.h"
+#include "csprite.h"
+#include "keyboardmovement.h"
+#include "mousemovement.h"
+#include "maincharacter.h"
+#include "environment.h"
+//#include "IntroState.h"
+
+#include <vector>
+class GameState;
+
+class MainClass
+{
+public:
+    MainClass(int width, int height);
+    ~MainClass();
+    void GameLoop();
+    void ChangeState(GameState* state);
+    void PushState(GameState* state);
+    void PopState();
+
+    void HandleEvents();
+    void Update();
+    void Draw();
+
+    bool Running() { return running; }
+    void Quit() { running = false; }
+
+
+    SDL_Renderer *getRenderer();
+
+
+    int getScreenWidth() const;
+
+    int getScreenHeight() const;
+
+    SDL_setup *getSetup() const;
+
+    MainCharacter *getPlayer() const;
+    void setPlayer(MainCharacter *value);
+
+private:
+    float cameraX;
+    float cameraY;
+    int screenWidth;
+    int screenHeight;
+    bool quit;
+    bool running;
+    std::vector<GameState*> states;
+
+    Environment* stage1;
+    GameState * intro;
+
+
+    SDL_Rect camera;
+    SDL_setup* setup;
+    MainCharacter *player;
+    KeyboardMovement *keyMove;
+    MouseMovement * mouseMove;
+
+
+
+
+
+};
+
+#endif // MAINCLASS_H

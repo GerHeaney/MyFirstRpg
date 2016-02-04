@@ -23,7 +23,7 @@ MainClass::~MainClass()
 
     delete setup;
     delete stage1;
-    delete keyMove;
+    //delete keyMove;
     delete player;
 
 }
@@ -113,6 +113,26 @@ MainCharacter *MainClass::getPlayer() const
 void MainClass::setPlayer(MainCharacter *value)
 {
     player = value;
+}
+
+int MainClass::getLevelWidth() const
+{
+    return stage1->getLevelWidth();
+}
+
+int MainClass::getLevelHeight() const
+{
+    return stage1->getLevelHeight();
+}
+
+Environment *MainClass::getStage1() const
+{
+    return stage1;
+}
+
+void MainClass::setStage1(Environment *value)
+{
+    stage1 = value;
 }
 
 

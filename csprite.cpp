@@ -22,8 +22,8 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y, in
 
     crop.x = 0;
     crop.y = 0;
-    crop.w = surface->w;
-    crop.h = surface->h;
+    crop.w = surface->w/4;
+    crop.h = surface->h/4;
 
     XPos = x;
     YPos = y;
@@ -32,20 +32,22 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y, in
     yOrigin = 0;
 
     currentFrame = 0;
-    //frameSpeed = 0;
+    frameSpeed = 0;
 
-    frameX = 0;
-    frameY = 0;
+    frameX = 4;
+    frameY = 4;
 
 
 
     cameraW = w;
     cameraH = h;
 
-    camera.x = rect.x ;
+    camera.x = rect.x;
     camera.y = rect.y;
-    camera.w = surface->w;
-    camera.h = surface->h;
+    camera.w = 1200;
+    camera.h = 900;
+    frameX = 0;
+    frameY = 0;
 
 
 }
@@ -82,13 +84,17 @@ CSprite::~CSprite()
 void CSprite::Draw()
 {
 
-
-    SDL_RenderCopy(renderer,image,&crop,&rect);
+    SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/4,surface->h/4 };
+    SDL_RenderCopy( renderer, image, &crop, &renderQuad );
+  //  SDL_RenderCopy(renderer,image,&crop,&crop);
 
 }
 void CSprite::DrawBackground(SDL_Rect * clip)
 {
-    SDL_Rect renderQuad = { 0, 0, 0, 0 };
+   // rect.x = XPos- camera.x;
+//    rect.y = YPos- camera.y;
+
+    SDL_Rect renderQuad = {XPos- camera.x, YPos - camera.y, 0, 0 };
 
     //Set clip rendering dimensions
     if( clip != NULL )
@@ -96,36 +102,40 @@ void CSprite::DrawBackground(SDL_Rect * clip)
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
     }
-    SDL_RenderCopy(renderer,image,clip,&renderQuad);
+    SDL_RenderCopy(renderer,image,clip,&rect);
 }
 
-void CSprite::setX(float X)
+void CSprite::setX(int X)
 {
     XPos = X;
-    rect.x = int(XPos - xOrigin);
+     camera.x = (XPos - xOrigin);
+
 }
-void CSprite::setY(float Y)
+void CSprite::setY(int Y)
 {
     YPos = Y;
-    rect.y = int(YPos - yOrigin);
+     camera.y = (YPos - yOrigin);
+
 }
-void CSprite::setPosition(float X, float Y)
+void CSprite::setPosition(int X, int Y)
 {
     XPos = X;
-    rect.x = int(XPos - xOrigin);
+    camera.x = (XPos - xOrigin);
+
 
     YPos = Y;
-    rect.y = int(YPos - yOrigin);
+    camera.y = (YPos - yOrigin);
+
 }
-float CSprite::getX()
+int CSprite::getX()
 {
    return XPos;
 }
-float CSprite::getY()
+int CSprite::getY()
 {
     return YPos;
 }
-void CSprite::setOrigin(float X, float Y)
+void CSprite::setOrigin(int X, int Y)
 {
     xOrigin = X;
     yOrigin = Y;
@@ -139,7 +149,8 @@ int CSprite::getWidth()
 
 void CSprite::setWidth(int value)
 {
-    rect.w = value;
+    cameraW = value;
+
 }
 
 int CSprite::getHeight()
@@ -149,7 +160,7 @@ int CSprite::getHeight()
 
 void CSprite::setHeight(int value)
 {
-    rect.h = value;
+    cameraH = value;
 }
 void CSprite::setInitFrame(int startFrame,int row)
 {
@@ -172,6 +183,7 @@ void CSprite::playAnimation(int startFrame, int endFrame,int row, float speed)
         {
             currentFrame++;
         }
+
         crop.x =  currentFrame * (surface->w/frameX);
         crop.y = row *(surface->h/frameY);
         crop.w = surface->w/frameX;
@@ -180,41 +192,41 @@ void CSprite::playAnimation(int startFrame, int endFrame,int row, float speed)
     }
 }
 
-//float *CSprite::getCameraX()
-//{
-//    return cameraX;
-//}
+int CSprite::getCameraX()
+{
+    return camera.x;
+}
 
-//void CSprite::setCameraX(float* value)
-//{
-//    cameraX = value;
+void CSprite::setCameraX(int value)
+{
+    camera.x = value;
 
+}
 
+int CSprite::getCameraY()
+{
+    return camera.y;
+}
 
+void CSprite::setCameraY(int value)
+{
 
+    camera.y = value;
 
-//}
+}
 
-//float *CSprite::getCameraY()
-//{
-//    return cameraY;
-//}
-
-//void CSprite::setCameraY(float *value)
-//{
-
-//    cameraY = value;
-//    camera.y = rect.y + *cameraY ;
-
-//}
+SDL_Rect CSprite::getCamera() const
+{
+    return camera;
+}
 void CSprite::setupAnimation(int passedX, int passedY)
 {
     frameX = passedX;
     frameY = passedY;
 }
 void CSprite::setCamera(){
-    camera.x = int(( XPos + 32 / 2 ) - cameraW / 2);
-    camera.y = int(( YPos + 48 / 2 ) - cameraH / 2) ;
+    camera.x = int(( XPos + 32 / 2 ) - camera.w / 2);
+    camera.y = int(( YPos + 48 / 2 ) - camera.h / 2) ;
 
 
 
@@ -234,4 +246,6 @@ void CSprite::setCamera(){
                 {
                     camera.y = cameraH - camera.h;
                 }
+                std::cout << "level width is " << cameraW << std::endl;
+                std::cout << "camera width is " << camera.w << std::endl;
 }

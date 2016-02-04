@@ -17,14 +17,14 @@ public:
     void Draw();
     void DrawBackground(SDL_Rect *clip);
 
-    void setX(float X);
-    void setY(float Y);
-    void setPosition(float X, float Y);
+    void setX(int X);
+    void setY(int Y);
+    void setPosition(int X, int Y);
 
-    float getX();
-    float getY();
+    int getX();
+    int getY();
 
-    void setOrigin(float X, float Y);
+    void setOrigin(int X, int Y);
 
     int getWidth();
     void setWidth(int value);
@@ -37,22 +37,23 @@ public:
     void setupAnimation(int passedX, int passedY);
     void playAnimation(int startFrame, int endFrame,int row, float speed);
 
-    float *getCameraX();
-    void setCameraX(float *value);
+    int getCameraX();
+    void setCameraX(int value);
 
-    float *getCameraY();
-    void setCameraY(float *value);
+    int getCameraY();
+    void setCameraY(int value);
+
+    SDL_Rect getCamera() const;
 
 private:
     SDL_Rect camera;
     int cameraW;
     int cameraH;
-//    float *cameraX = 0;
-//    float *cameraY = 0;
-    float xOrigin;
-    float yOrigin;
-    float XPos;
-    float YPos;
+
+    int xOrigin;
+    int yOrigin;
+    int XPos;
+    int YPos;
     int Width;
     int Height;
     int currentFrame;

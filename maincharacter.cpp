@@ -40,18 +40,25 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height, int lev
         }
     playerRect.x = 0;
     playerRect.y = 0;
-    playerRect.w = surface->w;
-    playerRect.h = surface->h;
+    playerRect.w = surface->w/4;
+    playerRect.h = surface->h/4;
 
     cameraX = 0;
     cameraY = 0;
 
    // player = new CSprite(setup->getRenderer(),"resources/belf.png",300,240,32,48);
-    setupAnimation(4,4);
-    setInitFrame(0,0);
+
     //setOrigin(getWidth()/2.0f,getHeight());
 
     //player->setInitFrame();
+    //move = new KeyboardMovement();
+    player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,levelW,levelH);
+    std::cout << "new sprite created" << std::endl;
+    player->setupAnimation(4,4);
+    player->setX(5);
+
+
+
 
 }
 MainCharacter::~MainCharacter()
@@ -72,12 +79,23 @@ void MainCharacter::setPlayer(CSprite *value)
 void MainCharacter::Draw()
 {
 
-   // std:: cout << "camera.x is " << camera.x << std::endl;
-    //Set rendering space and render to screen
+    player->Draw();
+    /*
+     Movement was originally in the player class but this is incorrect The player should not
+     need to know about the camera or the level height. Separation of concerns is a major factor
+     in OO design and this was necessary to rework the code
+
+    std:: cout << "camera.x is " << camera.x << std::endl;
+    Set rendering space and render to screen
     SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/4,surface->h/4 };
     SDL_RenderCopy( setup->getRenderer(), image, &playerRect, &renderQuad );
-    //Promising line of thought
-    //player->DrawBackground();
+    Promising line of thought
+    player->DrawBackground();
+    */
+}
+void MainCharacter::setInitFrame(int startFrame,int row)
+{
+  player->setInitFrame(startFrame,row);
 }
 //void MainCharacter::render(int x, int y, SDL_Renderer* gRenderer )
 //{
@@ -88,78 +106,7 @@ void MainCharacter::Draw()
 //        SDL_Rect renderQuad = {x,y,32,48 };
 //        SDL_RenderCopy( gRenderer, mTexture, &gSpriteClips[frame], &renderQuad );
 //}
-void MainCharacter::Move()      
-{
-
-
-   switch(setup->getMainEvent()->type)
-   {
-   case SDL_KEYDOWN:
-
-       switch(setup->getMainEvent()->key.keysym.sym)
-       {
-         case SDLK_UP:
-           MoveUp = true;
-           isMoving = true;
-           break;
-          case SDLK_DOWN:
-           MoveDown = true;
-            isMoving = true;
-           break;
-          case SDLK_LEFT:
-           MoveLeft = true;
-            isMoving = true;
-           break;
-          case SDLK_RIGHT:
-           MoveRight = true;
-            isMoving = true;
-           break;
-          default:
-              break;
-       }
-
-
-
-       break;
-   case SDL_KEYUP:
-
-   switch(setup->getMainEvent()->key.keysym.sym)
-   {
-     case SDLK_UP:
-       playAnimation(0,0,3,120);
-       MoveUp = false;
-       isMoving = false;
-
-       break;
-      case SDLK_DOWN:
-       playAnimation(0,0,0,120);
-       MoveDown = false;
-       isMoving = false;
-
-
-       break;
-      case SDLK_LEFT:
-       playAnimation(0,0,1,120);
-       MoveLeft = false;
-       isMoving = false;
-
-
-       break;
-      case SDLK_RIGHT:
-       playAnimation(0,0,2,120);
-       MoveRight = false;
-       isMoving = false;
-
-
-       break;
-      default:
-          break;
-   }
-       break;
-   default:
-       break;
-   }
-
+/*
    if(timeCheck +10 < SDL_GetTicks())
    {
 
@@ -197,13 +144,7 @@ void MainCharacter::Move()
 
 }
 
-void MainCharacter::setInitFrame(int startFrame,int row)
-{
-     playerRect.x = startFrame * (surface->w/frameX);
-     playerRect.y = row *(surface->h/frameY);
-     playerRect.w = surface->w/frameX;
-     playerRect.h = surface->h/frameY;
-}
+
 
 void MainCharacter::playAnimation(int startFrame, int endFrame,int row, float speed)
 {
@@ -230,7 +171,10 @@ void MainCharacter::setupAnimation(int passedX, int passedY)
     frameX = passedX;
     frameY = passedY;
 }
+*/
 void MainCharacter::setCamera(){
+    player->setCamera();
+
     camera.x = ( XPos + 32 / 2 ) - camera.w / 2;
     camera.y = ( YPos + 48 / 2 ) - camera.h / 2 ;
 
@@ -252,7 +196,9 @@ void MainCharacter::setCamera(){
                 {
                     camera.y = levelHeight - camera.h;
                 }
+
 }
+
 void MainCharacter::setX(int X)
 {
     XPos = X;
@@ -271,19 +217,21 @@ void MainCharacter::setPosition(int X, int Y)
     YPos = Y;
     camera.y = (YPos - yOrigin);
 }
-float MainCharacter::getX()
+int MainCharacter::getX()
 {
    return XPos;
 }
-float MainCharacter::getY()
+int MainCharacter::getY()
 {
     return YPos;
 }
 void MainCharacter::setOrigin(int X, int Y)
 {
-    xOrigin = X;
-    yOrigin = Y;
-    setPosition(getX(),getY());
+//    xOrigin = X;
+//    yOrigin = Y;
+//    std::cout << "X and Y are " << X <<" " << Y << std::endl;
+//    setPosition(getX(),getY());
+   player->setOrigin(X,Y);
 }
 
 int MainCharacter::getWidth()
@@ -307,7 +255,7 @@ void MainCharacter::setHeight(int value)
 }
 SDL_Rect MainCharacter::getCamera()
 {
-    return camera;
+    return player->getCamera();
 }
 int MainCharacter::getCameraX()
 {
@@ -325,4 +273,9 @@ bool MainCharacter::GetMoving()
         return true;
     }
     return false;
+}
+
+void MainCharacter::setIsMoving(bool value)
+{
+    isMoving = value;
 }

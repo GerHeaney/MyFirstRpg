@@ -10,7 +10,7 @@
 #include <math.h>
 #include "sdl_setup.h"
 #include "csprite.h"
-#include "keyboardmovement.h"
+//#include "keyboardmovement.h"
 #include "mousemovement.h"
 #include "maincharacter.h"
 #include "environment.h"
@@ -49,11 +49,20 @@ public:
     MainCharacter *getPlayer() const;
     void setPlayer(MainCharacter *value);
 
+    int getLevelWidth() const;
+
+    int getLevelHeight() const;
+
+    Environment *getStage1() const;
+    void setStage1(Environment *value);
+
 private:
     float cameraX;
     float cameraY;
     int screenWidth;
     int screenHeight;
+    int levelWidth;
+    int levelHeight;
     bool quit;
     bool running;
     std::vector<GameState*> states;
@@ -65,7 +74,7 @@ private:
     SDL_Rect camera;
     SDL_setup* setup;
     MainCharacter *player;
-    KeyboardMovement *keyMove;
+    //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
 
 

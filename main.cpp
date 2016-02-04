@@ -17,6 +17,6 @@ int main( int argc, char* args[] )
     MainClass*  mainClass = new MainClass(1200,900);
     mainClass->ChangeState(IntroState::Instance());
     mainClass->GameLoop();
-    delete mainClass;
+
     return 0;
 }

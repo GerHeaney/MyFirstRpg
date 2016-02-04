@@ -1,5 +1,5 @@
 #include "mousemovement.h"
-
+/*
 MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf, float *passedX, float *passedY)
 {
     gameSetup = setup;
@@ -190,3 +190,4 @@ void MouseMovement::setMouseY(int value)
 {
     mouseY = value;
 }
+*/

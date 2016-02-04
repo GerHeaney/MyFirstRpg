@@ -5,14 +5,18 @@ FieldState FieldState::field;
 
 void FieldState::Init(MainClass *game)
 {
-    stage1 = new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
+    stage1 = game->getStage1();
      //grass = new CSprite(setup->getRenderer(),"resources/map.png",0,0,screenWidth,screenHeight,&cameraX,&cameraY);
 
-    player = new MainCharacter(game->getSetup(),game->getScreenWidth(),game->getScreenHeight(),stage1->getLevelWidth(),stage1->getLevelHeight());
+    player = game->getPlayer();
    // camera = player->getCamera();
     srand(time(NULL));
-    x = 10;
+    x =1;
     std::cout << x;
+    move = new KeyboardMovement(game->getSetup(),player,stage1->getLevelWidth(),stage1->getLevelHeight());
+    player->getPlayer()->setWidth(stage1->getLevelWidth());
+    player->getPlayer()->setHeight(stage1->getLevelHeight());
+
 
 
 }
@@ -46,11 +50,11 @@ void FieldState::HandleEvents(MainClass *game)
 
     if(player->GetMoving() == true)
     {
-         std::cout << x << std::endl;
-         x = rand() % 1000 + 1;
+//        std::cout << x << std::endl;
+//        x = rand() % 1000 + 1;
 
     }
-    player->Move();
+    move->Move();
 
 }
 void FieldState::Pause()

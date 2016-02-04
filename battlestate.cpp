@@ -10,7 +10,8 @@ void BattleState::Init(MainClass *game)
     enemy = new CSprite(game->getRenderer(),"resources/Battle/Hermit2.png",game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.5f,102,118);
 
     player = game->getPlayer();
-    menuRect = {0,0,menu->getWidth(),menu->getHeight()};
+    camera = player->getCamera();
+    menuRect = {0,game->getScreenHeight()-241,menu->getWidth(),menu->getHeight()};
 
     player->setOrigin(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.25);
     player->setInitFrame(0,1);
@@ -20,10 +21,10 @@ void BattleState::Init(MainClass *game)
 }
 void BattleState::Draw(MainClass *game)
 {
-    background->Draw();
-    enemy->Draw();
+    background->DrawBackground(&camera);
+    enemy->DrawBackground(&camera);
     player->Draw();
-    menu->Draw();
+    menu->DrawBackground(&camera);
 
 }
 void BattleState::Update(MainClass *game)

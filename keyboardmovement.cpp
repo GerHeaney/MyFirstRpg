@@ -1,6 +1,6 @@
 #include "keyboardmovement.h"
 
-KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passedPlayer)
+KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passedPlayer,int width,int height)
 {
 
 
@@ -10,10 +10,11 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passe
     MoveLeft = false;
     MoveUp = false;
     MoveDown = false;
+    levelHeight = height;
+    levelWidth = width;
 
     timeCheck = SDL_GetTicks();
-    x = player->getX();
-    y = player->getY();
+
 
 
 
@@ -21,8 +22,10 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passe
 
 void KeyboardMovement::Move()
 {
+    x = player->getPlayer()->getX();
+    y = player->getPlayer()->getY();
 
-     std:: cout << "x  is " << x << std::endl;
+
     switch(setup->getMainEvent()->type)
     {
     case SDL_KEYDOWN:
@@ -31,15 +34,19 @@ void KeyboardMovement::Move()
         {
           case SDLK_UP:
             MoveUp = true;
+            player->setIsMoving(true);
             break;
            case SDLK_DOWN:
             MoveDown = true;
+            player->setIsMoving(true);
             break;
            case SDLK_LEFT:
             MoveLeft = true;
+            player->setIsMoving(true);
             break;
            case SDLK_RIGHT:
             MoveRight = true;
+             player->setIsMoving(true);
             break;
            default:
                break;
@@ -53,23 +60,30 @@ void KeyboardMovement::Move()
     switch(setup->getMainEvent()->key.keysym.sym)
     {
       case SDLK_UP:
-        player->playAnimation(0,0,3,120);
+        player->getPlayer()->playAnimation(0,0,3,120);
         MoveUp = false;
+        player->setIsMoving(false);
 
         break;
        case SDLK_DOWN:
-        player->playAnimation(0,0,0,120);
+        player->getPlayer()->playAnimation(0,0,0,120);
         MoveDown = false;
+        player->setIsMoving(false);
+
 
         break;
        case SDLK_LEFT:
-        player->playAnimation(0,0,1,120);
+        player->getPlayer()->playAnimation(0,0,1,120);
         MoveLeft = false;
+        player->setIsMoving(false);
+
 
         break;
        case SDLK_RIGHT:
-        player->playAnimation(0,0,2,120);
+        player->getPlayer()->playAnimation(0,0,2,120);
         MoveRight = false;
+        player->setIsMoving(false);
+
 
         break;
        default:
@@ -85,27 +99,42 @@ void KeyboardMovement::Move()
 
         if(MoveLeft)
         {
-            player->playAnimation(0,3,1,120);
-            x -=1;
-            player->setX(x);
+            player->getPlayer()->playAnimation(0,3,1,120);
+            if(x <=0) {player->getPlayer()->setX(0);}
+            else{ player->getPlayer()->setX(x -2);}
+            std::cout << "player x position is " << player->getPlayer()->getX() << std::endl;
+            std::cout << " x variable is " << x << std::endl;
+            //player->setX(x);
         }
         if(MoveRight)
         {
-            player->playAnimation(0,3,2,120);
-           x +=1;
-            player->setX(x);
+            player->getPlayer()->playAnimation(0,3,2,120);
+            if(player->getPlayer()->getX() + 32 >=levelWidth ) {player->getPlayer()->setX(levelWidth);}
+            else{ player->getPlayer()->setX(x + 2);}
+            std::cout << "player width is " << player->getWidth() << std::endl;
+            std::cout << " x variable is " << x << std::endl;
+
+            //player->setX(x);
         }
         if(MoveDown)
         {
-            player->playAnimation(0,3,0,120);
-            y +=1;
-            player->setY(y);
+            player->getPlayer()->playAnimation(0,3,0,120);
+            if(y + player->getHeight() >=levelHeight){player->getPlayer()->setY(levelHeight);}
+            else{player->getPlayer()->setY(y + 2);}
+            std::cout << "player y position is " << player->getPlayer()->getY() << std::endl;
+            std::cout << " y variable is " << y << std::endl;
+
+
+            //player->setY(y);
         }
         if(MoveUp)
         {
-            player->playAnimation(0,3,3,120);
-            y -=1;
-            player->setY(y);
+            player->getPlayer()->playAnimation(0,3,3,120);
+            if(y <=0){player->getPlayer()->setY(0);}
+            else{player->getPlayer()->setY(y - 2);}
+            std::cout << "player y position is " << player->getPlayer()->getY() << std::endl;
+            std::cout << " y variable is " << y << std::endl;
+            //player->setY(y);
         }
         timeCheck = SDL_GetTicks();
     }

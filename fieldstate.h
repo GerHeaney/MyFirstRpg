@@ -7,6 +7,7 @@
 #include <math.h>
 #include <time.h>
 #include "battlestate.h"
+#include "keyboardmovement.h"
 
 
 class FieldState : public GameState
@@ -33,6 +34,7 @@ private:
      Environment* stage1;
      MainCharacter *player;
      SDL_Rect  camera;
+     KeyboardMovement * move;
      int x;
 };
 

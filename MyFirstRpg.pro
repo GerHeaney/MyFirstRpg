@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     button.cpp \
     IntroState.cpp \
     fieldstate.cpp \
-    battlestate.cpp
+    battlestate.cpp \
+    entity.cpp \
+    camera.cpp
 
 HEADERS  += \
     mainclass.h \
@@ -42,6 +44,8 @@ HEADERS  += \
     gamestate.h \
     IntroState.h \
     fieldstate.h \
-    battlestate.h
+    battlestate.h \
+    entity.h \
+    camera.h
 
 FORMS    +=

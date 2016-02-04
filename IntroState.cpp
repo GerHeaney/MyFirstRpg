@@ -14,11 +14,15 @@ void IntroState::Init(MainClass *game)
   nButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (nButton->getHeight()*3) );
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
+  game->getPlayer()->setCamera();
+  camera = game->getPlayer()->getCamera();
+
 }
 
 void IntroState::Draw(MainClass *game)
 {
-    menu->Draw();
+
+    menu->DrawBackground(&camera);
     nButton->render();
     lButton->render();
     qButton->render();

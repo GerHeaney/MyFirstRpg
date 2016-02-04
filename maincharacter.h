@@ -9,6 +9,7 @@
 #include "sdl_setup.h"
 
 
+
 class MainCharacter
 {
 public:
@@ -19,8 +20,8 @@ public:
     void setY(int Y);
     void setPosition(int X, int Y);
 
-    float getX();
-    float getY();
+    int getX();
+    int getY();
 
     void setOrigin(int X, int Y);
 
@@ -45,6 +46,8 @@ public:
     int getCameraX();
     int getCameraY();
     bool GetMoving();
+
+    void setIsMoving(bool value);
 
 private:
 
@@ -81,6 +84,7 @@ private:
     SDL_Rect playerRect;
     CSprite* player;
     SDL_setup *setup;
+
 
 
 

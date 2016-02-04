@@ -13,7 +13,7 @@
 class KeyboardMovement
 {
 public:
-    KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passedPlayer);
+    KeyboardMovement(SDL_setup * setup, MainCharacter *passedPlayer,int width,int height);
     void Move();
 
 private:
@@ -26,6 +26,8 @@ private:
     bool MoveLeft;
     bool MoveUp;
     bool MoveDown;
+    int levelWidth;
+    int levelHeight;
 
     int timeCheck;
 

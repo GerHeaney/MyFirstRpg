@@ -32,6 +32,7 @@ private:
     CSprite* menu;
     SDL_setup* setup;
     static IntroState intro;
+    SDL_Rect camera;
 protected:
     IntroState() {}
 };

@@ -37,6 +37,7 @@ private:
     CSprite * enemy;
     CSprite * menu;
     MainCharacter * player;
+    SDL_Rect camera;
 
 };
 

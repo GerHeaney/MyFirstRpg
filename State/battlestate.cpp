@@ -3,7 +3,7 @@
 
 BattleState BattleState::battle;
 
-void BattleState::Init(MainClass *game)
+void BattleState::Init(GameEngine *game)
 {
      menu = new CSprite(game->getRenderer(),"resources/Battle/menu.png",0,game->getScreenHeight()-241,game->getScreenWidth(),241);
     background = new CSprite(game->getRenderer(),"resources/Battle/battle.png",0,0,game->getScreenWidth(),game->getScreenHeight()-menu->getHeight());
@@ -21,7 +21,7 @@ void BattleState::Init(MainClass *game)
 
 
 }
-void BattleState::Draw(MainClass *game)
+void BattleState::Draw(GameEngine *game)
 {
     background->DrawBackground(&camera);
     enemy->DrawBackground(&camera);
@@ -29,13 +29,13 @@ void BattleState::Draw(MainClass *game)
     menu->DrawBackground(&camera);
 
 }
-void BattleState::Update(MainClass *game)
+void BattleState::Update(GameEngine *game)
 {
 
 
 
 }
-void BattleState::HandleEvents(MainClass *game)
+void BattleState::HandleEvents(GameEngine *game)
 {
 
 

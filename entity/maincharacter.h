@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "csprite.h"
-#include "sdl_setup.h"
+#include "RenderItems/csprite.h"
+#include "GameSetup/sdl_setup.h"
 
 
 

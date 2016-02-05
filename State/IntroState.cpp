@@ -5,7 +5,7 @@ IntroState IntroState::intro;
 //    setup = passedSetup;
 //    menu = new CSprite(setup->getRenderer(),"resources/MainMenu/mainmenu.png",0,0,setup->getScreenWidth(),setup->getScreenHeight());
 //}
-void IntroState::Init(MainClass *game)
+void IntroState::Init(GameEngine *game)
 {
   menu = new CSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png",0,0,game->getScreenWidth(),game->getScreenHeight());
   nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
@@ -19,7 +19,7 @@ void IntroState::Init(MainClass *game)
 
 }
 
-void IntroState::Draw(MainClass *game)
+void IntroState::Draw(GameEngine *game)
 {
 
     menu->DrawBackground(&camera);
@@ -32,12 +32,12 @@ void IntroState::Draw(MainClass *game)
 
 
 }
-void IntroState::Update(MainClass *game)
+void IntroState::Update(GameEngine *game)
 {
 
 
 }
-void IntroState::HandleEvents(MainClass *game)
+void IntroState::HandleEvents(GameEngine *game)
 {
     nButton->handleEvent();
     lButton->handleEvent();

@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "maincharacter.h"
-#include "sdl_setup.h"
+#include "Entity/maincharacter.h"
+#include "GameSetup/sdl_setup.h"
 
 
 class KeyboardMovement

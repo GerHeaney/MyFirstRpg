@@ -3,7 +3,7 @@
 
 FieldState FieldState::field;
 
-void FieldState::Init(MainClass *game)
+void FieldState::Init(GameEngine *game)
 {
     stage1 = new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
 
@@ -20,21 +20,21 @@ void FieldState::Init(MainClass *game)
 
 
 }
-void FieldState::Draw(MainClass *game)
+void FieldState::Draw(GameEngine *game)
 {
     player->setCamera();
     camera = player->getCamera();
     stage1->DrawBack(&camera);
     player->Draw();
 }
-void FieldState::Update(MainClass *game)
+void FieldState::Update(GameEngine *game)
 {
     if(x ==10)
     {
         game->ChangeState(BattleState::Instance());
     }
 }
-void FieldState::HandleEvents(MainClass *game)
+void FieldState::HandleEvents(GameEngine *game)
 {
     if(player->GetMoving() == true)
     {

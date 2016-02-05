@@ -16,36 +16,37 @@ LIBS += -L"C:/MinGW/lib" -lSDL2main -lSDL2 -lSDL2_image
 INCLUDEPATH += C:/MinGW/include/SDL2
 
 SOURCES += main.cpp\
-    mainclass.cpp \
-    sdl_setup.cpp \
-    csprite.cpp \
-    keyboardmovement.cpp \
-    mousemovement.cpp \
-    maincharacter.cpp \
-    environment.cpp \
-    tree.cpp \
-    button.cpp \
-    IntroState.cpp \
-    fieldstate.cpp \
-    battlestate.cpp \
-    entity.cpp \
-    camera.cpp
+    State/battlestate.cpp \
+    State/fieldstate.cpp \
+    State/IntroState.cpp \
+    Entity/entity.cpp \
+    Entity/maincharacter.cpp \
+    GameSetup/gameengine.cpp \
+    GameSetup/sdl_setup.cpp \
+    Input/keyboardmovement.cpp \
+    Input/mousemovement.cpp \
+    RenderItems/button.cpp \
+    RenderItems/camera.cpp \
+    RenderItems/csprite.cpp \
+    RenderItems/environment.cpp \
+    RenderItems/tree.cpp \
 
 HEADERS  += \
-    mainclass.h \
-    sdl_setup.h \
-    csprite.h \
-    keyboardmovement.h \
-    mousemovement.h \
-    maincharacter.h \
-    environment.h \
-    tree.h \
-    button.h \
-    gamestate.h \
-    IntroState.h \
-    fieldstate.h \
-    battlestate.h \
-    entity.h \
-    camera.h
+    Entity/entity.h \
+    Entity/maincharacter.h \
+    GameSetup/GameEngine.h \
+    GameSetup/sdl_setup.h \
+    Input/keyboardmovement.h \
+    Input/mousemovement.h \
+    RenderItems/button.h \
+    RenderItems/camera.h \
+    RenderItems/csprite.h \
+    RenderItems/environment.h \
+    RenderItems/tree.h \  
+    State/battlestate.h \
+    State/fieldstate.h \
+    State/gamestate.h \
+    State/IntroState.h \
+
 
 FORMS    +=

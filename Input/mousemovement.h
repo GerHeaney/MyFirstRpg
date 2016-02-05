@@ -7,8 +7,8 @@
 #include <string>
 #include <iostream>
 #include <math.h>
-#include "maincharacter.h"
-#include "sdl_setup.h"
+#include "Entity/maincharacter.h"
+#include "GameSetup/sdl_setup.h"
 
 class MouseMovement
 {

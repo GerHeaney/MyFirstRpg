@@ -9,21 +9,21 @@
 #include <iostream>
 #include <math.h>
 #include "sdl_setup.h"
-#include "csprite.h"
+#include "RenderItems/csprite.h"
 //#include "keyboardmovement.h"
-#include "mousemovement.h"
-#include "maincharacter.h"
-#include "environment.h"
+#include "Input/mousemovement.h"
+#include "Entity/maincharacter.h"
+#include "RenderItems/environment.h"
 //#include "IntroState.h"
 
 #include <vector>
 class GameState;
 
-class MainClass
+class GameEngine
 {
 public:
-    MainClass(int width, int height);
-    ~MainClass();
+    GameEngine(int width, int height);
+    ~GameEngine();
     void GameLoop();
     void ChangeState(GameState* state);
     void PushState(GameState* state);

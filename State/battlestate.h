@@ -1,21 +1,21 @@
 #ifndef BATTLESTATE_H
 #define BATTLESTATE_H
 
-#include "sdl_setup.h"
-#include "csprite.h"
-#include "gamestate.h"
-#include "button.h"
-#include "maincharacter.h"
+#include "GameSetup/sdl_setup.h"
+#include "RenderItems/csprite.h"
+#include "State/gamestate.h"
+#include "RenderItems/button.h"
+#include "Entity/maincharacter.h"
 #include <time.h>
 
 
 class BattleState : public GameState
 {
 public:
-    void Init(MainClass* game) ;
-    void Update(MainClass* game);
-    void Draw(MainClass* game);
-    void HandleEvents(MainClass* game);
+    void Init(GameEngine* game) ;
+    void Update(GameEngine* game);
+    void Draw(GameEngine* game);
+    void HandleEvents(GameEngine* game);
     void Cleanup();
 
     void Pause();

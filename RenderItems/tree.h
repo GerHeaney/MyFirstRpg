@@ -1,7 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
-#include "sdl_setup.h"
-#include "csprite.h"
+#include "GameSetup/sdl_setup.h"
+#include "RenderItems/csprite.h"
 
 class Tree
 {

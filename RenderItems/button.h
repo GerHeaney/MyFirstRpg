@@ -7,7 +7,7 @@
 #include <string>
 #include <iostream>
 
-#include "sdl_setup.h"
+#include "GameSetup/sdl_setup.h"
 
 class Button
 {

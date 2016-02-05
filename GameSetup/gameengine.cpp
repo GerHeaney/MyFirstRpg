@@ -1,7 +1,7 @@
-#include "mainclass.h"
-#include "gamestate.h"
-#include "IntroState.h"
-MainClass::MainClass(int width, int height)
+#include "gameengine.h"
+#include "State/gamestate.h"
+#include "State/IntroState.h"
+GameEngine::GameEngine(int width, int height)
 {
 
     screenWidth = width;
@@ -13,7 +13,7 @@ MainClass::MainClass(int width, int height)
     player = new MainCharacter(setup,screenWidth,screenHeight);
  }
 
-MainClass::~MainClass()
+GameEngine::~GameEngine()
 {
 
     delete setup;
@@ -22,7 +22,7 @@ MainClass::~MainClass()
     delete player;
 
 }
-void MainClass::ChangeState(GameState* state)
+void GameEngine::ChangeState(GameState* state)
 {
     // cleanup the current state
     if ( !states.empty() ) {
@@ -35,7 +35,7 @@ void MainClass::ChangeState(GameState* state)
     states.back()->Init(this);
 }
 
-void MainClass::PushState(GameState* state)
+void GameEngine::PushState(GameState* state)
 {
     // pause current state
     if ( !states.empty() ) {
@@ -47,7 +47,7 @@ void MainClass::PushState(GameState* state)
     states.back()->Init(this);
 }
 
-void MainClass::PopState()
+void GameEngine::PopState()
 {
     // cleanup the current state
     if ( !states.empty() ) {
@@ -62,77 +62,77 @@ void MainClass::PopState()
 }
 
 
-void MainClass::HandleEvents()
+void GameEngine::HandleEvents()
 {
     // let the state handle events
     states.back()->HandleEvents(this);
 }
 
-void MainClass::Update()
+void GameEngine::Update()
 {
     // let the state update the game
     states.back()->Update(this);
 }
 
-void MainClass::Draw()
+void GameEngine::Draw()
 {
     // let the state draw the screen
     states.back()->Draw(this);
 }
 
-SDL_Renderer *MainClass::getRenderer()
+SDL_Renderer *GameEngine::getRenderer()
 {
     return setup->getRenderer();
 }
 
-int MainClass::getScreenWidth() const
+int GameEngine::getScreenWidth() const
 {
     return screenWidth;
 }
 
-int MainClass::getScreenHeight() const
+int GameEngine::getScreenHeight() const
 {
     return screenHeight;
 }
 
-SDL_setup *MainClass::getSetup() const
+SDL_setup *GameEngine::getSetup() const
 {
     return setup;
 }
 
-MainCharacter *MainClass::getPlayer() const
+MainCharacter *GameEngine::getPlayer() const
 {
     return player;
 }
 
-void MainClass::setPlayer(MainCharacter *value)
+void GameEngine::setPlayer(MainCharacter *value)
 {
     player = value;
 }
 
-int MainClass::getLevelWidth() const
+int GameEngine::getLevelWidth() const
 {
     return stage1->getLevelWidth();
 }
 
-int MainClass::getLevelHeight() const
+int GameEngine::getLevelHeight() const
 {
     return stage1->getLevelHeight();
 }
 
-Environment *MainClass::getStage1() const
+Environment *GameEngine::getStage1() const
 {
     return stage1;
 }
 
-void MainClass::setStage1(Environment *value)
+void GameEngine::setStage1(Environment *value)
 {
     stage1 = value;
 }
 
 
 
-void MainClass::GameLoop()
+void GameEngine::GameLoop()
 {
 
     while(!quit && setup->getMainEvent()->type !=SDL_QUIT)

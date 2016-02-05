@@ -51,12 +51,7 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height)
 */
     player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,width,height);
     std::cout << "new sprite created" << std::endl;
-    player->setupAnimation(4,4);
-    player->setX(5);
-
-
-
-
+    player->setupAnimation(4,4);    
 }
 MainCharacter::~MainCharacter()
 {
@@ -93,7 +88,7 @@ void MainCharacter::setInitFrame(int startFrame,int row)
   player->setInitFrame(startFrame,row);
 }
 
-/*
+/* Movement code
  * Movement was originally in the player class but this is incorrect The player should not
      need to know about the camera or the level height. Separation of concerns is a major factor
      in OO design and this was necessary to rework the code

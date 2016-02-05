@@ -5,49 +5,50 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height)
      isMoving = false;
 
     setup = gameSetup;
-//   camera = {0,0,width,height};
+/*  The old variables no longer neededbut will be good for report
+ *  camera = {0,0,width,height};
 
-//    screenWidth = 1024;
-//    screenHeight = 1024;
-//    levelWidth = 0;
-//    levelHeight = 0;
+    screenWidth = 1024;
+    screenHeight = 1024;
+    levelWidth = 0;
+    levelHeight = 0;
 
-//    MoveRight = false;
-//    MoveLeft = false;
-//    MoveUp = false;
-//    MoveDown = false;
-
-
-//    timeCheck = SDL_GetTicks();
-//    currentFrame = 0;
-//    //frameSpeed = 0;
-
-//    frameX = 0;
-//    frameY = 0;
-//   // renderer = gameRenderer;
-//    image = NULL;
-//    XPos = 0;
-//    YPos = 0;
-//    xOrigin = 0;
-//    yOrigin = 0;
-
-//    surface = IMG_Load("resources/belf.png");
-//    image = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-
-//        if(image == NULL)
-//        {
-//            std::cout << "Couldn't load " << "path.c_str()" << std::endl;
-
-//        }
-//    playerRect.x = 0;
-//    playerRect.y = 0;
-//    playerRect.w = surface->w/4;
-//    playerRect.h = surface->h/4;
-
-//    cameraX = 0;
-//    cameraY = 0;
+    MoveRight = false;
+    MoveLeft = false;
+    MoveUp = false;
+    MoveDown = false;
 
 
+    timeCheck = SDL_GetTicks();
+    currentFrame = 0;
+    //frameSpeed = 0;
+
+    frameX = 0;
+    frameY = 0;
+   // renderer = gameRenderer;
+    image = NULL;
+    XPos = 0;
+    YPos = 0;
+    xOrigin = 0;
+    yOrigin = 0;
+
+    surface = IMG_Load("resources/belf.png");
+    image = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
+
+        if(image == NULL)
+        {
+            std::cout << "Couldn't load " << "path.c_str()" << std::endl;
+
+        }
+    playerRect.x = 0;
+    playerRect.y = 0;
+    playerRect.w = surface->w/4;
+    playerRect.h = surface->h/4;
+
+    cameraX = 0;
+    cameraY = 0;
+
+*/
     player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,width,height);
     std::cout << "new sprite created" << std::endl;
     player->setupAnimation(4,4);
@@ -75,7 +76,7 @@ void MainCharacter::setPlayer(CSprite *value)
 void MainCharacter::Draw()
 {
     player->Draw();
-    /*
+    /* Old drawing function
      Drawing is not the concern of the main character. it is up to the class that handles sprites
 
 
@@ -163,7 +164,7 @@ void MainCharacter::setupAnimation(int passedX, int passedY)
 */
 void MainCharacter::setCamera(){
     player->setCamera();
-/*
+/* Old Set camera
     camera.x = ( XPos + 32 / 2 ) - camera.w / 2;
     camera.y = ( YPos + 48 / 2 ) - camera.h / 2 ;
 
@@ -189,17 +190,14 @@ void MainCharacter::setCamera(){
 }
 void MainCharacter::setOrigin(int X, int Y)
 {
-//    xOrigin = X;
-//    yOrigin = Y;
-//    std::cout << "X and Y are " << X <<" " << Y << std::endl;
-//    setPosition(getX(),getY());
+
    player->setOrigin(X,Y);
 }
 SDL_Rect MainCharacter::getCamera()
 {
     return player->getCamera();
 }
-/*
+/* Functions for moving
 void MainCharacter::setX(int X)
 {
     XPos = X;

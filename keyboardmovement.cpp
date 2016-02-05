@@ -109,17 +109,17 @@ void KeyboardMovement::Move()
         if(MoveRight)
         {
             player->getPlayer()->playAnimation(0,3,2,120);
-            if(player->getPlayer()->getX() + 32 >=levelWidth ) {player->getPlayer()->setX(levelWidth);}
+            if(player->getPlayer()->getX() + player->getPlayer()->getCropWidth()  >=levelWidth ) {player->getPlayer()->setX(levelWidth -player->getPlayer()->getCropWidth());}
             else{ player->getPlayer()->setX(x + 2);}
-            std::cout << "player width is " << player->getWidth() << std::endl;
-            std::cout << " x variable is " << x << std::endl;
+            std::cout << "xpos is " << player->getPlayer()->getX() << std::endl;
+            std::cout << "camera.x is " << player->getPlayer()->getCameraX() << std::endl;
 
             //player->setX(x);
         }
         if(MoveDown)
         {
             player->getPlayer()->playAnimation(0,3,0,120);
-            if(y + player->getHeight() >=levelHeight){player->getPlayer()->setY(levelHeight);}
+            if(player->getPlayer()->getY() + player->getPlayer()->getCropHeight() >=levelHeight){player->getPlayer()->setY(levelHeight - player->getPlayer()->getCropHeight());}
             else{player->getPlayer()->setY(y + 2);}
             std::cout << "player y position is " << player->getPlayer()->getY() << std::endl;
             std::cout << " y variable is " << y << std::endl;

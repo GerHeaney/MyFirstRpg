@@ -85,6 +85,7 @@ void CSprite::Draw()
 {
 
     SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/4,surface->h/4 };
+    std::cout << "renderquad x is " << renderQuad.x << std::endl;
     SDL_RenderCopy( renderer, image, &crop, &renderQuad );
   //  SDL_RenderCopy(renderer,image,&crop,&crop);
 
@@ -158,6 +159,17 @@ int CSprite::getHeight()
     return surface->h;
 }
 
+int CSprite::getCropWidth()
+{
+    return crop.w;
+}
+
+
+
+int CSprite::getCropHeight()
+{
+    return crop.h;
+}
 void CSprite::setHeight(int value)
 {
     cameraH = value;
@@ -225,9 +237,9 @@ void CSprite::setupAnimation(int passedX, int passedY)
     frameY = passedY;
 }
 void CSprite::setCamera(){
-    camera.x = int(( XPos + 32 / 2 ) - camera.w / 2);
-    camera.y = int(( YPos + 48 / 2 ) - camera.h / 2) ;
-
+    camera.x = int( XPos + 32 / 2  - camera.w / 2);
+    camera.y = int( YPos + 48 / 2  - camera.h / 2) ;
+std::cout << "camera in set camera x is " << camera.x << std::endl;
 
 
     if( camera.x < 0 )
@@ -240,12 +252,13 @@ void CSprite::setCamera(){
                 }
                 if( camera.x > cameraW - camera.w )
                 {
+                    std::cout << "got to the change of camera.x " << std::endl;
                     camera.x = cameraW - camera.w;
+
                 }
                 if( camera.y > cameraH - camera.h )
                 {
                     camera.y = cameraH - camera.h;
                 }
-                std::cout << "level width is " << cameraW << std::endl;
-                std::cout << "camera width is " << camera.w << std::endl;
+
 }

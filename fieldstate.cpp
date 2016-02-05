@@ -5,11 +5,11 @@ FieldState FieldState::field;
 
 void FieldState::Init(MainClass *game)
 {
-    stage1 = game->getStage1();
-     //grass = new CSprite(setup->getRenderer(),"resources/map.png",0,0,screenWidth,screenHeight,&cameraX,&cameraY);
+    stage1 = new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
+
 
     player = game->getPlayer();
-   // camera = player->getCamera();
+
     srand(time(NULL));
     x =1;
     std::cout << x;
@@ -22,40 +22,27 @@ void FieldState::Init(MainClass *game)
 }
 void FieldState::Draw(MainClass *game)
 {
+    player->setCamera();
     camera = player->getCamera();
     stage1->DrawBack(&camera);
     player->Draw();
-
-
-
-
-
 }
 void FieldState::Update(MainClass *game)
 {
-    player->setCamera();
-
-
     if(x ==10)
     {
         game->ChangeState(BattleState::Instance());
     }
-
-
-
 }
 void FieldState::HandleEvents(MainClass *game)
 {
-
-
     if(player->GetMoving() == true)
     {
-//        std::cout << x << std::endl;
-//        x = rand() % 1000 + 1;
+        std::cout << x << std::endl;
+        x = rand() % 500 + 1;
 
     }
     move->Move();
-
 }
 void FieldState::Pause()
 {
@@ -68,7 +55,6 @@ void FieldState::Resume()
 void FieldState::Cleanup()
 {
     player = NULL;
-
 
 }
 

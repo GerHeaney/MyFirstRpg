@@ -32,6 +32,9 @@ public:
     int getHeight();
     void setHeight(int value);
 
+    int getCropWidth();
+    int getCropHeight();
+
     void setCamera();
     void setInitFrame(int startFrame,int row);
     void setupAnimation(int passedX, int passedY);

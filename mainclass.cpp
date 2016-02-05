@@ -9,14 +9,9 @@ MainClass::MainClass(int width, int height)
     quit = false;
 
     setup = new SDL_setup(&quit,width,height);
-    stage1 = new Environment(setup,screenWidth,screenHeight);
-    //grass = new CSprite(setup->getRenderer(),"resources/map.png",0,0,screenWidth,screenHeight,&cameraX,&cameraY);
-    player = new MainCharacter(setup,screenWidth,screenHeight,stage1->getLevelWidth(),stage1->getLevelHeight());
-    //mouseMove = new MouseMovement(setup,player,&cameraX,&cameraY);
-    //keyMove = new KeyboardMovement(setup,player);
-    // //keyMove = new KeyboardMovement();
 
-}
+    player = new MainCharacter(setup,screenWidth,screenHeight);
+ }
 
 MainClass::~MainClass()
 {
@@ -146,15 +141,17 @@ void MainClass::GameLoop()
         HandleEvents();
         Update();
         Draw();
-        //player->setCamera();
-        //camera = player->getCamera();
-        //stage1->DrawBack(&camera);
-        //player->Draw();
-        //intro->Draw(this);
-        //stage1->DrawFront(&camera);
-        //keyMove->Move(setup,belf);
-        //keyMove->Move();
-        //mouseMove->Move();
+        /*
+        player->setCamera();
+        camera = player->getCamera();
+        stage1->DrawBack(&camera);
+        player->Draw();
+        intro->Draw(this);
+        stage1->DrawFront(&camera);
+        keyMove->Move(setup,belf);
+        keyMove->Move();
+        mouseMove->Move();
+        */
         setup->End();
 
     }

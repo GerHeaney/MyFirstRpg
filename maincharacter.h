@@ -13,7 +13,7 @@
 class MainCharacter
 {
 public:
-    MainCharacter(SDL_setup *gameSetup, int width, int height, int levelW, int levelH);
+    MainCharacter(SDL_setup *gameSetup, int width, int height);
     ~MainCharacter();
 
     void setX(int X);

@@ -1,58 +1,54 @@
 #include "maincharacter.h"
 
-MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height, int levelW, int levelH)
+MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height)
 {
+     isMoving = false;
 
     setup = gameSetup;
-   camera = {0,0,width,height};
+//   camera = {0,0,width,height};
 
-    screenWidth = 1024;
-    screenHeight = 1024;
-    levelWidth = levelW;
-    levelHeight = levelH;
+//    screenWidth = 1024;
+//    screenHeight = 1024;
+//    levelWidth = 0;
+//    levelHeight = 0;
 
-    MoveRight = false;
-    MoveLeft = false;
-    MoveUp = false;
-    MoveDown = false;
-    isMoving = false;
+//    MoveRight = false;
+//    MoveLeft = false;
+//    MoveUp = false;
+//    MoveDown = false;
 
-    timeCheck = SDL_GetTicks();
-    currentFrame = 0;
-    //frameSpeed = 0;
 
-    frameX = 0;
-    frameY = 0;
-   // renderer = gameRenderer;
-    image = NULL;
-    XPos = 0;
-    YPos = 0;
-    xOrigin = 0;
-    yOrigin = 0;
+//    timeCheck = SDL_GetTicks();
+//    currentFrame = 0;
+//    //frameSpeed = 0;
 
-    surface = IMG_Load("resources/belf.png");
-    image = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
+//    frameX = 0;
+//    frameY = 0;
+//   // renderer = gameRenderer;
+//    image = NULL;
+//    XPos = 0;
+//    YPos = 0;
+//    xOrigin = 0;
+//    yOrigin = 0;
 
-        if(image == NULL)
-        {
-            std::cout << "Couldn't load " << "path.c_str()" << std::endl;
+//    surface = IMG_Load("resources/belf.png");
+//    image = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
 
-        }
-    playerRect.x = 0;
-    playerRect.y = 0;
-    playerRect.w = surface->w/4;
-    playerRect.h = surface->h/4;
+//        if(image == NULL)
+//        {
+//            std::cout << "Couldn't load " << "path.c_str()" << std::endl;
 
-    cameraX = 0;
-    cameraY = 0;
+//        }
+//    playerRect.x = 0;
+//    playerRect.y = 0;
+//    playerRect.w = surface->w/4;
+//    playerRect.h = surface->h/4;
 
-   // player = new CSprite(setup->getRenderer(),"resources/belf.png",300,240,32,48);
+//    cameraX = 0;
+//    cameraY = 0;
 
-    //setOrigin(getWidth()/2.0f,getHeight());
 
-    //player->setInitFrame();
-    //move = new KeyboardMovement();
-    player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,levelW,levelH);
+    player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,width,height);
     std::cout << "new sprite created" << std::endl;
     player->setupAnimation(4,4);
     player->setX(5);
@@ -78,12 +74,10 @@ void MainCharacter::setPlayer(CSprite *value)
 }
 void MainCharacter::Draw()
 {
-
     player->Draw();
     /*
-     Movement was originally in the player class but this is incorrect The player should not
-     need to know about the camera or the level height. Separation of concerns is a major factor
-     in OO design and this was necessary to rework the code
+     Drawing is not the concern of the main character. it is up to the class that handles sprites
+
 
     std:: cout << "camera.x is " << camera.x << std::endl;
     Set rendering space and render to screen
@@ -97,16 +91,11 @@ void MainCharacter::setInitFrame(int startFrame,int row)
 {
   player->setInitFrame(startFrame,row);
 }
-//void MainCharacter::render(int x, int y, SDL_Renderer* gRenderer )
-//{
 
-
-
-//        //Set rendering space and render to screen
-//        SDL_Rect renderQuad = {x,y,32,48 };
-//        SDL_RenderCopy( gRenderer, mTexture, &gSpriteClips[frame], &renderQuad );
-//}
 /*
+ * Movement was originally in the player class but this is incorrect The player should not
+     need to know about the camera or the level height. Separation of concerns is a major factor
+     in OO design and this was necessary to rework the code
    if(timeCheck +10 < SDL_GetTicks())
    {
 
@@ -174,7 +163,7 @@ void MainCharacter::setupAnimation(int passedX, int passedY)
 */
 void MainCharacter::setCamera(){
     player->setCamera();
-
+/*
     camera.x = ( XPos + 32 / 2 ) - camera.w / 2;
     camera.y = ( YPos + 48 / 2 ) - camera.h / 2 ;
 
@@ -195,10 +184,22 @@ void MainCharacter::setCamera(){
                 if( camera.y > levelHeight - camera.h )
                 {
                     camera.y = levelHeight - camera.h;
-                }
+                }*/
 
 }
-
+void MainCharacter::setOrigin(int X, int Y)
+{
+//    xOrigin = X;
+//    yOrigin = Y;
+//    std::cout << "X and Y are " << X <<" " << Y << std::endl;
+//    setPosition(getX(),getY());
+   player->setOrigin(X,Y);
+}
+SDL_Rect MainCharacter::getCamera()
+{
+    return player->getCamera();
+}
+/*
 void MainCharacter::setX(int X)
 {
     XPos = X;
@@ -225,14 +226,7 @@ int MainCharacter::getY()
 {
     return YPos;
 }
-void MainCharacter::setOrigin(int X, int Y)
-{
-//    xOrigin = X;
-//    yOrigin = Y;
-//    std::cout << "X and Y are " << X <<" " << Y << std::endl;
-//    setPosition(getX(),getY());
-   player->setOrigin(X,Y);
-}
+
 
 int MainCharacter::getWidth()
 {
@@ -253,10 +247,7 @@ void MainCharacter::setHeight(int value)
 {
     playerRect.h = value;
 }
-SDL_Rect MainCharacter::getCamera()
-{
-    return player->getCamera();
-}
+
 int MainCharacter::getCameraX()
 {
     return camera.x;
@@ -265,7 +256,7 @@ int MainCharacter::getCameraY()
 {
     return camera.y;
 }
-
+*/
 bool MainCharacter::GetMoving()
 {
     if (isMoving == true)

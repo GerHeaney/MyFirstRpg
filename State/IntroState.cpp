@@ -46,6 +46,11 @@ void IntroState::HandleEvents(GameEngine *game)
     {
         game->ChangeState(FieldState::Instance());
     }
+    if(qButton->getPressed() == true)
+    {
+
+        game->Quit();
+    }
 
 }
 void IntroState::Pause()

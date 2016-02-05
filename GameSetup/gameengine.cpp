@@ -7,6 +7,7 @@ GameEngine::GameEngine(int width, int height)
     screenWidth = width;
     screenHeight = height;
     quit = false;
+    running = true;
 
     setup = new SDL_setup(&quit,width,height);
 
@@ -135,7 +136,7 @@ void GameEngine::setStage1(Environment *value)
 void GameEngine::GameLoop()
 {
 
-    while(!quit && setup->getMainEvent()->type !=SDL_QUIT)
+    while(running && setup->getMainEvent()->type !=SDL_QUIT)
     {
         setup->Begin();
         HandleEvents();

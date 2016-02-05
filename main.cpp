@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "gameengine.h"
+#include "GameSetup/gameengine.h"
 #include "State/IntroState.h"
 #include "State/battlestate.h"
 #undef main

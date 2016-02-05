@@ -1,7 +1,7 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#include "gameengine.h"
+#include "GameSetup/gameengine.h"
 
 
 class GameState

@@ -15,10 +15,7 @@ LIBS += -L"C:/MinGW/lib" -lSDL2main -lSDL2 -lSDL2_image
 
 INCLUDEPATH += C:/MinGW/include/SDL2
 
-SOURCES += main.cpp\
-    State/battlestate.cpp \
-    State/fieldstate.cpp \
-    State/IntroState.cpp \
+SOURCES += main.cpp \
     Entity/entity.cpp \
     Entity/maincharacter.cpp \
     GameSetup/gameengine.cpp \
@@ -30,6 +27,9 @@ SOURCES += main.cpp\
     RenderItems/csprite.cpp \
     RenderItems/environment.cpp \
     RenderItems/tree.cpp \
+    State/battlestate.cpp \
+    State/fieldstate.cpp \
+    State/IntroState.cpp \
 
 HEADERS  += \
     Entity/entity.h \

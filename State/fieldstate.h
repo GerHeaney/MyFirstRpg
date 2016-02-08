@@ -1,21 +1,22 @@
 #ifndef FIELDSTATE_H
 #define FIELDSTATE_H
 
-#include "sdl_setup.h"
-#include "csprite.h"
-#include "gamestate.h"
+#include "GameSetup/sdl_setup.h"
+#include "RenderItems/csprite.h"
+#include "State/gamestate.h"
 #include <math.h>
 #include <time.h>
-#include "battlestate.h"
+#include "State/battlestate.h"
+#include "Input/keyboardmovement.h"
 
 
 class FieldState : public GameState
 {
 public:
-    void Init(MainClass* game) ;
-    void Update(MainClass* game);
-    void Draw(MainClass* game);
-    void HandleEvents(MainClass* game);
+    void Init(GameEngine* game) ;
+    void Update(GameEngine* game);
+    void Draw(GameEngine* game);
+    void HandleEvents(GameEngine* game);
     void Cleanup();
 
     void Pause();
@@ -33,6 +34,7 @@ private:
      Environment* stage1;
      MainCharacter *player;
      SDL_Rect  camera;
+     KeyboardMovement * move;
      int x;
 };
 

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include "SDL_ttf.h"
 class SDL_setup
 {
 public:

@@ -5,22 +5,23 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "csprite.h"
-#include "sdl_setup.h"
+#include "RenderItems/csprite.h"
+#include "GameSetup/sdl_setup.h"
+
 
 
 class MainCharacter
 {
 public:
-    MainCharacter(SDL_setup *gameSetup, int width, int height, int levelW, int levelH);
+    MainCharacter(SDL_setup *gameSetup, int width, int height, std::string playerName);
     ~MainCharacter();
 
     void setX(int X);
     void setY(int Y);
     void setPosition(int X, int Y);
 
-    float getX();
-    float getY();
+    int getX();
+    int getY();
 
     void setOrigin(int X, int Y);
 
@@ -45,6 +46,8 @@ public:
     int getCameraX();
     int getCameraY();
     bool GetMoving();
+
+    void setIsMoving(bool value);
 
 private:
 
@@ -74,6 +77,7 @@ private:
 
     int frameX;
     int frameY;
+    std::string name;
     SDL_Renderer * renderer;
     SDL_Surface * surface;
     SDL_Texture * image;
@@ -81,6 +85,7 @@ private:
     SDL_Rect playerRect;
     CSprite* player;
     SDL_setup *setup;
+
 
 
 

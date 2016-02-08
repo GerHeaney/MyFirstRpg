@@ -1,10 +1,11 @@
 #ifndef INTROMENU_H
 #define INTROMENU_H
-#include "sdl_setup.h"
-#include "csprite.h"
-#include "gamestate.h"
-#include "button.h"
-#include "fieldstate.h"
+#include "GameSetup/sdl_setup.h"
+#include "RenderItems/csprite.h"
+#include "State/gamestate.h"
+#include "RenderItems/button.h"
+#include "State/fieldstate.h"
+#include "RenderItems/fontbutton.h"
 
 class IntroState : public GameState
 {
@@ -14,10 +15,11 @@ public:
     Button * qButton;
 
 
-    void Init(MainClass* game) ;
-    void Update(MainClass* game);
-    void Draw(MainClass* game);
-    void HandleEvents(MainClass* game);
+
+    void Init(GameEngine* game) ;
+    void Update(GameEngine* game);
+    void Draw(GameEngine* game);
+    void HandleEvents(GameEngine* game);
     void Cleanup();
 
     void Pause();
@@ -32,6 +34,7 @@ private:
     CSprite* menu;
     SDL_setup* setup;
     static IntroState intro;
+    SDL_Rect camera;
 protected:
     IntroState() {}
 };

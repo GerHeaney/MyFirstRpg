@@ -1,6 +1,6 @@
 #include "mousemovement.h"
 
-MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf, float *passedX, float *passedY)
+MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf)
 {
     gameSetup = setup;
     player = belf;
@@ -58,61 +58,6 @@ void MouseMovement::Move()
     std::cout << *pCamX << std::endl;
     float radian = atan2(followPointY -cameraY,followPointX - cameraX);
     angle = (radian * (180/M_PI)) + 180;
-
-    if(!stopAnimation)
-    {
-        //Down
-        if (angle > 45 && angle <= 135)
-        {
-            if(distance > 15)
-            {
-                player->playAnimation(0,3,0,120);
-            }
-            else
-            {
-                player->playAnimation(0,0,0,120);
-            }
-        }
-        //Left
-        else if (angle > 135 && angle <= 225)
-        {
-            if(distance > 15)
-            {
-                player->playAnimation(0,3,1,120);
-            }
-            else
-            {
-                player->playAnimation(0,0,1,120);
-            }
-        }
-        //UP
-        else if (angle > 225 && angle <= 315)
-        {
-            if(distance > 15)
-            {
-                player->playAnimation(0,3,3,120);
-            }
-            else
-            {
-                player->playAnimation(0,0,3,120);
-            }
-
-        }
-        //Right
-        else if ((angle <=360 && angle > 315) || (angle >= 0 && angle <= 45))
-        {
-            if(distance > 15)
-            {
-                player->playAnimation(0,3,2,120);
-            }
-            else
-            {
-                player->playAnimation(0,0,2,120);
-            }
-
-        }
-
-    }
 
 
 
@@ -190,3 +135,4 @@ void MouseMovement::setMouseY(int value)
 {
     mouseY = value;
 }
+

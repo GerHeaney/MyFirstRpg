@@ -3,8 +3,17 @@
 Button::Button(SDL_setup *passedSetup, std::string path)
 {
     buttonPath = path;
-    surface = IMG_Load(buttonPath.c_str());
     setup = passedSetup;
+
+
+
+
+
+
+}
+void Button::Init()
+{
+    surface = IMG_Load(buttonPath.c_str());
     mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
     selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
     button = {0,0,surface->w,surface->h};
@@ -12,10 +21,8 @@ Button::Button(SDL_setup *passedSetup, std::string path)
     mHeight = surface->h;
     pressed = false;
 
-
-
-
 }
+
 Button::~Button()
 {
     SDL_DestroyTexture(mTexture);
@@ -27,7 +34,7 @@ void Button::setPosition( int x, int y )
 {
     mPosition.x = x;
     mPosition.y = y;
-    render();
+
 
 
 }
@@ -78,7 +85,7 @@ void Button::handleEvent()
                 case SDL_MOUSEMOTION:
                 surface = IMG_Load("resources/MainMenu/selected.png");
                 selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-                render();
+
 
                 std:: cout << "over the button" << std::endl;
                 break;
@@ -88,7 +95,7 @@ void Button::handleEvent()
                 std::cout <<"pressed" << std::endl;
                 surface = IMG_Load("resources/MainMenu/pressed.png");
                 selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-                render();
+
 
                 break;
 
@@ -97,7 +104,7 @@ void Button::handleEvent()
                 // button released
                 surface = IMG_Load("resources/MainMenu/selected.png");
                 selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-                render();
+
                 pressed = true;
 
                 break;

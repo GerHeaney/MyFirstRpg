@@ -5,18 +5,18 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "mainclass.h"
-#include "IntroState.h"
-#include "battlestate.h"
+#include "GameSetup/gameengine.h"
+#include "State/IntroState.h"
+#include "State/battlestate.h"
 #undef main
 
 int main( int argc, char* args[] )
 {
 
 
-    MainClass*  mainClass = new MainClass(1200,900);
+    GameEngine*  mainClass = new GameEngine(1200,900);
     mainClass->ChangeState(IntroState::Instance());
     mainClass->GameLoop();
-    delete mainClass;
+
     return 0;
 }

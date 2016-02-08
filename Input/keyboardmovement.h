@@ -6,14 +6,14 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "maincharacter.h"
-#include "sdl_setup.h"
+#include "Entity/maincharacter.h"
+#include "GameSetup/sdl_setup.h"
 
 
 class KeyboardMovement
 {
 public:
-    KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passedPlayer);
+    KeyboardMovement(SDL_setup * setup, MainCharacter *passedPlayer,int width,int height);
     void Move();
 
 private:
@@ -26,6 +26,8 @@ private:
     bool MoveLeft;
     bool MoveUp;
     bool MoveDown;
+    int levelWidth;
+    int levelHeight;
 
     int timeCheck;
 

@@ -63,7 +63,7 @@ CSprite::~CSprite()
 void CSprite::Draw()
 {
 
-    SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/3,surface->h/3 };
+    SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/4,surface->h/4 };
     std::cout << "renderquad x is " << renderQuad.x << std::endl;
     SDL_RenderCopy( renderer, image, &crop, &renderQuad );
 

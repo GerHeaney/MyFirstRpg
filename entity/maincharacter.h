@@ -13,7 +13,7 @@
 class MainCharacter
 {
 public:
-    MainCharacter(SDL_setup *gameSetup, int width, int height);
+    MainCharacter(SDL_setup *gameSetup, int width, int height, std::string playerName);
     ~MainCharacter();
 
     void setX(int X);
@@ -77,6 +77,7 @@ private:
 
     int frameX;
     int frameY;
+    std::string name;
     SDL_Renderer * renderer;
     SDL_Surface * surface;
     SDL_Texture * image;

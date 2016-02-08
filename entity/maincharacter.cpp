@@ -1,8 +1,11 @@
 #include "maincharacter.h"
 
-MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height)
+MainCharacter::MainCharacter(SDL_setup * gameSetup, int width, int height, std::string playerName)
 {
      isMoving = false;
+     name = playerName;
+     std::cout << name <<" width is " << width << std::endl;
+     std::cout << name <<" height is " << height << std::endl;
 
     setup = gameSetup;
 /*  The old variables no longer neededbut will be good for report
@@ -50,8 +53,9 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup,int width,int height)
 
 */
     player = new CSprite(setup->getRenderer(),"resources/belf.png",XPos,YPos,width,height);
-    std::cout << "new sprite created" << std::endl;
-    player->setupAnimation(4,4);    
+    std::cout << name <<" sprite created" << std::endl;
+    player->setupAnimation(4,4);
+
 }
 MainCharacter::~MainCharacter()
 {

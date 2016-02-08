@@ -44,35 +44,14 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y, in
 
     camera.x = rect.x;
     camera.y = rect.y;
-    camera.w = 1200;
-    camera.h = 900;
+    camera.w = w;
+    camera.h = h;
     frameX = 0;
     frameY = 0;
 
 
 }
-//CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path,int x, int y)
-//{
 
-//    renderer = gameRenderer;
-//    image = NULL;
-
-//    SDL_Surface * surface = IMG_Load(path.c_str());
-//    image = SDL_CreateTextureFromSurface(renderer,surface);
-
-//        if(image == NULL)
-//        {
-//            std::cout << "Couldn't load " << path.c_str() << std::endl;
-
-//        }
-//    rect.x = x;
-//    rect.y = y;
-//    rect.w = surface->w;
-//    rect.h = surface->h;
-
-
-
-//}
 
 CSprite::~CSprite()
 {
@@ -84,9 +63,10 @@ CSprite::~CSprite()
 void CSprite::Draw()
 {
 
-    SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/4,surface->h/4 };
+    SDL_Rect renderQuad = {XPos- camera.x,YPos - camera.y,surface->w/3,surface->h/3 };
     std::cout << "renderquad x is " << renderQuad.x << std::endl;
     SDL_RenderCopy( renderer, image, &crop, &renderQuad );
+
   //  SDL_RenderCopy(renderer,image,&crop,&crop);
 
 }
@@ -104,6 +84,7 @@ void CSprite::DrawBackground(SDL_Rect * clip)
         renderQuad.h = clip->h;
     }
     SDL_RenderCopy(renderer,image,clip,&rect);
+
 }
 
 void CSprite::setX(int X)
@@ -239,7 +220,11 @@ void CSprite::setupAnimation(int passedX, int passedY)
 void CSprite::setCamera(){
     camera.x = int( XPos + 32 / 2  - camera.w / 2);
     camera.y = int( YPos + 48 / 2  - camera.h / 2) ;
+
 std::cout << "camera in set camera x is " << camera.x << std::endl;
+std::cout << "xpos is " << XPos << std::endl;
+std::cout << "camera w is " << camera.w << std::endl;
+
 
 
     if( camera.x < 0 )

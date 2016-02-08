@@ -6,6 +6,7 @@
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
 #include "Entity/maincharacter.h"
+#include "RenderItems/fontbutton.h"
 #include <time.h>
 
 
@@ -29,6 +30,9 @@ protected:
     BattleState() {}
 
 private:
+    FontButton * Attack;
+    FontButton * Ability;
+    FontButton * Item;
     static BattleState battle;
     SDL_Point playerPosition;
     SDL_Point enemyPosition;

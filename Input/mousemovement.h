@@ -11,9 +11,10 @@
 #include "GameSetup/sdl_setup.h"
 
 class MouseMovement
-{
+        {
 public:
-    MouseMovement(SDL_setup *setup, MainCharacter * belf, float *passedX, float *passedY);
+
+    MouseMovement(SDL_setup *setup,MainCharacter *belf);
 
     double getDistance(int x1,int y1,int x2,int y2);
 
@@ -33,9 +34,16 @@ public:
     int getMouseY() const;
     void setMouseY(int value);
 
+
+
+
+
 private:
+
+    MainCharacter * player;
+
     SDL_setup *gameSetup;
-     MainCharacter * player;
+
      float * pCamX;
      float * pCamY;
 

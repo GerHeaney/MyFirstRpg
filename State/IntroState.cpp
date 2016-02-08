@@ -11,16 +11,24 @@ void IntroState::Init(GameEngine *game)
   nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
   lButton = new Button(game->getSetup(),"resources/MainMenu/load.png");
   qButton = new Button(game->getSetup(),"resources/MainMenu/quit.png");
+  nButton->Init();
+  lButton->Init();
+  qButton->Init();
   nButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (nButton->getHeight()*3) );
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
   game->getPlayer()->setCamera();
   camera = game->getPlayer()->getCamera();
 
+
+
+
+
 }
 
 void IntroState::Draw(GameEngine *game)
 {
+
 
     menu->DrawBackground(&camera);
     nButton->render();

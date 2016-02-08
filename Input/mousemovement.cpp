@@ -1,6 +1,6 @@
 #include "mousemovement.h"
 
-MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf, float *passedX, float *passedY)
+MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf)
 {
     gameSetup = setup;
     player = belf;

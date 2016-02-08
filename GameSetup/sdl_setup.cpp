@@ -5,6 +5,12 @@ SDL_setup::SDL_setup(bool* quit, int width, int height)
     screenWidth = width;
     screenHeight = height;
     SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    if( TTF_Init() == -1 )
+    {
+        std::cout << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
+
+    }
     window = NULL;
     window = SDL_CreateWindow("MyFirstRPG",400,100,screenWidth,screenHeight,SDL_WINDOW_SHOWN);
 

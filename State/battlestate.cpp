@@ -16,6 +16,9 @@ void BattleState::Init(GameEngine *game)
 
     player->setOrigin(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.25);
     player->setInitFrame(0,1);
+    Attack = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Attack");
+    Ability = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Ability");
+    Item = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Item");
 
 
 
@@ -27,6 +30,9 @@ void BattleState::Draw(GameEngine *game)
     enemy->DrawBackground(&camera);
     player->Draw();
     menu->DrawBackground(&camera);
+    Attack->Draw(20,game->getScreenHeight()-220);
+    Ability->Draw(20,game->getScreenHeight()-180);
+    Item->Draw(20,game->getScreenHeight()-120);
 
 }
 void BattleState::Update(GameEngine *game)
@@ -37,8 +43,9 @@ void BattleState::Update(GameEngine *game)
 }
 void BattleState::HandleEvents(GameEngine *game)
 {
-
-
+    Attack->handleEvent();
+    Ability->handleEvent();
+    Item->handleEvent();
 }
 void BattleState::Pause()
 {

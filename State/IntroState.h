@@ -5,6 +5,7 @@
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
 #include "State/fieldstate.h"
+#include "RenderItems/fontbutton.h"
 
 class IntroState : public GameState
 {
@@ -12,6 +13,7 @@ public:
     Button * nButton;
     Button * lButton;
     Button * qButton;
+
 
 
     void Init(GameEngine* game) ;

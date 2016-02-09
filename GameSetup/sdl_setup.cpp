@@ -20,7 +20,7 @@ SDL_setup::SDL_setup(bool* quit, int width, int height)
          *quit =true;
         }
     renderer = NULL;
-    renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC  );
 
     mainEvent = new SDL_Event();
 }

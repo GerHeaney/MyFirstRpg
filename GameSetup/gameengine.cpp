@@ -11,7 +11,9 @@ GameEngine::GameEngine(int width, int height)
 
     setup = new SDL_setup(&quit,width,height);
 
-    player = new MainCharacter(setup,screenWidth,screenHeight,"Player 1");
+    player = new MainCharacter(setup,screenWidth,screenHeight,"Player 1","resources/belf.png");
+    player->getPlayer()->setCameraW(screenWidth);
+    player->getPlayer()->setCameraH(screenHeight);
  }
 
 GameEngine::~GameEngine()
@@ -101,7 +103,7 @@ SDL_setup *GameEngine::getSetup() const
     return setup;
 }
 
-MainCharacter *GameEngine::getPlayer() const
+Entity *GameEngine::getPlayer() const
 {
     return player;
 }

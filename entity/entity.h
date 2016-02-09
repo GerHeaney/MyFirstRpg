@@ -11,7 +11,18 @@
 class Entity
 {
 public:
-    Entity();
+
+    void setOrigin(int X, int Y);
+    void Draw();
+    void DrawBackground(SDL_Rect * camera);
+    CSprite *getPlayer();
+    void setPlayer(CSprite *value);
+    void setCamera();
+    void setInitFrame(int startFrame,int row);
+    SDL_Rect getCamera();
+    bool GetMoving();
+    void setIsMoving(bool value);
+    Entity(SDL_setup * gameSetup, int width, int height, std::string name, std::string path);
 
 protected:
     bool isMoving;

@@ -11,7 +11,7 @@ class CSprite
 
 {
 public:
-    CSprite(SDL_Renderer *gameRenderer, std::string path, int x, int y, int w, int h);
+    CSprite(SDL_Renderer *gameRenderer, std::string path, int x, int y);
     //CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y);
     ~CSprite();
     void Draw();
@@ -45,6 +45,12 @@ public:
 
     int getCameraY();
     void setCameraY(int value);
+
+    int getCameraW();
+    void setCameraW(int value);
+
+    int getCameraH();
+    void setCameraH(int value);
 
     SDL_Rect getCamera() const;
 

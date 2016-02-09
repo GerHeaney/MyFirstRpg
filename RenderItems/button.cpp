@@ -87,7 +87,7 @@ void Button::handleEvent()
                 selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
 
 
-                std:: cout << "over the button" << std::endl;
+
                 break;
 
                 case SDL_MOUSEBUTTONDOWN:
@@ -140,21 +140,7 @@ void Button::setPressed(bool value)
 {
     pressed = value;
 }
-//void Button::drawSelected()
-//{
-//    //Set rendering space and render to screen
-//    SDL_Rect renderQuad = {  mPosition.x,  mPosition.y, mWidth, mHeight };
 
-//    //Set clip rendering dimensions
-
-//        renderQuad.w = button.w;
-//        renderQuad.h = button.h;
-
-
-//    //Render to screen
-//    SDL_RenderCopy( setup->getRenderer(), selectedTexture, &button, &renderQuad);
-
-//}
 
 void Button::free()
 {

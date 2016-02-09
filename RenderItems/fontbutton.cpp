@@ -13,9 +13,8 @@ FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::strin
         printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
     }
    // mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-    button = {0,0,surface->w,surface->h};
-    pressed = false;
 
+    pressed = false;
 
 
 }
@@ -23,9 +22,6 @@ void FontButton::setPosition( int x, int y )
 {
     mPosition.x = x;
     mPosition.y = y;
-
-
-
 }
 
 
@@ -37,7 +33,8 @@ void FontButton::Draw(int X , int Y)
     SDL_Texture * TT = SDL_CreateTextureFromSurface(setup->getRenderer(),asurf);
 
     setPosition(X,Y);
-    SDL_Rect renderQuad = {  X, Y, surface->w,surface->h };
+    button = {0,0,asurf->w,asurf->h};
+    SDL_Rect renderQuad = {  X, Y, asurf->w,asurf->h };
 
 
     //Render to screen
@@ -45,18 +42,10 @@ void FontButton::Draw(int X , int Y)
     SDL_FreeSurface(asurf);
     SDL_DestroyTexture(TT);
 
-
-
-
-
 }
 void FontButton::SetTextColour(int Red, int Green, int Blue)
 {
      textColor = {Red,Green,Blue};
-
-
-
-
 }
 
 void FontButton::handleEvent()
@@ -103,29 +92,20 @@ void FontButton::handleEvent()
            //Set mouse over sprite
            switch( setup->getMainEvent()->type )
            {
-               case SDL_MOUSEMOTION:
-
-               //Render green outlined quad
-               SetTextColour(150,150,150);
-               std:: cout << "over the button" << std::endl;
+                //over the button
+               case SDL_MOUSEMOTION:           
+               SetTextColour(150,150,150);            
                break;
 
-               case SDL_MOUSEBUTTONDOWN:
-               // button pressed
+                    // button pressed
+               case SDL_MOUSEBUTTONDOWN:             
                SetTextColour(50,50,50);
-               std::cout <<"pressed" << std::endl;
-
-
                break;
 
-               case SDL_MOUSEBUTTONUP:
-               std::cout <<"released" << std::endl;
-                SetTextColour(150,150,150);
-               // button released
-
-
+                   // button released
+               case SDL_MOUSEBUTTONUP:           
+               SetTextColour(150,150,150);
                pressed = true;
-
                break;
            }
 

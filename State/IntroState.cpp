@@ -7,7 +7,8 @@ IntroState IntroState::intro;
 //}
 void IntroState::Init(GameEngine *game)
 {
-  menu = new CSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png",0,0,game->getScreenWidth(),game->getScreenHeight());
+  menu = new CSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png",0,0);
+  menu->setWidth(game->getScreenWidth());
   nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
   lButton = new Button(game->getSetup(),"resources/MainMenu/load.png");
   qButton = new Button(game->getSetup(),"resources/MainMenu/quit.png");
@@ -17,7 +18,6 @@ void IntroState::Init(GameEngine *game)
   nButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (nButton->getHeight()*3) );
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
-  game->getPlayer()->setCamera();
   camera = game->getPlayer()->getCamera();
 
 

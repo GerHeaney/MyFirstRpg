@@ -38,9 +38,9 @@ private:
     SDL_Point enemyPosition;
     SDL_Rect menuRect;
     CSprite * background;
-    CSprite * enemy;
+    Entity * enemy;
     CSprite * menu;
-    MainCharacter * player;
+    Entity * player;
     SDL_Rect camera;
 
 };

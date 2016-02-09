@@ -1,15 +1,16 @@
 #include "maincharacter.h"
 
-MainCharacter::MainCharacter(SDL_setup * gameSetup, int width, int height, std::string playerName)
+MainCharacter::MainCharacter(SDL_setup * gameSetup, int width, int height, std::string playerName,std::string path)
+    :Entity(gameSetup,width,height,playerName,path)
 {
      isMoving = false;
      name = playerName;
-//     std::cout << name <<" width is " << width << std::endl;
-//     std::cout << name <<" height is " << height << std::endl;
+     std::cout << name <<" width is " << width << std::endl;
+     std::cout << name <<" height is " << height << std::endl;
 
     setup = gameSetup;
 
-    player = new CSprite(setup->getRenderer(),"resources/belf.png",0,0,width,height);
+    player = new CSprite(setup->getRenderer(),path.c_str(),0,0);
 //    std::cout << name <<" sprite created" << std::endl;
     player->setupAnimation(4,4);
 
@@ -19,7 +20,7 @@ MainCharacter::~MainCharacter()
     delete player;
 
 }
-
+/*
 CSprite *MainCharacter::getPlayer()
 {
     return player;
@@ -63,3 +64,4 @@ void MainCharacter::setIsMoving(bool value)
 {
     isMoving = value;
 }
+*/

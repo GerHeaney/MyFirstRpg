@@ -6,13 +6,14 @@
 #include <iostream>
 #include "RenderItems/csprite.h"
 #include "GameSetup/sdl_setup.h"
+#include "Entity/entity.h"
 
 
 
-class MainCharacter
+class MainCharacter: public Entity
 {
 public:
-    MainCharacter(SDL_setup *gameSetup, int width, int height, std::string playerName);
+    MainCharacter(SDL_setup *gameSetup, int width, int height, std::string playerName, std::string path);
     ~MainCharacter();
 
 
@@ -31,9 +32,9 @@ public:
 private:
 
     bool isMoving;
-    std::string name; 
-    CSprite* player;
-    SDL_setup *setup;
+//    std::string name;
+//    CSprite* player;
+//    SDL_setup *setup;
 
 
 

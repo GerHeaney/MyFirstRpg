@@ -12,7 +12,7 @@
 #include "RenderItems/csprite.h"
 //#include "keyboardmovement.h"
 #include "Input/mousemovement.h"
-#include "Entity/maincharacter.h"
+#include "Entity/entity.h"
 #include "RenderItems/environment.h"
 //#include "IntroState.h"
 
@@ -46,7 +46,7 @@ public:
 
     SDL_setup *getSetup() const;
 
-    MainCharacter *getPlayer() const;
+    Entity *getPlayer() const;
     void setPlayer(MainCharacter *value);
 
     int getLevelWidth() const;
@@ -73,7 +73,7 @@ private:
 
     SDL_Rect camera;
     SDL_setup* setup;
-    MainCharacter *player;
+    Entity *player;
     //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
 

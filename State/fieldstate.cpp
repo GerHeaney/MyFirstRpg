@@ -7,6 +7,7 @@ void FieldState::Init(GameEngine *game)
 {
     stage1 = new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
     player = game->getPlayer();
+    player->setOrigin(0,0);
     srand(time(NULL));
     x =1;
     std::cout << x;
@@ -25,6 +26,8 @@ void FieldState::Draw(GameEngine *game)
     camera = player->getCamera();
     stage1->DrawBack(&camera);
     player->Draw();
+    std::cout <<"stage1 width is " << stage1->getLevelWidth();
+
 }
 void FieldState::Update(GameEngine *game)
 {

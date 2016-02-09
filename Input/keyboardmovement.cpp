@@ -1,6 +1,6 @@
 #include "keyboardmovement.h"
 
-KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, MainCharacter *passedPlayer,int width,int height)
+KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer, int width, int height)
 {
 
 

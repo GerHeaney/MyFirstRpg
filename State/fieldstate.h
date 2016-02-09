@@ -32,7 +32,7 @@ protected:
 private:
     static FieldState field;
      Environment* stage1;
-     MainCharacter *player;
+     Entity *player;
      SDL_Rect  camera;
      KeyboardMovement * move;
      int x;

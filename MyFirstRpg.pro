@@ -30,7 +30,8 @@ SOURCES += main.cpp \
     RenderItems/tree.cpp \
     State/battlestate.cpp \
     State/fieldstate.cpp \
-    State/IntroState.cpp
+    State/IntroState.cpp \
+    RenderItems/gamerenderer.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -48,7 +49,8 @@ HEADERS  += \
     State/fieldstate.h \
     State/gamestate.h \
     State/IntroState.h \
-    GameSetup/gameengine.h
+    GameSetup/gameengine.h \
+    RenderItems/gamerenderer.h
 
 
 

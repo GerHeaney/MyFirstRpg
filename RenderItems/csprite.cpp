@@ -51,7 +51,10 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y)
 
 
 }
-
+void CSprite::accept(IVisitor *v)
+{
+    v->visit(this);
+}
 
 CSprite::~CSprite()
 {
@@ -133,6 +136,11 @@ int CSprite::getWidth()
 void CSprite::setWidth(int value)
 {
     cameraW = value;
+
+}
+
+void CSprite::setSpriteSize(int W, int H)
+{
 
 }
 

@@ -6,6 +6,7 @@
 #include "RenderItems/button.h"
 #include "State/fieldstate.h"
 #include "RenderItems/fontbutton.h"
+#include "Visitor/drawvisitor.h"
 
 class IntroState : public GameState
 {
@@ -16,6 +17,7 @@ public:
 
 
 
+    IVisitor * drawer;
     void Init(GameEngine* game) ;
     void Update(GameEngine* game);
     void Draw(GameEngine* game);

@@ -6,14 +6,18 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include "Sprite/basesprite.h"
 
-class CSprite
+
+
+class CSprite : public BaseSprite
 
 {
 public:
     CSprite(SDL_Renderer *gameRenderer, std::string path, int x, int y);
     //CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y);
     ~CSprite();
+    void accept(IVisitor *v);
     void Draw();
     void DrawBackground(SDL_Rect *clip);
 
@@ -28,6 +32,8 @@ public:
 
     int getWidth();
     void setWidth(int value);
+
+    void setSpriteSize(int W, int H);
 
     int getHeight();
     void setHeight(int value);

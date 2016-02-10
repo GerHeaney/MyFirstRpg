@@ -8,6 +8,7 @@ IntroState IntroState::intro;
 void IntroState::Init(GameEngine *game)
 {
   menu = new CSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png",0,0);
+  drawer = new DrawVisitor();
   menu->setWidth(game->getScreenWidth());
   nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
   lButton = new Button(game->getSetup(),"resources/MainMenu/load.png");
@@ -30,7 +31,7 @@ void IntroState::Draw(GameEngine *game)
 {
 
 
-    menu->DrawBackground(&camera);
+    drawer->visit(menu);
     nButton->render();
     lButton->render();
     qButton->render();

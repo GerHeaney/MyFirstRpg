@@ -31,7 +31,9 @@ SOURCES += main.cpp \
     State/battlestate.cpp \
     State/fieldstate.cpp \
     State/IntroState.cpp \
-    RenderItems/gamerenderer.cpp
+    RenderItems/gamerenderer.cpp \
+    Visitor/drawvisitor.cpp \
+    Sprire/backgroundsprite.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -50,7 +52,11 @@ HEADERS  += \
     State/gamestate.h \
     State/IntroState.h \
     GameSetup/gameengine.h \
-    RenderItems/gamerenderer.h
+    RenderItems/gamerenderer.h \
+    Sprite/basesprite.h \
+    Visitor/ivisitor.h \
+    Visitor/drawvisitor.h \
+    Sprite/backgroundsprite.h
 
 
 

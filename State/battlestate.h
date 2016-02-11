@@ -2,7 +2,7 @@
 #define BATTLESTATE_H
 
 #include "GameSetup/sdl_setup.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
 #include "Entity/maincharacter.h"

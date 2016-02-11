@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
 #include "GameSetup/sdl_setup.h"
 
 

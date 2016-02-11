@@ -6,11 +6,11 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "Sprite/basesprite.h"
+#include "Sprite/isprite.h"
 
 
 
-class CSprite : public BaseSprite
+class CSprite : public ISprite
 
 {
 public:
@@ -76,10 +76,10 @@ private:
 
     int frameX;
     int frameY;
-    SDL_Surface * surface;
-    SDL_Texture * image;
-    SDL_Rect rect;
-    SDL_Renderer *renderer;
+//    SDL_Surface * surface;
+//    SDL_Texture * image;
+//    SDL_Rect rect;
+//    SDL_Renderer *renderer;
     SDL_Rect crop;
 
 

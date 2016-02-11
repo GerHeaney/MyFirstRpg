@@ -7,9 +7,8 @@ IntroState IntroState::intro;
 //}
 void IntroState::Init(GameEngine *game)
 {
-  menu = new CSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png",0,0);
+  menu = new BackgroundSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png");
   drawer = new DrawVisitor();
-  menu->setWidth(game->getScreenWidth());
   nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
   lButton = new Button(game->getSetup(),"resources/MainMenu/load.png");
   qButton = new Button(game->getSetup(),"resources/MainMenu/quit.png");
@@ -20,6 +19,8 @@ void IntroState::Init(GameEngine *game)
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
   camera = game->getPlayer()->getCamera();
+  menu->setRect(camera);
+
 
 
 
@@ -31,7 +32,7 @@ void IntroState::Draw(GameEngine *game)
 {
 
 
-    drawer->visit(menu);
+    menu->accept(drawer);
     nButton->render();
     lButton->render();
     qButton->render();

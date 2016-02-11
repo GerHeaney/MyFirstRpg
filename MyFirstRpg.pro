@@ -23,8 +23,7 @@ SOURCES += main.cpp \
     Input/keyboardmovement.cpp \
     Input/mousemovement.cpp \
     RenderItems/button.cpp \
-    RenderItems/camera.cpp \
-    RenderItems/csprite.cpp \
+    RenderItems/camera.cpp \  
     RenderItems/environment.cpp \
     RenderItems/fontbutton.cpp \
     RenderItems/tree.cpp \
@@ -33,7 +32,8 @@ SOURCES += main.cpp \
     State/IntroState.cpp \
     RenderItems/gamerenderer.cpp \
     Visitor/drawvisitor.cpp \
-    Sprire/backgroundsprite.cpp
+    Sprite/backgroundsprite.cpp \
+    Sprite/csprite.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -42,8 +42,7 @@ HEADERS  += \
     Input/keyboardmovement.h \
     Input/mousemovement.h \
     RenderItems/button.h \
-    RenderItems/camera.h \
-    RenderItems/csprite.h \
+    RenderItems/camera.h \  
     RenderItems/environment.h \
     RenderItems/fontbutton.h \
     RenderItems/tree.h \  
@@ -53,10 +52,11 @@ HEADERS  += \
     State/IntroState.h \
     GameSetup/gameengine.h \
     RenderItems/gamerenderer.h \
-    Sprite/basesprite.h \
     Visitor/ivisitor.h \
     Visitor/drawvisitor.h \
-    Sprite/backgroundsprite.h
+    Sprite/backgroundsprite.h \
+    Sprite/isprite.h \
+    Sprite/csprite.h
 
 
 

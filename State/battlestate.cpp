@@ -20,6 +20,7 @@ void BattleState::Init(GameEngine *game)
     Attack = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Attack");
     Ability = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Ability");
     Item = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Item");
+    enemy->getPlayer()->setSpriteSize(100,100);
 
 
 

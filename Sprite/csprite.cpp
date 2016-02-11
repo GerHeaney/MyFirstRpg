@@ -4,8 +4,6 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y)
 {
 
     renderer = gameRenderer;
-    image = NULL;
-
     surface = IMG_Load(path.c_str());
     image = SDL_CreateTextureFromSurface(renderer,surface);
 

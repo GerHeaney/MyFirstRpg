@@ -2,12 +2,13 @@
 #define FIELDSTATE_H
 
 #include "GameSetup/sdl_setup.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/backgroundsprite.h"
 #include "State/gamestate.h"
 #include <math.h>
 #include <time.h>
 #include "State/battlestate.h"
 #include "Input/keyboardmovement.h"
+#include "Visitor/drawvisitor.h"
 
 
 class FieldState : public GameState
@@ -31,7 +32,7 @@ protected:
 
 private:
     static FieldState field;
-     Environment* stage1;
+     BackgroundSprite * stage1;
      Entity *player;
      SDL_Rect  camera;
      KeyboardMovement * move;

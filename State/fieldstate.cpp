@@ -5,15 +5,16 @@ FieldState FieldState::field;
 
 void FieldState::Init(GameEngine *game)
 {
-    stage1 = new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
+    stage1 = new BackgroundSprite(game->getSetup()->getRenderer(),"resources/map.png");
+            //new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
     x =1;
     std::cout << x;
-    move = new KeyboardMovement(game->getSetup(),player,stage1->getLevelWidth(),stage1->getLevelHeight());
-    player->getPlayer()->setWidth(stage1->getLevelWidth());
-    player->getPlayer()->setHeight(stage1->getLevelHeight());
+    move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
+    player->getPlayer()->setWidth(stage1->getSurface()->w);
+    player->getPlayer()->setHeight(stage1->getSurface()->h);
     player->getPlayer()->setX(0);
     player->getPlayer()->setY(0);
 
@@ -22,11 +23,12 @@ void FieldState::Init(GameEngine *game)
 }
 void FieldState::Draw(GameEngine *game)
 {
+    DrawVisitor visitor;
     player->setCamera();
     camera = player->getCamera();
-    stage1->DrawBack(&camera);
+    stage1->setRect(camera);
+    stage1->accept(&visitor);
     player->Draw();
-    std::cout <<"stage1 width is " << stage1->getLevelWidth();
 
 }
 void FieldState::Update(GameEngine *game)

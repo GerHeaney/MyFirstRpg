@@ -9,7 +9,7 @@
 #include <iostream>
 #include <math.h>
 #include "sdl_setup.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
 //#include "keyboardmovement.h"
 #include "Input/mousemovement.h"
 #include "Entity/entity.h"

@@ -1,7 +1,7 @@
 #ifndef INTROMENU_H
 #define INTROMENU_H
 #include "GameSetup/sdl_setup.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/backgroundsprite.h"
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
 #include "State/fieldstate.h"
@@ -33,7 +33,7 @@ public:
     }
 
 private:
-    CSprite* menu;
+    BackgroundSprite* menu;
     SDL_setup* setup;
     static IntroState intro;
     SDL_Rect camera;

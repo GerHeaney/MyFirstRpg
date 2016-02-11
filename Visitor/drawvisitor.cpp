@@ -1,11 +1,13 @@
 #include "Visitor/drawvisitor.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
+#include "Sprite/backgroundsprite.h"
+
 DrawVisitor::DrawVisitor()
 {
 
 }
 
-void DrawVisitor::visit(BaseSprite *sprite)
+void DrawVisitor::visit(ISprite *sprite)
 {
     printf("Hello from base");
 
@@ -13,6 +15,12 @@ void DrawVisitor::visit(BaseSprite *sprite)
 
 void DrawVisitor::visit(CSprite *sprite)
 {
-    sprite->Draw();
+
+}
+
+void DrawVisitor::visit(BackgroundSprite *sprite)
+{
+     SDL_Rect rect = sprite->getRect();
+    SDL_RenderCopy(sprite->getRenderer(),sprite->getImage(),&rect,&rect);
 
 }

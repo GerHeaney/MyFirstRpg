@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 #include "GameSetup/sdl_setup.h"
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
 #include "RenderItems/tree.h"
 #include <vector>
 

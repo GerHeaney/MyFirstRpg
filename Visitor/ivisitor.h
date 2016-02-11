@@ -6,14 +6,16 @@
 #include <string>
 #include <iostream>
 
-class BaseSprite;
+class ISprite;
 class CSprite;
+class BackgroundSprite;
 
 class IVisitor
 {
 public:
-    virtual void visit(BaseSprite * sprite)= 0;
+    virtual void visit(ISprite * sprite)= 0;
     virtual void visit(CSprite * sprite) = 0;
+    virtual void visit(BackgroundSprite * sprite) = 0;
 };
 
 #endif // VISITOR

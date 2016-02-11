@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "RenderItems/csprite.h"
+#include "Sprite/csprite.h"
 #include "GameSetup/sdl_setup.h"
 
 

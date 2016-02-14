@@ -16,6 +16,8 @@ public:
     void visit(CSprite * sprite);
     void visit(BackgroundSprite * sprite);
     void visit(MovingSprite * sprite);
+    void visit(EnemySprite * sprite);
+    void visit(MenuSprite * sprite);
 
 };
 

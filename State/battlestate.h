@@ -2,12 +2,14 @@
 #define BATTLESTATE_H
 
 #include "GameSetup/sdl_setup.h"
-#include "Sprite/csprite.h"
+#include "Sprite/enemysprite.h"
+#include "Sprite/menusprite.h"
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
 #include "Entity/maincharacter.h"
 #include "RenderItems/fontbutton.h"
 #include "Visitor/drawvisitor.h"
+#include "Entity/enemy.h"
 #include <time.h>
 
 
@@ -39,9 +41,9 @@ private:
     SDL_Point enemyPosition;
     SDL_Rect menuRect;
     BackgroundSprite * background;
-    Entity * enemy;
-    CSprite * menu;
-    Entity * player;
+    Enemy * enemy;
+    MenuSprite * menu;
+    MainCharacter * player;
     SDL_Rect camera;
 
 };

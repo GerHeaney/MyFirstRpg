@@ -1,17 +1,13 @@
 #include "maincharacter.h"
 
-MainCharacter::MainCharacter(SDL_setup * gameSetup, int width, int height, std::string playerName,std::string path)
-    :Entity(gameSetup,width,height,playerName,path)
+MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::string path)
 {
      isMoving = false;
      name = playerName;
-     std::cout << name <<" width is " << width << std::endl;
-     std::cout << name <<" height is " << height << std::endl;
 
     setup = gameSetup;
 
     playerSprite = new MovingSprite(setup->getRenderer(),path.c_str());
-//    std::cout << name <<" sprite created" << std::endl;
     playerSprite->setupAnimation(4,4);
 
 }
@@ -30,14 +26,10 @@ void MainCharacter::setSprite(MovingSprite *value)
 {
     playerSprite = value;
 }
-void MainCharacter::Draw()
-{
-    player->Draw();
 
-}
 void MainCharacter::setInitFrame(int startFrame,int row)
 {
-  player->setInitFrame(startFrame,row);
+  playerSprite->setInitFrame(startFrame,row);
 }
 
 void MainCharacter::setOrigin(int X, int Y)
@@ -57,5 +49,35 @@ bool MainCharacter::GetMoving()
 void MainCharacter::setIsMoving(bool value)
 {
     isMoving = value;
+}
+
+int MainCharacter::getHealth() const
+{
+    return health;
+}
+
+void MainCharacter::setHealth(int value)
+{
+    health = value;
+}
+
+int MainCharacter::getAbilityPower() const
+{
+    return abilityPower;
+}
+
+void MainCharacter::setAbilityPower(int value)
+{
+    abilityPower = value;
+}
+
+int MainCharacter::getAttackDamage() const
+{
+    return attackDamage;
+}
+
+void MainCharacter::setAttackDamage(int value)
+{
+    attackDamage = value;
 }
 

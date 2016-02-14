@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "Sprite/csprite.h"
+
 #include "GameSetup/sdl_setup.h"
 
 
@@ -12,23 +12,27 @@ class Entity
 {
 public:
 
-    void setOrigin(int X, int Y);
-    void Draw();
-    void DrawBackground(SDL_Rect * camera);
-    CSprite *getSprite();
-    void setPlayer(CSprite *value);
-    void setCamera();
-    void setInitFrame(int startFrame,int row);
-    SDL_Rect getCamera();
-    bool GetMoving();
-    void setIsMoving(bool value);
-    Entity(SDL_setup * gameSetup, int width, int height, std::string name, std::string path);
+    virtual void setOrigin(int X, int Y) = 0;
+    virtual bool GetMoving() = 0;
+    virtual void setIsMoving(bool value) = 0;
+
+
+    virtual int getHealth() const = 0;
+    virtual void setHealth(int value) = 0;
+
+    virtual int getAbilityPower() const = 0;
+    virtual void setAbilityPower(int value) = 0;
+
+    virtual int getAttackDamage() const = 0;
+    virtual void setAttackDamage(int value) = 0;
 
 protected:
     bool isMoving;
     std::string name;
-    CSprite* player;
     SDL_setup *setup;
+    int health;
+    int abilityPower;
+    int attackDamage;
 
 };
 

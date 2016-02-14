@@ -2,7 +2,6 @@
 #define BACKGROUNDSPRITE_H
 #include "Sprite/isprite.h"
 
-
 class BackgroundSprite : ISprite
 {
 public:
@@ -20,6 +19,7 @@ public:
 
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
+    void setSize(int w, int h);
 
 private:
 

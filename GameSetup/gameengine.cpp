@@ -11,7 +11,7 @@ GameEngine::GameEngine(int width, int height)
 
     setup = new SDL_setup(&quit,width,height);
 
-    player = new MainCharacter(setup,screenWidth,screenHeight,"Player 1","resources/belf.png");
+    player = new MainCharacter(setup,"Player 1","resources/belf.png");
 
     gameCamera = new Camera();
     gameCamera->setCameraW(width);

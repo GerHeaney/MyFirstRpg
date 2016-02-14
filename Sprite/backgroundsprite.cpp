@@ -12,6 +12,13 @@ BackgroundSprite::BackgroundSprite(SDL_Renderer *gameRenderer, std::string path)
 
         }
 
+
+        rect.x = 0;
+        rect.y = 0;
+        rect.w = surface->w;
+        rect.h = surface->h;
+
+
 }
 
 void BackgroundSprite::accept(IVisitor *v)
@@ -58,5 +65,12 @@ SDL_Renderer *BackgroundSprite::getRenderer() const
 void BackgroundSprite::setRenderer(SDL_Renderer *value)
 {
     renderer = value;
+}
+
+void BackgroundSprite::setSize(int w, int h)
+{
+
+    rect.w = w;
+    rect.h = h;
 }
 

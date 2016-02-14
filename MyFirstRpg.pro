@@ -16,7 +16,6 @@ LIBS += -L"C:/MinGW/lib" -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 INCLUDEPATH += C:/MinGW/include/SDL2
 
 SOURCES += main.cpp \
-    Entity/entity.cpp \
     Entity/maincharacter.cpp \
     GameSetup/gameengine.cpp \
     GameSetup/sdl_setup.cpp \
@@ -36,7 +35,8 @@ SOURCES += main.cpp \
     Sprite/csprite.cpp \
     Sprite/movingsprite.cpp \
     Sprite/enemysprite.cpp \
-    Entity/enemy.cpp
+    Entity/enemy.cpp \
+    Sprite/menusprite.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -62,7 +62,8 @@ HEADERS  += \
     Sprite/csprite.h \
     Sprite/movingsprite.h \
     Sprite/enemysprite.h \
-    Entity/enemy.h
+    Entity/enemy.h \
+    Sprite/menusprite.h
 
 
 

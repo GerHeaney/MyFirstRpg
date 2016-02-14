@@ -17,6 +17,8 @@ EnemySprite::EnemySprite(SDL_Renderer *gameRenderer, std::string path)
         rect.w = surface->w;
         rect.h = surface->h;
 
+        posRect = {0,0,surface->w,surface->h};
+
 }
 
 
@@ -48,6 +50,8 @@ void EnemySprite::setImage(SDL_Texture *value)
 
 SDL_Rect EnemySprite::getRect() const
 {
+    std::cout << "get enemt sprite x and y location is " << rect.x << " and " << rect.y << std::endl;
+
     return rect;
 }
 
@@ -68,8 +72,13 @@ void EnemySprite::setRenderer(SDL_Renderer *value)
 
 void EnemySprite::setPosition(int x, int y)
 {
-    rect.x = x;
-    rect.y = y;
+    posRect.x = x;
+    posRect.y = y;
 
+}
+
+SDL_Rect EnemySprite::getPosRect() const
+{
+    return posRect;
 }
 

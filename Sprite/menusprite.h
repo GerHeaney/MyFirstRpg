@@ -1,11 +1,11 @@
-#ifndef ENEMYSPRITE_H
-#define ENEMYSPRITE_H
+#ifndef MENUSPRITE_H
+#define MENUSPRITE_H
 #include "Sprite/isprite.h"
 
-class EnemySprite : public ISprite
+class MenuSprite : public ISprite
 {
 public:
-    EnemySprite(SDL_Renderer *gameRenderer, std::string path);
+    MenuSprite(SDL_Renderer *gameRenderer, std::string path);
     virtual void accept(IVisitor* v);
 
     virtual SDL_Surface *getSurface() const;
@@ -13,23 +13,19 @@ public:
 
     virtual SDL_Texture *getImage() const;
     virtual void setImage(SDL_Texture *value);
+
     virtual SDL_Rect getRect() const;
-
-
-    virtual void setRect(const SDL_Rect &value);
+    void setRect(const SDL_Rect &value);
 
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
-    void setPosition(int x, int y);
+    void setSize(int x,int y,int w, int h);
     SDL_Rect getPosRect() const;
 
 private:
-
     SDL_Rect posRect;
-
-
 
 
 };
 
-#endif // ENEMYSPRITE_H
+#endif // MENUSPRITE_H

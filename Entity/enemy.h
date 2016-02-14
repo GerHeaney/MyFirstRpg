@@ -7,9 +7,7 @@ class Enemy
 public:
     Enemy();
 
-signals:
 
-public slots:
 };
 
 #endif // ENEMY_H

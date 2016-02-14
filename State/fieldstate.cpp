@@ -10,7 +10,7 @@ void FieldState::Init(GameEngine *game)
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
-    x =10;
+    x =1;
     std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
@@ -35,7 +35,7 @@ void FieldState::Update(GameEngine *game)
     player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
     if(x ==10)
     {
-        game->ChangeState(BattleState::Instance());
+       // game->ChangeState(BattleState::Instance());
     }
 }
 void FieldState::HandleEvents(GameEngine *game)

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "Sprite/csprite.h"
+#include "Sprite/movingsprite.h"
 #include "GameSetup/sdl_setup.h"
 #include "Entity/entity.h"
 
@@ -21,8 +21,8 @@ public:
 
     void setOrigin(int X, int Y);
     void Draw();
-    CSprite *getPlayer();
-    void setPlayer(CSprite *value);
+    MovingSprite *getSprite();
+    void setSprite(MovingSprite *value);
     void setCamera();
     void setInitFrame(int startFrame,int row);
     SDL_Rect getCamera();   
@@ -32,6 +32,8 @@ public:
 private:
 
     bool isMoving;
+
+   MovingSprite * playerSprite;
 //    std::string name;
 //    CSprite* player;
 //    SDL_setup *setup;

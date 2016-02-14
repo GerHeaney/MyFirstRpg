@@ -7,6 +7,7 @@
 #include "RenderItems/button.h"
 #include "Entity/maincharacter.h"
 #include "RenderItems/fontbutton.h"
+#include "Visitor/drawvisitor.h"
 #include <time.h>
 
 
@@ -37,7 +38,7 @@ private:
     SDL_Point playerPosition;
     SDL_Point enemyPosition;
     SDL_Rect menuRect;
-    CSprite * background;
+    BackgroundSprite * background;
     Entity * enemy;
     CSprite * menu;
     Entity * player;

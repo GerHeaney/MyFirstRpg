@@ -10,13 +10,11 @@ void FieldState::Init(GameEngine *game)
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
-    x =1;
+    x =10;
     std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
-    player->getPlayer()->setWidth(stage1->getSurface()->w);
-    player->getPlayer()->setHeight(stage1->getSurface()->h);
-    player->getPlayer()->setX(0);
-    player->getPlayer()->setY(0);
+    player->getSprite()->setX(0);
+    player->getSprite()->setY(0);
 
 
 
@@ -24,15 +22,17 @@ void FieldState::Init(GameEngine *game)
 void FieldState::Draw(GameEngine *game)
 {
     DrawVisitor visitor;
-    player->setCamera();
-    camera = player->getCamera();
-    stage1->setRect(camera);
+
     stage1->accept(&visitor);
-    player->Draw();
+    player->getSprite()->accept(&visitor);
 
 }
 void FieldState::Update(GameEngine *game)
 {
+    game->getGameCamera()->setCamera(player->getSprite()->getX(),player->getSprite()->getY(),stage1);
+    camera = game->getGameCamera()->getCamera();
+    stage1->setRect(camera);
+    player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
     if(x ==10)
     {
         game->ChangeState(BattleState::Instance());

@@ -4,7 +4,7 @@
 Environment::Environment(SDL_setup * setup,int screenWidth, int screenHeight)
 {
 
-    grass = new CSprite(setup->getRenderer(),"resources/map.png",0,0);
+    //grass = new CSprite(setup->getRenderer(),"resources/map.png",0,0);
 
     //tree = new Tree(setup,800,800,cameraX,cameraY);
     trees.push_back(new Tree(setup,800,800));

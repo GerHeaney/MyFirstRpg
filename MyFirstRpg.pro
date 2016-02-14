@@ -33,7 +33,10 @@ SOURCES += main.cpp \
     RenderItems/gamerenderer.cpp \
     Visitor/drawvisitor.cpp \
     Sprite/backgroundsprite.cpp \
-    Sprite/csprite.cpp
+    Sprite/csprite.cpp \
+    Sprite/movingsprite.cpp \
+    Sprite/enemysprite.cpp \
+    Entity/enemy.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -56,7 +59,10 @@ HEADERS  += \
     Visitor/drawvisitor.h \
     Sprite/backgroundsprite.h \
     Sprite/isprite.h \
-    Sprite/csprite.h
+    Sprite/csprite.h \
+    Sprite/movingsprite.h \
+    Sprite/enemysprite.h \
+    Entity/enemy.h
 
 
 

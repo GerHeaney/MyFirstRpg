@@ -14,6 +14,7 @@
 #include "Input/mousemovement.h"
 #include "Entity/entity.h"
 #include "RenderItems/environment.h"
+#include "RenderItems/camera.h"
 //#include "IntroState.h"
 
 #include <vector>
@@ -46,7 +47,7 @@ public:
 
     SDL_setup *getSetup() const;
 
-    Entity *getPlayer() const;
+    MainCharacter *getPlayer() const;
     void setPlayer(MainCharacter *value);
 
     int getLevelWidth() const;
@@ -55,6 +56,9 @@ public:
 
     Environment *getStage1() const;
     void setStage1(Environment *value);
+
+    Camera *getGameCamera() const;
+    void setGameCamera(Camera *value);
 
 private:
     float cameraX;
@@ -69,11 +73,12 @@ private:
 
     Environment* stage1;
     GameState * intro;
+    Camera * gameCamera;
 
 
     SDL_Rect camera;
     SDL_setup* setup;
-    Entity *player;
+     MainCharacter *player;
     //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
 

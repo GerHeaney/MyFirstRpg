@@ -15,6 +15,7 @@ public:
     void visit(ISprite * sprite);
     void visit(CSprite * sprite);
     void visit(BackgroundSprite * sprite);
+    void visit(MovingSprite * sprite);
 
 };
 

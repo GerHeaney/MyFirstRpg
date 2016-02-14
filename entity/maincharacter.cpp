@@ -10,25 +10,25 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, int width, int height, std::
 
     setup = gameSetup;
 
-    player = new CSprite(setup->getRenderer(),path.c_str(),0,0);
+    playerSprite = new MovingSprite(setup->getRenderer(),path.c_str());
 //    std::cout << name <<" sprite created" << std::endl;
-    player->setupAnimation(4,4);
+    playerSprite->setupAnimation(4,4);
 
 }
 MainCharacter::~MainCharacter()
 {
-    delete player;
+
 
 }
-/*
-CSprite *MainCharacter::getPlayer()
+
+MovingSprite *MainCharacter::getSprite()
 {
-    return player;
+    return playerSprite;
 }
 
-void MainCharacter::setPlayer(CSprite *value)
+void MainCharacter::setSprite(MovingSprite *value)
 {
-    player = value;
+    playerSprite = value;
 }
 void MainCharacter::Draw()
 {
@@ -39,19 +39,13 @@ void MainCharacter::setInitFrame(int startFrame,int row)
 {
   player->setInitFrame(startFrame,row);
 }
-void MainCharacter::setCamera(){
-    player->setCamera();
 
-}
 void MainCharacter::setOrigin(int X, int Y)
 {
 
-   player->setOrigin(X,Y);
+   playerSprite->setOrigin(X,Y);
 }
-SDL_Rect MainCharacter::getCamera()
-{
-    return player->getCamera();
-}
+
 bool MainCharacter::GetMoving()
 {
     if (isMoving == true)
@@ -64,4 +58,4 @@ void MainCharacter::setIsMoving(bool value)
 {
     isMoving = value;
 }
-*/
+

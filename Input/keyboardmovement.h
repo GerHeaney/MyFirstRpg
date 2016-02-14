@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "Entity/entity.h"
+#include "Entity/maincharacter.h"
 #include "GameSetup/sdl_setup.h"
 
 
@@ -19,7 +19,7 @@ public:
 private:
 
     SDL_setup * setup;
-    Entity * player;
+    MainCharacter * player;
     int x;
     int y;
     bool MoveRight;

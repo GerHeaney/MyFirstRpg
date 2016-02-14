@@ -4,7 +4,7 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer
 {
 
 
-    player = passedPlayer;
+    player = (MainCharacter*)passedPlayer;
     setup = passedSetup;
     MoveRight = false;
     MoveLeft = false;
@@ -22,8 +22,8 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer
 
 void KeyboardMovement::Move()
 {
-    x = player->getPlayer()->getX();
-    y = player->getPlayer()->getY();
+    x = player->getSprite()->getX();
+    y = player->getSprite()->getY();
 
 
     switch(setup->getMainEvent()->type)
@@ -60,27 +60,27 @@ void KeyboardMovement::Move()
     switch(setup->getMainEvent()->key.keysym.sym)
     {
       case SDLK_UP:
-        player->getPlayer()->playAnimation(0,0,3,120);
+        player->getSprite()->playAnimation(0,0,3,120);
         MoveUp = false;
         player->setIsMoving(false);
 
         break;
        case SDLK_DOWN:
-        player->getPlayer()->playAnimation(0,0,0,120);
+        player->getSprite()->playAnimation(0,0,0,120);
         MoveDown = false;
         player->setIsMoving(false);
 
 
         break;
        case SDLK_LEFT:
-        player->getPlayer()->playAnimation(0,0,1,120);
+        player->getSprite()->playAnimation(0,0,1,120);
         MoveLeft = false;
         player->setIsMoving(false);
 
 
         break;
        case SDLK_RIGHT:
-        player->getPlayer()->playAnimation(0,0,2,120);
+        player->getSprite()->playAnimation(0,0,2,120);
         MoveRight = false;
         player->setIsMoving(false);
 
@@ -98,42 +98,37 @@ void KeyboardMovement::Move()
     {
 
         if(MoveLeft)
-        {
-            player->getPlayer()->playAnimation(0,3,1,120);
-            if(x <=0) {player->getPlayer()->setX(0);}
-            else{ player->getPlayer()->setX(x -2);}
-            std::cout << "player x position is " << player->getPlayer()->getX() << std::endl;
-            std::cout << " x variable is " << x << std::endl;
+       {
+            player->getSprite()->playAnimation(0,3,1,120);
+            if(x <=0) {player->getSprite()->setX(0);}
+            else{ player->getSprite()->setX(x -2);}
+
             //player->setX(x);
         }
         if(MoveRight)
         {
-            player->getPlayer()->playAnimation(0,3,2,120);
-            if(player->getPlayer()->getX() + player->getPlayer()->getCropWidth()  >=levelWidth ) {player->getPlayer()->setX(levelWidth -player->getPlayer()->getCropWidth());}
-            else{ player->getPlayer()->setX(x + 2);}
-            std::cout << "xpos is " << player->getPlayer()->getX() << std::endl;
-            std::cout << "camera.x is " << player->getPlayer()->getCameraX() << std::endl;
+            player->getSprite()->playAnimation(0,3,2,120);
+            if(player->getSprite()->getX() + /* must fix thisplayer->getSprite()->getCropWidth()*/32  >=levelWidth ) {player->getSprite()->setX(levelWidth - 32)/*player->getSprite()->getCropWidth())*/;}
+            else{ player->getSprite()->setX(x + 2);}
 
             //player->setX(x);
         }
         if(MoveDown)
         {
-            player->getPlayer()->playAnimation(0,3,0,120);
-            if(player->getPlayer()->getY() + player->getPlayer()->getCropHeight() >=levelHeight){player->getPlayer()->setY(levelHeight - player->getPlayer()->getCropHeight());}
-            else{player->getPlayer()->setY(y + 2);}
-            std::cout << "player y position is " << player->getPlayer()->getY() << std::endl;
-            std::cout << " y variable is " << y << std::endl;
+            player->getSprite()->playAnimation(0,3,0,120);
+            if(player->getSprite()->getY() + 48 >=levelHeight){player->getSprite()->setY(levelHeight - 48);}
+            else{player->getSprite()->setY(y + 2);}
+
 
 
             //player->setY(y);
         }
         if(MoveUp)
         {
-            player->getPlayer()->playAnimation(0,3,3,120);
-            if(y <=0){player->getPlayer()->setY(0);}
-            else{player->getPlayer()->setY(y - 2);}
-            std::cout << "player y position is " << player->getPlayer()->getY() << std::endl;
-            std::cout << " y variable is " << y << std::endl;
+            player->getSprite()->playAnimation(0,3,3,120);
+            if(y <=0){player->getSprite()->setY(0);}
+            else{player->getSprite()->setY(y - 2);}
+
             //player->setY(y);
         }
         timeCheck = SDL_GetTicks();

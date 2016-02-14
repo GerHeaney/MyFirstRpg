@@ -37,8 +37,7 @@ CSprite::CSprite(SDL_Renderer * gameRenderer, std::string path, int x, int y)
 
 
 
-    cameraW = surface->w;
-    cameraH = surface->h;
+
 
     camera.x = rect.x;
     camera.y = rect.y;
@@ -92,13 +91,12 @@ void CSprite::DrawBackground(SDL_Rect * clip)
 void CSprite::setX(int X)
 {
     XPos = X;
-     camera.x = (XPos - xOrigin);
 
 }
 void CSprite::setY(int Y)
 {
     YPos = Y;
-     camera.y = (YPos - yOrigin);
+
 
 }
 void CSprite::setPosition(int X, int Y)

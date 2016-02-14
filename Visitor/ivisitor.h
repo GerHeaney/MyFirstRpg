@@ -9,6 +9,8 @@
 class ISprite;
 class CSprite;
 class BackgroundSprite;
+class MovingSprite;
+class EnemySprite;
 
 class IVisitor
 {
@@ -16,6 +18,7 @@ public:
     virtual void visit(ISprite * sprite)= 0;
     virtual void visit(CSprite * sprite) = 0;
     virtual void visit(BackgroundSprite * sprite) = 0;
+    virtual void visit(MovingSprite * sprite) = 0;
 };
 
 #endif // VISITOR

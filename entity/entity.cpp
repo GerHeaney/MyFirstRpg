@@ -10,12 +10,12 @@ Entity::Entity(SDL_setup * gameSetup, int width, int height, std::string name,st
 
    setup = gameSetup;
 
-   player = new CSprite(setup->getRenderer(),path.c_str(),0,0);
+   //player = new CSprite(setup->getRenderer(),path.c_str(),0,0);
 //    std::cout << name <<" sprite created" << std::endl;
-   player->setupAnimation(4,4);
+   //player->setupAnimation(4,4);
 }
 
-CSprite *Entity::getPlayer()
+CSprite *Entity::getSprite()
 {
     return player;
 }

@@ -16,17 +16,17 @@ class ISprite
 public:
     virtual void accept(IVisitor* v)= 0;
 
-    SDL_Surface *getSurface() const;
-    void setSurface(SDL_Surface *value);
+    virtual SDL_Surface *getSurface() const =0;
+    virtual void setSurface(SDL_Surface *value)= 0;
 
-    SDL_Texture *getImage() const;
-    void setImage(SDL_Texture *value);
+    virtual SDL_Texture *getImage() const = 0;
+    virtual void setImage(SDL_Texture *value) = 0;
 
-    SDL_Rect getRect() const;
-    void setRect(const SDL_Rect &value);
+    virtual SDL_Rect getRect() const = 0;
+    virtual void setRect(const SDL_Rect &value) = 0;
 
-    SDL_Renderer *getRenderer() const;
-    void setRenderer(SDL_Renderer *value);
+    virtual SDL_Renderer *getRenderer() const = 0;
+    virtual void setRenderer(SDL_Renderer *value) = 0;
 
 protected:
     SDL_Surface * surface;

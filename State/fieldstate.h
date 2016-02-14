@@ -33,7 +33,7 @@ protected:
 private:
     static FieldState field;
      BackgroundSprite * stage1;
-     Entity *player;
+     MainCharacter *player;
      SDL_Rect  camera;
      KeyboardMovement * move;
      int x;

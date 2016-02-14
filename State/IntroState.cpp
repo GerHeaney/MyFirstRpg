@@ -18,7 +18,12 @@ void IntroState::Init(GameEngine *game)
   nButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (nButton->getHeight()*3) );
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
-  camera = game->getPlayer()->getCamera();
+  game->getGameCamera()->setCamera(0,0,menu);
+  camera = game->getGameCamera()->getCamera();
+  std:: cout << "camera x is " <<camera.x << std::endl;
+  std:: cout << "camera y is " <<camera.y << std::endl;
+  std:: cout << "camera w is " <<camera.w << std::endl;
+  std:: cout << "camera h is " <<camera.h << std::endl;
   menu->setRect(camera);
 
 

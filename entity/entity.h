@@ -15,7 +15,7 @@ public:
     void setOrigin(int X, int Y);
     void Draw();
     void DrawBackground(SDL_Rect * camera);
-    CSprite *getPlayer();
+    CSprite *getSprite();
     void setPlayer(CSprite *value);
     void setCamera();
     void setInitFrame(int startFrame,int row);

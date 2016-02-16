@@ -6,20 +6,20 @@
 class DisplayField
 {
 public:
-    DisplayField(SDL_setup *passedSetup, std::string passedPath, std::string drawText);
+    DisplayField();
+    void Init();
+    void Display(SDL_setup *setup);
+    void setPosition(int x, int y);
+    void setText(std::string item1 = "",std::string item2 = "");
 
 private:
-    bool pressed;
-    SDL_Point mPosition;
-    SDL_setup * setup;
-    SDL_Rect  button;
-    SDL_Surface * surface;
-    SDL_Texture* mTexture;
-    TTF_Font * gameFont;
-    SDL_Rect outlineRect;
+    int xPos;
+    int yPos;
+    SDL_Rect  button; 
+    TTF_Font * gameFont; 
     std::string text;
     SDL_Color textColor;
-    std::string path;
+
 };
 
 #endif // DISPLAYFIELD_H

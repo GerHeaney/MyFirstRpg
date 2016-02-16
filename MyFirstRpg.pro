@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MyFirstRpg
 TEMPLATE = app
 CONFIG += console
-LIBS += -L"C:/MinGW/lib" -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+LIBS += -L"C:/MinGW/lib" -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 INCLUDEPATH += C:/MinGW/include/SDL2
 
@@ -37,7 +37,8 @@ SOURCES += main.cpp \
     Sprite/enemysprite.cpp \
     Entity/enemy.cpp \
     Sprite/menusprite.cpp \
-    RenderItems/displayfield.cpp
+    RenderItems/displayfield.cpp \
+    GameSetup/battlesystem.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -65,7 +66,8 @@ HEADERS  += \
     Sprite/enemysprite.h \
     Entity/enemy.h \
     Sprite/menusprite.h \
-    RenderItems/displayfield.h
+    RenderItems/displayfield.h \
+    GameSetup/battlesystem.h
 
 
 

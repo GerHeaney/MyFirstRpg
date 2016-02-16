@@ -14,9 +14,9 @@ int main( int argc, char* args[] )
 {
 
 
-    GameEngine*  mainClass = new GameEngine(1200,900);
-    mainClass->ChangeState(IntroState::Instance());
-    mainClass->GameLoop();
+    GameEngine*  game = new GameEngine(1368,768);
+    game->ChangeState(IntroState::Instance());
+    game->GameLoop();
 
     return 0;
 }

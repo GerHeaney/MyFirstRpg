@@ -60,6 +60,8 @@ public:
     Camera *getGameCamera() const;
     void setGameCamera(Camera *value);
 
+    std::vector<MainCharacter *> getParty() const;
+
 private:
     float cameraX;
     float cameraY;
@@ -70,6 +72,7 @@ private:
     bool quit;
     bool running;
     std::vector<GameState*> states;
+    std::vector<MainCharacter*> party;
 
     Environment* stage1;
     GameState * intro;

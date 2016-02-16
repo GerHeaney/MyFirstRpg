@@ -10,6 +10,8 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
    setup = gameSetup;
 
    enemySprite = new EnemySprite(setup->getRenderer(),path.c_str());
+   currentHealth = 249;
+   maxHealth = 300;
 
 
 }
@@ -31,12 +33,41 @@ EnemySprite *Enemy::getSprite()
     return enemySprite;
 }
 
+std::string Enemy::getName() const
+{
+    return name;
+}
+
+void Enemy::setName(const std::string &value)
+{
+    name = value;
+}
+
+std::string Enemy::getBattleStats()
+{
+    std::ostringstream battleStats;
+    battleStats <<name << "         " <<"Health    "<< currentHealth <<"/" << maxHealth;
+    std::string stats = battleStats.str();
+    return stats;
+
+}
+
+int Enemy::getCurrentHealth() const
+{
+    return currentHealth;
+}
+
+void Enemy::setCurrentHealth(int value)
+{
+    currentHealth = value;
+}
+
 
 
 void Enemy::setOrigin(int X, int Y)
 {
 
-   enemySprite->setPosition(X,Y);
+    enemySprite->setPosition(X,Y);
 }
 
 bool Enemy::GetMoving()
@@ -52,14 +83,14 @@ void Enemy::setIsMoving(bool value)
     isMoving = value;
 }
 
-int Enemy::getHealth() const
+int Enemy::getMaxHealth() const
 {
-    return health;
+    return maxHealth;
 }
 
-void Enemy::setHealth(int value)
+void Enemy::setMaxHealth(int value)
 {
-    health = value;
+    maxHealth = value;
 }
 
 int Enemy::getAbilityPower() const
@@ -80,5 +111,10 @@ int Enemy::getAttackDamage() const
 void Enemy::setAttackDamage(int value)
 {
     attackDamage = value;
+}
+
+std::string Enemy::toString(int number)
+{
+
 }
 

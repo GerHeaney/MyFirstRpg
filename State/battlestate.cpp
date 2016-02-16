@@ -14,19 +14,25 @@ void BattleState::Init(GameEngine *game)
 
     enemy = new Enemy(game->getSetup(),"Old Hermit","resources/Battle/Hermit2.png");
             //new Entity(game->getSetup(),game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.5,"Hermit","resources/Battle/Hermit2.png");
-    player = game->getPlayer();
+    player = game->getParty().front();
 
 
-    player->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-300);
+    player->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-game->getScreenHeight()/3);
 
-    enemy->setOrigin(game->getScreenWidth()/4,game->getScreenHeight()-menu->getRect().h- 100);
+    enemy->setOrigin(game->getScreenWidth()/4,game->getScreenHeight() - game->getScreenHeight()*0.4);
     player->getSprite()->setInitFrame(0,1);
     background->setSize(game->getScreenWidth(),game->getScreenHeight());
 
-    menu->setSize(0,game->getScreenHeight()-menu->getRect().h + 50,game->getScreenWidth(),menu->getRect().h - 50);
+    menu->setSize(0,game->getScreenHeight()-menu->getRect().h ,game->getScreenWidth(),menu->getRect().h);
     Attack = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Attack");
     Ability = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Ability");
     Item = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Item");
+    playerField.Init();
+    enemyField.Init();
+    playerField.setPosition(game->getScreenWidth()/2 + 20,game->getScreenHeight()-menu->getRect().h+ 100);
+    enemyField.setPosition(game->getScreenWidth()/8 + 20,game->getScreenHeight()-menu->getRect().h+ 100);
+    playerField.setText(player->getBattleStats());
+    enemyField.setText(enemy->getBattleStats());
 
 
 
@@ -45,15 +51,22 @@ void BattleState::Draw(GameEngine *game)
     Attack->Draw(20,game->getScreenHeight()-160);
     Ability->Draw(20,game->getScreenHeight()-120);
     Item->Draw(20,game->getScreenHeight()-80);
+    playerField.Display(game->getSetup());
+    enemyField.Display(game->getSetup());
 
 }
 void BattleState::Update(GameEngine *game)
 {
+
+
+    playerField.setText(player->getBattleStats());
+    enemyField.setText(enemy->getBattleStats());
     if(Attack->getPressed() == true)
     {
         game->PopState();
     }
 
+    player->setCurrentHealth(player->getCurrentHealth() -1);
 
 
 }

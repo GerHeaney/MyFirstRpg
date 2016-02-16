@@ -10,7 +10,7 @@ void FieldState::Init(GameEngine *game)
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
-    x =1;
+    x =10;
     std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
@@ -37,6 +37,8 @@ void FieldState::Update(GameEngine *game)
     player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
     if(x ==10)
     {
+        player->setIsMoving(false);
+        x = 1;
         game->PushState(BattleState::Instance());
     }
     std::cout <<" got to end of field update" << std::endl;

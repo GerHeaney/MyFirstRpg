@@ -10,6 +10,7 @@
 #include "RenderItems/fontbutton.h"
 #include "Visitor/drawvisitor.h"
 #include "Entity/enemy.h"
+#include "RenderItems/displayfield.h"
 #include <time.h>
 
 
@@ -33,6 +34,8 @@ protected:
     BattleState() {}
 
 private:
+    DisplayField playerField;
+    DisplayField enemyField;
     FontButton * Attack;
     FontButton * Ability;
     FontButton * Item;

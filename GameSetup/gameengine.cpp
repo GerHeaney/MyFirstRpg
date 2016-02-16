@@ -11,11 +11,12 @@ GameEngine::GameEngine(int width, int height)
 
     setup = new SDL_setup(&quit,width,height);
 
-    player = new MainCharacter(setup,"Player 1","resources/belf.png");
+    player = new MainCharacter(setup,"Ger","resources/Characters/belf22.png");
 
     gameCamera = new Camera();
     gameCamera->setCameraW(width);
     gameCamera->setCameraH(height);
+    party.push_back(player);
  }
 
 GameEngine::~GameEngine()
@@ -143,6 +144,11 @@ Camera *GameEngine::getGameCamera() const
 void GameEngine::setGameCamera(Camera *value)
 {
     gameCamera = value;
+}
+
+std::vector<MainCharacter *> GameEngine::getParty() const
+{
+    return party;
 }
 
 

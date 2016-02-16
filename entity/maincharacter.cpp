@@ -1,5 +1,6 @@
 #include "maincharacter.h"
 
+
 MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::string path)
 {
      isMoving = false;
@@ -9,6 +10,8 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
 
     playerSprite = new MovingSprite(setup->getRenderer(),path.c_str());
     playerSprite->setupAnimation(4,4);
+    currentHealth = 249;
+    maxHealth = 300;
 
 }
 MainCharacter::~MainCharacter()
@@ -51,14 +54,14 @@ void MainCharacter::setIsMoving(bool value)
     isMoving = value;
 }
 
-int MainCharacter::getHealth() const
+int MainCharacter::getMaxHealth() const
 {
-    return health;
+    return maxHealth;
 }
 
-void MainCharacter::setHealth(int value)
+void MainCharacter::setMaxHealth(int value)
 {
-    health = value;
+    maxHealth = value;
 }
 
 int MainCharacter::getAbilityPower() const
@@ -79,5 +82,42 @@ int MainCharacter::getAttackDamage() const
 void MainCharacter::setAttackDamage(int value)
 {
     attackDamage = value;
+}
+
+std::string MainCharacter::getBattleStats()
+{
+    std::ostringstream battleStats;
+    battleStats <<name << "         " <<"Health    "<< currentHealth <<"/" << maxHealth;
+    std::string stats = battleStats.str();
+    return stats;
+}
+
+std::string MainCharacter::toString(int number)
+{
+    std::ostringstream infoString;
+    infoString << number;
+    std::string numberString = infoString.str();
+    return numberString;
+
+}
+
+std::string MainCharacter::getName() const
+{
+    return name;
+}
+
+void MainCharacter::setName(const std::string &value)
+{
+    name = value;
+}
+
+int MainCharacter::getCurrentHealth() const
+{
+    return currentHealth;
+}
+
+void MainCharacter::setCurrentHealth(int value)
+{
+    currentHealth = value;
 }
 

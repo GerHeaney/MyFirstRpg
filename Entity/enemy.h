@@ -14,18 +14,27 @@ public:
     virtual void setIsMoving(bool value);
 
 
-    virtual int getHealth() const;
-    virtual void setHealth(int value);
+    virtual int getMaxHealth() const;
+    virtual void setMaxHealth(int value);
 
     virtual int getAbilityPower() const;
     virtual void setAbilityPower(int value);
 
     virtual int getAttackDamage() const;
     virtual void setAttackDamage(int value);
+    virtual std::string toString(int number);
     void setSprite(EnemySprite * value);
     EnemySprite * getSprite();
+    virtual std::string getName() const;
+    virtual void setName(const std::string &value);
+    virtual std::string getBattleStats();
+
+    virtual int getCurrentHealth() const;
+    virtual void setCurrentHealth(int value);
+
 private:
     EnemySprite * enemySprite;
+
 
 
 };

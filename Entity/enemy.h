@@ -7,6 +7,7 @@ class Enemy: public Entity
 {
 public:    
     Enemy(SDL_setup *gameSetup, std::string passedName, std::string path);
+    ~Enemy();
 
     virtual void setOrigin(int X, int Y);
     virtual bool GetMoving();

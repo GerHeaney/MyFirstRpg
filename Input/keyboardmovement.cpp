@@ -5,7 +5,6 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer
 
 
     player = (MainCharacter*)passedPlayer;
-    setup = passedSetup;
     MoveRight = false;
     MoveLeft = false;
     MoveUp = false;
@@ -20,7 +19,14 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer
 
 }
 
-void KeyboardMovement::Move()
+KeyboardMovement::~KeyboardMovement()
+{
+//    delete player;
+//    delete setup;
+
+}
+
+void KeyboardMovement::Move(SDL_setup * setup)
 {
     x = player->getSprite()->getX();
     y = player->getSprite()->getY();
@@ -133,4 +139,12 @@ void KeyboardMovement::Move()
         }
         timeCheck = SDL_GetTicks();
     }
+}
+
+void KeyboardMovement::Stop()
+{
+    MoveUp = false;
+    MoveDown = false;
+    MoveLeft = false;
+    MoveRight = false;
 }

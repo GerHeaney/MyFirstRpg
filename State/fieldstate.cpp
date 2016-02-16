@@ -10,11 +10,12 @@ void FieldState::Init(GameEngine *game)
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
-    x =10;
+    x =1;
     std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
     player->getSprite()->setY(0);
+    std::cout <<" got to end of field init" << std::endl;
 
 
 
@@ -25,6 +26,7 @@ void FieldState::Draw(GameEngine *game)
 
     stage1->accept(&visitor);
     player->getSprite()->accept(&visitor);
+    std::cout <<" got to end of field draw" << std::endl;
 
 }
 void FieldState::Update(GameEngine *game)
@@ -35,8 +37,9 @@ void FieldState::Update(GameEngine *game)
     player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
     if(x ==10)
     {
-        game->ChangeState(BattleState::Instance());
+        game->PushState(BattleState::Instance());
     }
+    std::cout <<" got to end of field update" << std::endl;
 }
 void FieldState::HandleEvents(GameEngine *game)
 {
@@ -46,7 +49,10 @@ void FieldState::HandleEvents(GameEngine *game)
         x = rand() % 500 + 1;
 
     }
-    move->Move();
+    std::cout <<" got to end of handle events" << std::endl;
+
+    move->Move(game->getSetup());
+
 }
 void FieldState::Pause()
 {
@@ -54,11 +60,15 @@ void FieldState::Pause()
 }
 void FieldState::Resume()
 {
+    move->Stop();
+    player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
 
 }
 void FieldState::Cleanup()
 {
-    player = NULL;
+    std::cout <<" got to  field cleanup" << std::endl;
+//   delete stage1;
+//   delete move;
 
 }
 

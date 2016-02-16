@@ -6,6 +6,7 @@ class EnemySprite : public ISprite
 {
 public:
     EnemySprite(SDL_Renderer *gameRenderer, std::string path);
+    ~EnemySprite();
     virtual void accept(IVisitor* v);
 
     virtual SDL_Surface *getSurface() const;

@@ -5,7 +5,7 @@ MovingSprite::MovingSprite(SDL_Renderer *gameRenderer, std::string path)
 
     renderer = gameRenderer;
     surface = IMG_Load(path.c_str());
-    image = SDL_CreateTextureFromSurface(renderer,surface);
+    image = SDL_CreateTextureFromSurface(gameRenderer,surface);
 
         if(image == NULL)
         {
@@ -23,6 +23,11 @@ MovingSprite::MovingSprite(SDL_Renderer *gameRenderer, std::string path)
         frameSpeed = 0;
         frameX = 4;
         frameY = 4;
+
+}
+
+MovingSprite::~MovingSprite()
+{
 
 }
 void MovingSprite::accept(IVisitor *v)

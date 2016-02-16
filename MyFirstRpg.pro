@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     Sprite/movingsprite.cpp \
     Sprite/enemysprite.cpp \
     Entity/enemy.cpp \
-    Sprite/menusprite.cpp
+    Sprite/menusprite.cpp \
+    RenderItems/displayfield.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -63,7 +64,8 @@ HEADERS  += \
     Sprite/movingsprite.h \
     Sprite/enemysprite.h \
     Entity/enemy.h \
-    Sprite/menusprite.h
+    Sprite/menusprite.h \
+    RenderItems/displayfield.h
 
 
 

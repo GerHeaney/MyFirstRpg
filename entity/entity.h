@@ -11,6 +11,7 @@
 class Entity
 {
 public:
+    virtual ~Entity() {}
 
     virtual void setOrigin(int X, int Y) = 0;
     virtual bool GetMoving() = 0;

@@ -21,6 +21,11 @@ EnemySprite::EnemySprite(SDL_Renderer *gameRenderer, std::string path)
 
 }
 
+EnemySprite::~EnemySprite()
+{
+
+}
+
 
 void EnemySprite::accept(IVisitor *v)
 {

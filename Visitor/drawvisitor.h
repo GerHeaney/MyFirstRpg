@@ -12,6 +12,7 @@ class DrawVisitor : public IVisitor
 {
 public:
     DrawVisitor();
+    ~DrawVisitor();
     void visit(ISprite * sprite);
     void visit(CSprite * sprite);
     void visit(BackgroundSprite * sprite);

@@ -10,6 +10,11 @@ DrawVisitor::DrawVisitor()
 
 }
 
+DrawVisitor::~DrawVisitor()
+{
+
+}
+
 void DrawVisitor::visit(ISprite *sprite)
 {
     printf("Hello from base");

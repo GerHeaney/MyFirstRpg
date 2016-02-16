@@ -14,6 +14,7 @@
 class ISprite
 {
 public:
+    virtual ~ISprite() {}
     virtual void accept(IVisitor* v)= 0;
 
     virtual SDL_Surface *getSurface() const =0;

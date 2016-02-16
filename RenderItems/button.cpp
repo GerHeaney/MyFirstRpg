@@ -1,9 +1,8 @@
 #include "button.h"
 
-Button::Button(SDL_setup *passedSetup, std::string path)
+Button::Button( std::string path)
 {
     buttonPath = path;
-    setup = passedSetup;
 
 
 
@@ -11,7 +10,7 @@ Button::Button(SDL_setup *passedSetup, std::string path)
 
 
 }
-void Button::Init()
+void Button::Init(SDL_setup *setup)
 {
     surface = IMG_Load(buttonPath.c_str());
     mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
@@ -27,7 +26,7 @@ Button::~Button()
 {
     SDL_DestroyTexture(mTexture);
     SDL_DestroyTexture(selectedTexture);
-    delete surface;
+
 }
 
 void Button::setPosition( int x, int y )
@@ -38,7 +37,7 @@ void Button::setPosition( int x, int y )
 
 
 }
-void Button::handleEvent()
+void Button::handleEvent(SDL_setup *setup)
 {
 
      //Get mouse position
@@ -73,7 +72,7 @@ void Button::handleEvent()
         if( !inside )
         {
             selectedTexture = NULL;
-            render();
+            render(setup);
 
         }
         //Mouse is inside button
@@ -113,7 +112,7 @@ void Button::handleEvent()
     }
 }
 
-void Button::render()
+void Button::render(SDL_setup *setup)
 {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {  mPosition.x,  mPosition.y, mWidth, mHeight };

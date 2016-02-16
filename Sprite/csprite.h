@@ -10,7 +10,7 @@
 
 
 
-class CSprite : public ISprite
+class CSprite
 
 {
 public:
@@ -76,10 +76,10 @@ private:
 
     int frameX;
     int frameY;
-//    SDL_Surface * surface;
-//    SDL_Texture * image;
-//    SDL_Rect rect;
-//    SDL_Renderer *renderer;
+    SDL_Surface * surface;
+    SDL_Texture * image;
+    SDL_Rect rect;
+    SDL_Renderer *renderer;
     SDL_Rect crop;
 
 

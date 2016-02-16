@@ -12,6 +12,7 @@ class MovingSprite: public ISprite
 {
 public:
     MovingSprite(SDL_Renderer *gameRenderer, std::string path);
+    ~MovingSprite();
     virtual void accept(IVisitor* v);
 
     virtual SDL_Surface *getSurface() const;

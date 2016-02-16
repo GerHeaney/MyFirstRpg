@@ -6,6 +6,7 @@ class BackgroundSprite : ISprite
 {
 public:
     BackgroundSprite(SDL_Renderer *gameRenderer, std::string path);
+    ~BackgroundSprite();
     virtual void accept(IVisitor* v);
 
     virtual SDL_Surface *getSurface() const;

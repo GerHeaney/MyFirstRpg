@@ -4,7 +4,7 @@ MenuSprite::MenuSprite(SDL_Renderer *gameRenderer, std::string path)
 {
     renderer = gameRenderer;
     surface = IMG_Load(path.c_str());
-    image = SDL_CreateTextureFromSurface(renderer,surface);
+    image = SDL_CreateTextureFromSurface(gameRenderer,surface);
 
         if(image == NULL)
         {
@@ -18,6 +18,11 @@ MenuSprite::MenuSprite(SDL_Renderer *gameRenderer, std::string path)
 
 
         posRect = {0,0,surface->w,surface->h};
+
+}
+
+MenuSprite::~MenuSprite()
+{
 
 }
 

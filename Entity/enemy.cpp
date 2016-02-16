@@ -14,6 +14,12 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 
 }
 
+Enemy::~Enemy()
+{
+    delete setup;
+    delete enemySprite;
+}
+
 
 void Enemy::setSprite(EnemySprite *value)
 {

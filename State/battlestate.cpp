@@ -1,4 +1,5 @@
 #include "battlestate.h"
+#include "State/fieldstate.h"
 
 
 BattleState BattleState::battle;
@@ -6,6 +7,7 @@ BattleState BattleState::battle;
 void BattleState::Init(GameEngine *game)
 {
 
+    std::cout <<"got here" << std::endl;
 
     menu = new MenuSprite(game->getRenderer(),"resources/Battle/menu.png");
     background = new BackgroundSprite(game->getRenderer(),"resources/Battle/battle.png");
@@ -47,6 +49,10 @@ void BattleState::Draw(GameEngine *game)
 }
 void BattleState::Update(GameEngine *game)
 {
+    if(Attack->getPressed() == true)
+    {
+        game->PopState();
+    }
 
 
 
@@ -67,6 +73,11 @@ void BattleState::Resume()
 }
 void BattleState::Cleanup()
 {
+//    delete menu;
+//    delete enemy;
+//    delete Attack;
+//    delete Ability;
+//    delete Item;
 
 
 }

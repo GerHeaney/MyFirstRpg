@@ -7,21 +7,30 @@ FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::strin
     path = passedPath;
     text = drawText;
     textColor = { 250, 250, 250 };
-    surface = TTF_RenderText_Solid( gameFont, text.c_str(),textColor );
-    if( surface == NULL )
-    {
-        printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
-    }
+
+
    // mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
 
     pressed = false;
 
 
 }
+
+FontButton::~FontButton()
+{
+//    delete gameFont;
+//    delete setup;
+//    delete mTexture;
+}
 void FontButton::setPosition( int x, int y )
 {
     mPosition.x = x;
     mPosition.y = y;
+}
+
+bool FontButton::getPressed() const
+{
+    return pressed;
 }
 
 
@@ -30,6 +39,10 @@ void FontButton::Draw(int X , int Y)
 {
 
     SDL_Surface * asurf = TTF_RenderText_Solid( gameFont, text.c_str(),textColor );
+    if( asurf == NULL )
+    {
+        printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+    }
     SDL_Texture * TT = SDL_CreateTextureFromSurface(setup->getRenderer(),asurf);
 
     setPosition(X,Y);
@@ -113,6 +126,6 @@ void FontButton::handleEvent()
 }
 void FontButton::free()
 {
-    SDL_FreeSurface(surface);
+
     SDL_DestroyTexture(mTexture);
 }

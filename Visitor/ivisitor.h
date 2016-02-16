@@ -16,6 +16,7 @@ class MenuSprite;
 class IVisitor
 {
 public:
+    virtual ~IVisitor(){}
     virtual void visit(ISprite * sprite)= 0;
     virtual void visit(CSprite * sprite) = 0;
     virtual void visit(BackgroundSprite * sprite) = 0;

@@ -8,13 +8,13 @@ IntroState IntroState::intro;
 void IntroState::Init(GameEngine *game)
 {
   menu = new BackgroundSprite(game->getRenderer(),"resources/MainMenu/mainmenu.png");
-  drawer = new DrawVisitor();
-  nButton = new Button(game->getSetup(),"resources/MainMenu/new.png");
-  lButton = new Button(game->getSetup(),"resources/MainMenu/load.png");
-  qButton = new Button(game->getSetup(),"resources/MainMenu/quit.png");
-  nButton->Init();
-  lButton->Init();
-  qButton->Init();
+
+  nButton = new Button("resources/MainMenu/new.png");
+  lButton = new Button("resources/MainMenu/load.png");
+  qButton = new Button("resources/MainMenu/quit.png");
+  nButton->Init(game->getSetup());
+  lButton->Init(game->getSetup());
+  qButton->Init(game->getSetup());
   nButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (nButton->getHeight()*3) );
   lButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - (lButton->getHeight()*2) );
   qButton->setPosition(game->getScreenWidth()/3 + 100, game->getScreenHeight() - 100 - qButton->getHeight());
@@ -35,12 +35,13 @@ void IntroState::Init(GameEngine *game)
 
 void IntroState::Draw(GameEngine *game)
 {
+    DrawVisitor visitor;
 
 
-    menu->accept(drawer);
-    nButton->render();
-    lButton->render();
-    qButton->render();
+    menu->accept(&visitor);
+    nButton->render(game->getSetup());
+    lButton->render(game->getSetup());
+    qButton->render(game->getSetup());
 
 
 
@@ -54,12 +55,12 @@ void IntroState::Update(GameEngine *game)
 }
 void IntroState::HandleEvents(GameEngine *game)
 {
-    nButton->handleEvent();
-    lButton->handleEvent();
-    qButton->handleEvent();
+    nButton->handleEvent(game->getSetup());
+    lButton->handleEvent(game->getSetup());
+    qButton->handleEvent(game->getSetup());
     if(nButton->getPressed() == true)
     {
-        game->ChangeState(FieldState::Instance());
+        game->PushState(FieldState::Instance());
     }
     if(qButton->getPressed() == true)
     {
@@ -79,6 +80,9 @@ void IntroState::Resume()
 void IntroState::Cleanup()
 {
     std::cout << "reached the cleanup" << std::endl;
-    delete nButton;
+//    delete nButton;
+//    //delete menu;
+//    delete lButton;
+//    delete qButton;
 
 }

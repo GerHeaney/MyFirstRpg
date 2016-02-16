@@ -17,7 +17,7 @@ public:
 
 
 
-    IVisitor * drawer;
+
     void Init(GameEngine* game) ;
     void Update(GameEngine* game);
     void Draw(GameEngine* game);

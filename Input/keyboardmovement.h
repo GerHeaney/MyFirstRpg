@@ -14,11 +14,13 @@ class KeyboardMovement
 {
 public:
     KeyboardMovement(SDL_setup * setup, Entity *passedPlayer,int width,int height);
-    void Move();
+    ~KeyboardMovement();
+    void Move(SDL_setup * setup);
+    void Stop();
 
 private:
 
-    SDL_setup * setup;
+
     MainCharacter * player;
     int x;
     int y;

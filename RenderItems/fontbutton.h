@@ -14,6 +14,7 @@ class FontButton
 {
 public:
     FontButton(SDL_setup *passedSetup, std::string passedPath, std::string drawText) ;
+    ~FontButton();
     void Draw(int X, int Y);
     void handleEvent();
     void setPosition(int X, int Y);
@@ -21,12 +22,13 @@ public:
 
     std::string path;
 
+    bool getPressed() const;
+
 private:
     bool pressed;
     SDL_Point mPosition;
     SDL_setup * setup;
     SDL_Rect  button;
-    SDL_Surface * surface;
     SDL_Texture* mTexture;
     TTF_Font * gameFont;
      SDL_Rect outlineRect;

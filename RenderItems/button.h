@@ -13,18 +13,18 @@ class Button
 {
 
     public:
-        Button(SDL_setup * passedSetup, std::string path);
-        void Init();
+        Button(std::string path);
+        void Init(SDL_setup *setup);
         void setPosition( int x, int y );
         ~Button();
-        void handleEvent();
+        void handleEvent(SDL_setup *setup);
         bool loadFromFile( std::string path );
         int getWidth();
         int getHeight();
         void free();
         std::string buttonPath;
         void Update();
-        void render();
+        void render(SDL_setup *setup);
 
         bool getPressed() const;
         void setPressed(bool value);

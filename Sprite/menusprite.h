@@ -5,7 +5,9 @@
 class MenuSprite : public ISprite
 {
 public:
+
     MenuSprite(SDL_Renderer *gameRenderer, std::string path);
+    ~MenuSprite();
     virtual void accept(IVisitor* v);
 
     virtual SDL_Surface *getSurface() const;

@@ -21,6 +21,11 @@ BackgroundSprite::BackgroundSprite(SDL_Renderer *gameRenderer, std::string path)
 
 }
 
+BackgroundSprite::~BackgroundSprite()
+{
+
+}
+
 void BackgroundSprite::accept(IVisitor *v)
 {
     v->visit(this);

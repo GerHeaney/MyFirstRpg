@@ -6,21 +6,23 @@ BattleState BattleState::battle;
 
 void BattleState::Init(GameEngine *game)
 {
+    battleSystem = new BattleSystem();
 
-    std::cout <<"got here" << std::endl;
+
 
     menu = new MenuSprite(game->getRenderer(),"resources/Battle/menu.png");
     background = new BackgroundSprite(game->getRenderer(),"resources/Battle/battle.png");
 
     enemy = new Enemy(game->getSetup(),"Old Hermit","resources/Battle/Hermit2.png");
+    enemies.push_back(enemy);
             //new Entity(game->getSetup(),game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.5,"Hermit","resources/Battle/Hermit2.png");
-    player = game->getParty().front();
+   // player = game->getParty().front();
 
 
-    player->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-game->getScreenHeight()/3);
+    game->getParty().front()->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-game->getScreenHeight()/3);
 
-    enemy->setOrigin(game->getScreenWidth()/4,game->getScreenHeight() - game->getScreenHeight()*0.4);
-    player->getSprite()->setInitFrame(0,1);
+    enemies.front()->setOrigin(game->getScreenWidth()/4,game->getScreenHeight() - game->getScreenHeight()*0.4);
+    game->getParty().front()->getSprite()->setInitFrame(0,1);
     background->setSize(game->getScreenWidth(),game->getScreenHeight());
 
     menu->setSize(0,game->getScreenHeight()-menu->getRect().h ,game->getScreenWidth(),menu->getRect().h);
@@ -31,7 +33,7 @@ void BattleState::Init(GameEngine *game)
     enemyField.Init();
     playerField.setPosition(game->getScreenWidth()/2 + 20,game->getScreenHeight()-menu->getRect().h+ 100);
     enemyField.setPosition(game->getScreenWidth()/8 + 20,game->getScreenHeight()-menu->getRect().h+ 100);
-    playerField.setText(player->getBattleStats());
+    playerField.setText(game->getParty().front()->getBattleStats());
     enemyField.setText(enemy->getBattleStats());
 
 
@@ -44,8 +46,8 @@ void BattleState::Draw(GameEngine *game)
 {
     DrawVisitor visitor;
     background->accept(&visitor);
-    enemy->getSprite()->accept(&visitor);
-    player->getSprite()->accept(&visitor);
+    enemies.front()->getSprite()->accept(&visitor);
+    game->getParty().front()->getSprite()->accept(&visitor);
     menu->accept(&visitor);
 
     Attack->Draw(20,game->getScreenHeight()-160);
@@ -59,22 +61,33 @@ void BattleState::Update(GameEngine *game)
 {
 
 
-    playerField.setText(player->getBattleStats());
-    enemyField.setText(enemy->getBattleStats());
-    if(Attack->getPressed() == true)
+    playerField.setText(game->getParty().front()->getBattleStats());
+    enemyField.setText(enemies.front()->getBattleStats());
+    Attack->setPressed(false);
+    battleSystem->updateBattle(enemies,game->getParty());
+    if(battleSystem->getWinBattle() == true)
     {
+        std::cout <<" You won the battle";
         game->PopState();
     }
 
-    player->setCurrentHealth(player->getCurrentHealth() -1);
+
+
+
 
 
 }
 void BattleState::HandleEvents(GameEngine *game)
 {
+
     Attack->handleEvent();
     Ability->handleEvent();
     Item->handleEvent();
+    if(Attack->getPressed() == true)
+    {
+       game->getParty().front()->attack(enemies.front());
+
+    }
 }
 void BattleState::Pause()
 {

@@ -11,6 +11,7 @@
 #include "Visitor/drawvisitor.h"
 #include "Entity/enemy.h"
 #include "RenderItems/displayfield.h"
+#include "GameSetup/battlesystem.h"
 #include <time.h>
 
 
@@ -34,6 +35,8 @@ protected:
     BattleState() {}
 
 private:
+    std::vector<Enemy*> enemies;
+    BattleSystem * battleSystem;
     DisplayField playerField;
     DisplayField enemyField;
     FontButton * Attack;
@@ -46,7 +49,7 @@ private:
     BackgroundSprite * background;
     Enemy * enemy;
     MenuSprite * menu;
-    MainCharacter * player;
+    Entity * player;
     SDL_Rect camera;
 
 };

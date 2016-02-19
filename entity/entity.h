@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "GameSetup/sdl_setup.h"
+#include "Sprite/isprite.h"
 
 
 class Entity
@@ -35,6 +36,7 @@ public:
 
     virtual int getCurrentHealth() const = 0;
     virtual void setCurrentHealth(int value) = 0;
+    virtual ISprite * getSprite()=0;
 
 protected:
     bool isMoving;

@@ -20,6 +20,7 @@ public:
 
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
+    virtual void setPosition(int X, int Y);
     void setSize(int w, int h);
 
 private:

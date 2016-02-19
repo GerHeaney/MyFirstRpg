@@ -78,6 +78,8 @@ void Button::handleEvent(SDL_setup *setup)
         //Mouse is inside button
         else
         {
+           // while(SDL_PollEvent(setup->getMainEvent()) != 0)
+
             //Set mouse over sprite
             switch( setup->getMainEvent()->type )
             {
@@ -108,6 +110,7 @@ void Button::handleEvent(SDL_setup *setup)
 
                 break;
             }
+
 
     }
 }

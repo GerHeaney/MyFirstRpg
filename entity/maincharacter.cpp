@@ -10,8 +10,9 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
 
     playerSprite = new MovingSprite(setup->getRenderer(),path.c_str());
     playerSprite->setupAnimation(4,4);
-    currentHealth = 249;
+    currentHealth = 300;
     maxHealth = 300;
+    attackDamage = 50;
 
 }
 MainCharacter::~MainCharacter()
@@ -119,5 +120,15 @@ int MainCharacter::getCurrentHealth() const
 void MainCharacter::setCurrentHealth(int value)
 {
     currentHealth = value;
+}
+
+void MainCharacter::attack(Entity *enemy)
+{
+    enemy->setCurrentHealth(enemy->getCurrentHealth() - attackDamage);
+
+    if(enemy->getCurrentHealth() <=0)
+    {
+        enemy->setCurrentHealth(0);
+    }
 }
 

@@ -72,6 +72,12 @@ void MenuSprite::setRenderer(SDL_Renderer *value)
     renderer = value;
 }
 
+void MenuSprite::setPosition(int X, int Y)
+{
+    posRect.x = X;
+    posRect.y = Y;
+}
+
 void MenuSprite::setSize(int x, int y, int w, int h)
 {
     posRect.x = x;

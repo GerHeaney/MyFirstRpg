@@ -31,6 +31,7 @@ public:
 
     virtual int getCurrentHealth() const;
     virtual void setCurrentHealth(int value);
+    virtual void attack(Entity * player);
 
 private:
     EnemySprite * enemySprite;

@@ -24,6 +24,8 @@ public:
 
     bool getPressed() const;
 
+    void setPressed(bool value);
+
 private:
     bool pressed;
     SDL_Point mPosition;

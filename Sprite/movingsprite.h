@@ -26,7 +26,7 @@ public:
 
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
-    void setPosition(int X, int Y);
+    virtual void setPosition(int X, int Y);
     void setOrigin(int X, int Y);
     int getX() const;
     void setX(int value);

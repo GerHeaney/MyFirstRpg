@@ -72,6 +72,11 @@ void BackgroundSprite::setRenderer(SDL_Renderer *value)
     renderer = value;
 }
 
+void BackgroundSprite::setPosition(int X, int Y)
+{
+
+}
+
 void BackgroundSprite::setSize(int w, int h)
 {
 

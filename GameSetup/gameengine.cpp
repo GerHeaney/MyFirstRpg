@@ -161,18 +161,7 @@ void GameEngine::GameLoop()
         setup->Begin();
         HandleEvents();
         Update();
-        Draw();
-        /*
-        player->setCamera();
-        camera = player->getCamera();
-        stage1->DrawBack(&camera);
-        player->Draw();
-        intro->Draw(this);
-        stage1->DrawFront(&camera);
-        keyMove->Move(setup,belf);
-        keyMove->Move();
-        mouseMove->Move();
-        */
+        Draw();     
         setup->End();
 
     }

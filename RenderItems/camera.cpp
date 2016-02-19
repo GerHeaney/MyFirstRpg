@@ -56,8 +56,8 @@ void Camera::setCamera(int x, int y, BackgroundSprite *stage)
 {
     camera.x = int( x + 32 / 2  - camera.w / 2);
     camera.y = int( y + 48 / 2  - camera.h / 2) ;
-    std::cout <<"camera x is " << camera.x << std::endl;
-    std::cout <<"camera y is " << camera.y << std::endl;
+//    std::cout <<"camera x is " << camera.x << std::endl;
+//    std::cout <<"camera y is " << camera.y << std::endl;
 
 
 

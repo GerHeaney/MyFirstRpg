@@ -33,6 +33,11 @@ bool FontButton::getPressed() const
     return pressed;
 }
 
+void FontButton::setPressed(bool value)
+{
+    pressed = value;
+}
+
 
 
 void FontButton::Draw(int X , int Y)
@@ -63,6 +68,7 @@ void FontButton::SetTextColour(int Red, int Green, int Blue)
 
 void FontButton::handleEvent()
 {
+
 
     //Get mouse position
        int x, y;
@@ -102,6 +108,7 @@ void FontButton::handleEvent()
        else
        {
 
+
            //Set mouse over sprite
            switch( setup->getMainEvent()->type )
            {
@@ -113,14 +120,23 @@ void FontButton::handleEvent()
                     // button pressed
                case SDL_MOUSEBUTTONDOWN:             
                SetTextColour(50,50,50);
+               if(pressed == true)
+               {
+                   pressed = false;
+                   break;
+               }else{
+                   SDL_Delay(200);
+                   pressed = true;
+               }
                break;
 
                    // button released
                case SDL_MOUSEBUTTONUP:           
                SetTextColour(150,150,150);
-               pressed = true;
                break;
            }
+
+
 
    }
 }

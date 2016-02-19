@@ -10,8 +10,9 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
    setup = gameSetup;
 
    enemySprite = new EnemySprite(setup->getRenderer(),path.c_str());
-   currentHealth = 249;
+   currentHealth = 300;
    maxHealth = 300;
+   attackDamage = 30;
 
 
 }
@@ -60,6 +61,15 @@ int Enemy::getCurrentHealth() const
 void Enemy::setCurrentHealth(int value)
 {
     currentHealth = value;
+}
+
+void Enemy::attack(Entity *player)
+{
+    player->setCurrentHealth(player->getCurrentHealth() - attackDamage);
+    if(player->getCurrentHealth() <=0)
+    {
+        player->setCurrentHealth(0);
+    }
 }
 
 

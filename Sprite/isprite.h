@@ -28,6 +28,7 @@ public:
 
     virtual SDL_Renderer *getRenderer() const = 0;
     virtual void setRenderer(SDL_Renderer *value) = 0;
+    virtual void setPosition(int X, int Y) = 0;
 
 protected:
     SDL_Surface * surface;

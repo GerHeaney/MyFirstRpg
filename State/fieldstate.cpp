@@ -11,11 +11,11 @@ void FieldState::Init(GameEngine *game)
     player->setOrigin(0,0);
     srand(time(NULL));
     x =10;
-    std::cout << x;
+ //   std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
     player->getSprite()->setY(0);
-    std::cout <<" got to end of field init" << std::endl;
+ //   std::cout <<" got to end of field init" << std::endl;
 
 
 
@@ -26,7 +26,7 @@ void FieldState::Draw(GameEngine *game)
 
     stage1->accept(&visitor);
     player->getSprite()->accept(&visitor);
-    std::cout <<" got to end of field draw" << std::endl;
+ //   std::cout <<" got to end of field draw" << std::endl;
 
 }
 void FieldState::Update(GameEngine *game)
@@ -41,17 +41,17 @@ void FieldState::Update(GameEngine *game)
         x = 1;
         game->PushState(BattleState::Instance());
     }
-    std::cout <<" got to end of field update" << std::endl;
+//    std::cout <<" got to end of field update" << std::endl;
 }
 void FieldState::HandleEvents(GameEngine *game)
 {
     if(player->GetMoving() == true)
     {
-        std::cout << x << std::endl;
+ //       std::cout << x << std::endl;
         x = rand() % 500 + 1;
 
     }
-    std::cout <<" got to end of handle events" << std::endl;
+//    std::cout <<" got to end of handle events" << std::endl;
 
     move->Move(game->getSetup());
 
@@ -68,7 +68,7 @@ void FieldState::Resume()
 }
 void FieldState::Cleanup()
 {
-    std::cout <<" got to  field cleanup" << std::endl;
+//    std::cout <<" got to  field cleanup" << std::endl;
 //   delete stage1;
 //   delete move;
 

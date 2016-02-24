@@ -28,7 +28,8 @@ MovingSprite::MovingSprite(SDL_Renderer *gameRenderer, std::string path)
 
 MovingSprite::~MovingSprite()
 {
-
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(image);
 }
 void MovingSprite::accept(IVisitor *v)
 {
@@ -152,5 +153,6 @@ void MovingSprite::playAnimation(int startFrame, int endFrame,int row, float spe
         rect.w = surface->w/frameX;
         rect.h = surface->h/frameY;
         frameSpeed = SDL_GetTicks();
+
     }
 }

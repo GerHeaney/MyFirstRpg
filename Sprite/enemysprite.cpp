@@ -23,7 +23,8 @@ EnemySprite::EnemySprite(SDL_Renderer *gameRenderer, std::string path)
 
 EnemySprite::~EnemySprite()
 {
-
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(image);
 }
 
 
@@ -55,7 +56,7 @@ void EnemySprite::setImage(SDL_Texture *value)
 
 SDL_Rect EnemySprite::getRect() const
 {
-    std::cout << "get enemt sprite x and y location is " << rect.x << " and " << rect.y << std::endl;
+  //  std::cout << "get enemt sprite x and y location is " << rect.x << " and " << rect.y << std::endl;
 
     return rect;
 }

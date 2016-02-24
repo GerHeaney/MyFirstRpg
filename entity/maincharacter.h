@@ -43,9 +43,13 @@ public:
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * enemy);
 
+    bool getCanAttack() const;
+    void setCanAttack(bool value);
+
 private:
 
     bool isMoving;
+    bool canAttack;
 
     MovingSprite * playerSprite;
 

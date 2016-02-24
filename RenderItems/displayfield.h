@@ -7,6 +7,7 @@ class DisplayField
 {
 public:
     DisplayField();
+    ~DisplayField();
     void Init();
     void Display(SDL_setup *setup);
     void setPosition(int x, int y);
@@ -15,7 +16,7 @@ public:
 private:
     int xPos;
     int yPos;
-    SDL_Rect  button; 
+    SDL_Rect  button;
     TTF_Font * gameFont; 
     std::string text;
     SDL_Color textColor;

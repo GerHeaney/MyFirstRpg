@@ -19,8 +19,8 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 
 Enemy::~Enemy()
 {
-    delete setup;
-    delete enemySprite;
+   // delete setup;
+    //delete enemySprite;
 }
 
 
@@ -70,6 +70,16 @@ void Enemy::attack(Entity *player)
     {
         player->setCurrentHealth(0);
     }
+}
+
+bool Enemy::getCanAttack() const
+{
+    return canAttack;
+}
+
+void Enemy::setCanAttack(bool value)
+{
+    canAttack = value;
 }
 
 

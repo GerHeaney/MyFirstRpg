@@ -60,7 +60,7 @@ public:
     Camera *getGameCamera() const;
     void setGameCamera(Camera *value);
 
-    std::vector<MainCharacter *> getParty() const;
+    std::vector<MainCharacter *> *getParty();
 
 private:
     float cameraX;

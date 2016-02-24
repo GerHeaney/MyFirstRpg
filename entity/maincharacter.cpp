@@ -132,3 +132,13 @@ void MainCharacter::attack(Entity *enemy)
     }
 }
 
+bool MainCharacter::getCanAttack() const
+{
+    return canAttack;
+}
+
+void MainCharacter::setCanAttack(bool value)
+{
+    canAttack = value;
+}
+

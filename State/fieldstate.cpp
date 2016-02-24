@@ -5,6 +5,7 @@ FieldState FieldState::field;
 
 void FieldState::Init(GameEngine *game)
 {
+    std::cout <<" got to  field init" << std::endl;
     stage1 = new BackgroundSprite(game->getSetup()->getRenderer(),"resources/map.png");
             //new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
     player = game->getPlayer();
@@ -62,15 +63,17 @@ void FieldState::Pause()
 }
 void FieldState::Resume()
 {
+    std::cout <<" got to  field resume" << std::endl;
+
     move->Stop();
     player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
 
 }
 void FieldState::Cleanup()
 {
-//    std::cout <<" got to  field cleanup" << std::endl;
-//   delete stage1;
-//   delete move;
+    std::cout <<" got to  field cleanup" << std::endl;
+   delete stage1;
+   delete move;
 
 }
 

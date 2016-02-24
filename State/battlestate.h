@@ -28,6 +28,7 @@ public:
     void Resume();
 
     void Draw();
+    void chooseEnemy(GameEngine *game);
     static BattleState * Instance() {
         return &battle;
     }
@@ -35,10 +36,14 @@ protected:
     BattleState() {}
 
 private:
+     MovingSprite* attackanim;
+    DrawVisitor *visitor;
     std::vector<Enemy*> enemies;
     BattleSystem * battleSystem;
-    DisplayField playerField;
-    DisplayField enemyField;
+    DisplayField * playerField;
+    DisplayField * enemyField;
+    MenuSprite *battleMenu;
+    MenuSprite * selected;
     FontButton * Attack;
     FontButton * Ability;
     FontButton * Item;

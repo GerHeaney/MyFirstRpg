@@ -11,7 +11,7 @@ class BattleSystem
 public:
     BattleSystem();
     void updateBattle(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party);
-    void setAttacks();
+    void setAttacks(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party);
     void executeAttacks();
     void endBattle();
 
@@ -19,10 +19,16 @@ public:
 
     bool getLostBattle() const;
 
+    bool getPlayerTurn() const;
+    void setPlayerTurn(bool value);
+
 private:
-    bool turn;
+    bool playerTurn;
     bool winBattle;
     bool lostBattle;
+    std::vector<Enemy *> enemies;
+    std::vector<MainCharacter *> party;
+
 
 
 

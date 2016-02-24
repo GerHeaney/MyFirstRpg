@@ -146,9 +146,9 @@ void GameEngine::setGameCamera(Camera *value)
     gameCamera = value;
 }
 
-std::vector<MainCharacter *> GameEngine::getParty() const
+std::vector<MainCharacter *> * GameEngine::getParty()
 {
-    return party;
+    return &party;
 }
 
 
@@ -159,9 +159,11 @@ void GameEngine::GameLoop()
     while(running && setup->getMainEvent()->type !=SDL_QUIT)
     {
         setup->Begin();
-        HandleEvents();
+
+
+        Draw();
         Update();
-        Draw();     
+        HandleEvents();
         setup->End();
 
     }

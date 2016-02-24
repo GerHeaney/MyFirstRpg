@@ -2,7 +2,7 @@
 
 FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::string drawText)
 {
-    gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
+
     setup = passedSetup;
     path = passedPath;
     text = drawText;
@@ -18,9 +18,10 @@ FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::strin
 
 FontButton::~FontButton()
 {
-//    delete gameFont;
-//    delete setup;
-//    delete mTexture;
+ //   TTF_CloseFont(gameFont);
+
+
+
 }
 void FontButton::setPosition( int x, int y )
 {
@@ -42,8 +43,9 @@ void FontButton::setPressed(bool value)
 
 void FontButton::Draw(int X , int Y)
 {
-
+    TTF_Font * gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
     SDL_Surface * asurf = TTF_RenderText_Solid( gameFont, text.c_str(),textColor );
+
     if( asurf == NULL )
     {
         printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -59,6 +61,7 @@ void FontButton::Draw(int X , int Y)
     SDL_RenderCopy( setup->getRenderer(),TT, &button, &renderQuad);
     SDL_FreeSurface(asurf);
     SDL_DestroyTexture(TT);
+    TTF_CloseFont(gameFont);
 
 }
 void FontButton::SetTextColour(int Red, int Green, int Blue)
@@ -143,5 +146,4 @@ void FontButton::handleEvent()
 void FontButton::free()
 {
 
-    SDL_DestroyTexture(mTexture);
 }

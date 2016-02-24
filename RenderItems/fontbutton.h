@@ -30,14 +30,12 @@ private:
     bool pressed;
     SDL_Point mPosition;
     SDL_setup * setup;
-    SDL_Rect  button;
-    SDL_Texture* mTexture;
-    TTF_Font * gameFont;
-     SDL_Rect outlineRect;
-     std::string text;
-     SDL_Color textColor;
-     void SetTextColour(int Red,int Green,int Blue);
-     void free();
+    SDL_Rect  button;  
+    SDL_Rect outlineRect;
+    std::string text;
+    SDL_Color textColor;
+    void SetTextColour(int Red,int Green,int Blue);
+    void free();
 
 
 };

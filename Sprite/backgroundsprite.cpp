@@ -23,7 +23,8 @@ BackgroundSprite::BackgroundSprite(SDL_Renderer *gameRenderer, std::string path)
 
 BackgroundSprite::~BackgroundSprite()
 {
-
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(image);
 }
 
 void BackgroundSprite::accept(IVisitor *v)

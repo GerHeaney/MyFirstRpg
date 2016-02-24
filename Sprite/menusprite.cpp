@@ -23,7 +23,8 @@ MenuSprite::MenuSprite(SDL_Renderer *gameRenderer, std::string path)
 
 MenuSprite::~MenuSprite()
 {
-
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(image);
 }
 
 void MenuSprite::accept(IVisitor *v)

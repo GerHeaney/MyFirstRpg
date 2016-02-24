@@ -32,6 +32,7 @@ void KeyboardMovement::Move(SDL_setup * setup)
     y = player->getSprite()->getY();
 
 
+
     switch(setup->getMainEvent()->type)
     {
     case SDL_KEYDOWN:

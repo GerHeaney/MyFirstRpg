@@ -33,8 +33,12 @@ public:
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * player);
 
+    bool getCanAttack() const;
+    void setCanAttack(bool value);
+
 private:
     EnemySprite * enemySprite;
+    bool canAttack;
 
 
 

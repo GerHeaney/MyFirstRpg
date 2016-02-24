@@ -2,13 +2,20 @@
 
 DisplayField::DisplayField()
 {
+    gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
+    textColor = { 250, 250, 250 };
+}
+
+DisplayField::~DisplayField()
+{
+    //delete gameFont;
+    TTF_CloseFont(gameFont);
 
 }
 void DisplayField::Init()
 {
-    gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
-    textColor = { 250, 250, 250 };
-    text = "here";
+
+
 }
 
 void DisplayField::Display(SDL_setup * setup)
@@ -43,5 +50,5 @@ void DisplayField::setPosition(int x, int y)
 void DisplayField::setText(std::string item1, std::string item2)
 {
     text = (item1 + " " + item2);
-    std::cout << text << std::endl;
+   // std::cout << text << std::endl;
 }

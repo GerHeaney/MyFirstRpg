@@ -4,6 +4,8 @@
 Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 {
     isMoving = false;
+    selected = false;
+    canAttack = false;
     name = passedName;
 
 
@@ -71,6 +73,79 @@ void Enemy::attack(Entity *player)
         player->setCurrentHealth(0);
     }
 }
+void Enemy::isSelected()
+{
+
+
+
+    //Get mouse position
+       int x, y;
+       SDL_GetMouseState( &x, &y );
+
+       //Check if mouse is in button
+       bool inside = true;
+
+       //Mouse is left of the button
+       if( x < enemySprite->getPosRect().x )
+       {
+           inside = false;
+       }
+       //Mouse is right of the button
+       else if( x >enemySprite->getPosRect().x + enemySprite->getPosRect().w )
+       {
+           inside = false;
+       }
+       //Mouse above the button
+       else if( y < enemySprite->getPosRect().y )
+       {
+           inside = false;
+       }
+       //Mouse below the button
+       else if( y > enemySprite->getPosRect().y + enemySprite->getPosRect().h )
+       {
+           inside = false;
+       }
+
+       //Mouse is outside button
+       if( !inside )
+       {
+
+       }
+       //Mouse is inside button
+       else
+       {
+          // while(SDL_PollEvent(setup->getMainEvent()) != 0)
+
+           //Set mouse over sprite
+           switch( setup->getMainEvent()->type )
+           {
+               case SDL_MOUSEMOTION:
+             std::cout <<" Over enemy " << std::endl;
+
+
+               break;
+
+               case SDL_MOUSEBUTTONDOWN:
+               // button pressed
+               std::cout <<"pressed" << std::endl;
+
+
+
+               break;
+
+               case SDL_MOUSEBUTTONUP:
+               std::cout <<"released" << std::endl;
+
+
+               selected = true;
+
+               break;
+           }
+
+
+   }
+
+}
 
 bool Enemy::getCanAttack() const
 {
@@ -80,6 +155,16 @@ bool Enemy::getCanAttack() const
 void Enemy::setCanAttack(bool value)
 {
     canAttack = value;
+}
+
+bool Enemy::getSelected() const
+{
+    return selected;
+}
+
+void Enemy::setSelected(bool value)
+{
+    selected = value;
 }
 
 

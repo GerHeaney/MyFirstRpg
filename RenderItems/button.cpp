@@ -44,6 +44,7 @@ void Button::handleEvent(SDL_setup *setup)
         int x, y;
         SDL_GetMouseState( &x, &y );
 
+
         //Check if mouse is in button
         bool inside = true;
 

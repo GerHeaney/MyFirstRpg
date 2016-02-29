@@ -4,6 +4,7 @@ BattleSystem::BattleSystem()
 {
 
     winBattle = false;
+    turnCount = 0;
 
 }
 
@@ -84,9 +85,55 @@ bool BattleSystem::getLostBattle() const
     return lostBattle;
 }
 
-bool BattleSystem::getPlayerTurn() const
+bool BattleSystem::getPlayerTurn(std::vector<MainCharacter *> party)
 {
-    return playerTurn;
+    for(std::vector<MainCharacter*>::iterator i = party.begin();i!=party.end();)
+    {
+
+        if((*i)->getCanAttack())
+        {
+            turnCount++;
+        }
+        i++;
+
+    }
+    if(turnCount == 0)
+    {
+        std::cout << "turns are empty" << std::endl;
+        return false;
+    }else
+    {
+        std::cout << "turn count is " << turnCount << std::endl;
+        turnCount = 0;
+        return true;
+    }
+
+
+}
+bool BattleSystem::getEnemyTurn(std::vector<Enemy *> enemies)
+{
+    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    {
+
+        if((*i)->getCanAttack())
+        {
+            turnCount++;
+        }
+        i++;
+
+    }
+    if(turnCount == 0)
+    {
+        std::cout << "turns are empty" << std::endl;
+        return false;
+    }else
+    {
+        std::cout << "turn count is " << turnCount << std::endl;
+        turnCount = 0;
+        return true;
+    }
+
+
 }
 
 void BattleSystem::setPlayerTurn(bool value)

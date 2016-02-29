@@ -19,8 +19,9 @@ public:
 
     bool getLostBattle() const;
 
-    bool getPlayerTurn() const;
+    bool getPlayerTurn(std::vector<MainCharacter *> party);
     void setPlayerTurn(bool value);
+    bool getEnemyTurn(std::vector<Enemy *> enemies);
 
 private:
     bool playerTurn;
@@ -28,6 +29,7 @@ private:
     bool lostBattle;
     std::vector<Enemy *> enemies;
     std::vector<MainCharacter *> party;
+    int turnCount;
 
 
 

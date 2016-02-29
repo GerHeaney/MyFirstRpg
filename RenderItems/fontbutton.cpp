@@ -123,19 +123,15 @@ void FontButton::handleEvent()
                     // button pressed
                case SDL_MOUSEBUTTONDOWN:             
                SetTextColour(50,50,50);
-               if(pressed == true)
-               {
-                   pressed = false;
-                   break;
-               }else{
-                   SDL_Delay(200);
+
                    pressed = true;
-               }
+
                break;
 
                    // button released
                case SDL_MOUSEBUTTONUP:           
                SetTextColour(150,150,150);
+
                break;
            }
 

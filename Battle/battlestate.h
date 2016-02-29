@@ -11,7 +11,7 @@
 #include "Visitor/drawvisitor.h"
 #include "Entity/enemy.h"
 #include "RenderItems/displayfield.h"
-#include "GameSetup/battlesystem.h"
+#include "Battle/battlesystem.h"
 #include <time.h>
 
 
@@ -28,7 +28,10 @@ public:
     void Resume();
 
     void Draw();
-    void chooseEnemy(GameEngine *game);
+    void chooseEnemy(GameEngine * game, Enemy * enemy);
+    void drawBattleMenu();
+    void PlayerTurn(GameEngine * game);
+    void EnemyTurn(GameEngine * game);
     static BattleState * Instance() {
         return &battle;
     }
@@ -42,7 +45,9 @@ private:
     BattleSystem * battleSystem;
     DisplayField * playerField;
     DisplayField * enemyField;
-    MenuSprite *battleMenu;
+    DisplayField * battleInfo;
+    MenuSprite * battleMenu;
+    MenuSprite * infoBox;
     MenuSprite * selected;
     FontButton * Attack;
     FontButton * Ability;
@@ -53,6 +58,7 @@ private:
     SDL_Rect menuRect;
     BackgroundSprite * background;
     Enemy * enemy;
+    Enemy * enemy2;
     MenuSprite * menu;
     Entity * player;
     SDL_Rect camera;

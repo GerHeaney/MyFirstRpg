@@ -6,7 +6,7 @@
 #include "State/gamestate.h"
 #include <math.h>
 #include <time.h>
-#include "State/battlestate.h"
+#include "Battle/battlestate.h"
 #include "Input/keyboardmovement.h"
 #include "Visitor/drawvisitor.h"
 

@@ -26,7 +26,6 @@ SOURCES += main.cpp \
     RenderItems/environment.cpp \
     RenderItems/fontbutton.cpp \
     RenderItems/tree.cpp \
-    State/battlestate.cpp \
     State/fieldstate.cpp \
     State/IntroState.cpp \
     RenderItems/gamerenderer.cpp \
@@ -38,7 +37,9 @@ SOURCES += main.cpp \
     Entity/enemy.cpp \
     Sprite/menusprite.cpp \
     RenderItems/displayfield.cpp \
-    GameSetup/battlesystem.cpp
+    Battle/battlestate.cpp \
+    Battle/battlesystem.cpp \
+    Battle/attack.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -51,7 +52,6 @@ HEADERS  += \
     RenderItems/environment.h \
     RenderItems/fontbutton.h \
     RenderItems/tree.h \  
-    State/battlestate.h \
     State/fieldstate.h \
     State/gamestate.h \
     State/IntroState.h \
@@ -67,7 +67,9 @@ HEADERS  += \
     Entity/enemy.h \
     Sprite/menusprite.h \
     RenderItems/displayfield.h \
-    GameSetup/battlesystem.h
+    Battle/battlestate.h \
+    Battle/battlesystem.h \
+    Battle/attack.h
 
 
 

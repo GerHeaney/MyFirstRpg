@@ -18,15 +18,18 @@ public:
 
     virtual SDL_Rect getRect() const;
     void setRect(const SDL_Rect &value);
+    void setPositionRect(int x, int y);
+
+    void setInitFrame(int startFrame,int row);
 
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
     virtual void setPosition(int X, int Y);
     void setSize(int x,int y,int w, int h);
-    SDL_Rect getPosRect() const;
+    SDL_Rect getPositionRect();
 
 private:
-    SDL_Rect posRect;
+    SDL_Rect positionRect;
 
 
 };

@@ -28,10 +28,11 @@ public:
     void Resume();
 
     void Draw();
-    void chooseEnemy(GameEngine * game, Enemy * enemy);
+    void chooseEnemy(GameEngine *game, Entity *player, Entity *enemy);
     void drawBattleMenu();
-    void PlayerTurn(GameEngine * game);
-    void EnemyTurn(GameEngine * game);
+    bool PlayerTurn(GameEngine * game);
+    bool EnemyTurn(GameEngine * game);
+    void displayMessage(GameEngine * game);
     static BattleState * Instance() {
         return &battle;
     }
@@ -41,7 +42,7 @@ protected:
 private:
      MovingSprite* attackanim;
     DrawVisitor *visitor;
-    std::vector<Enemy*> enemies;
+    std::vector<Entity*> enemies;
     BattleSystem * battleSystem;
     DisplayField * playerField;
     DisplayField * enemyField;
@@ -59,9 +60,11 @@ private:
     BackgroundSprite * background;
     Enemy * enemy;
     Enemy * enemy2;
+    Entity * pEnemy = NULL;
     MenuSprite * menu;
     Entity * player;
     SDL_Rect camera;
+    bool turnFlag;
 
 };
 

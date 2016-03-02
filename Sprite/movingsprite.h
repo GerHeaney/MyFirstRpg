@@ -34,7 +34,7 @@ public:
     int getY() const;
     void setY(int value);
 
-    SDL_Rect getPositionRect() const;
+    SDL_Rect getPositionRect() ;
     void setPositionRect(int x, int y);
 
     void setInitFrame(int startFrame,int row);

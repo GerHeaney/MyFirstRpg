@@ -43,13 +43,19 @@ public:
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * enemy);
 
-    bool getCanAttack() const;
-    void setCanAttack(bool value);
+    virtual bool getCanAttack() const;
+    virtual void setCanAttack(bool value);
+    virtual void isSelected();
+    virtual bool getSelected() const ;
+    virtual void setSelected(bool value);
+
+    bool getMouseOver() const;
+    void setMouseOver(bool value);
 
 private:
 
     bool isMoving;
-    bool canAttack;
+
 
     MovingSprite * playerSprite;
 

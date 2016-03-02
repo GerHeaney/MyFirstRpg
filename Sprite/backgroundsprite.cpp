@@ -85,3 +85,18 @@ void BackgroundSprite::setSize(int w, int h)
     rect.h = h;
 }
 
+void BackgroundSprite::setPositionRect(int x, int y)
+{
+
+}
+
+void BackgroundSprite::setInitFrame(int startFrame, int row)
+{
+
+}
+
+SDL_Rect BackgroundSprite::getPositionRect()
+{
+
+}
+

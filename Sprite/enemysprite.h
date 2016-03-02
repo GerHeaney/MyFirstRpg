@@ -22,7 +22,10 @@ public:
     virtual SDL_Renderer *getRenderer() const;
     virtual void setRenderer(SDL_Renderer *value);
     virtual void setPosition(int x, int y);
-    SDL_Rect getPosRect() const;
+    SDL_Rect getPositionRect() ;
+    void setPositionRect(int x, int y);
+
+    void setInitFrame(int startFrame,int row);
 
 private:
 

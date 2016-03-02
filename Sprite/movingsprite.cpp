@@ -99,7 +99,7 @@ void MovingSprite::setY(int value)
     YPos = value;
 }
 
-SDL_Rect MovingSprite::getPositionRect() const
+SDL_Rect MovingSprite::getPositionRect()
 {
     return positionRect;
 }

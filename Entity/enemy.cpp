@@ -6,6 +6,7 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
     isMoving = false;
     selected = false;
     canAttack = false;
+    mouseOver = false;
     name = passedName;
 
 
@@ -15,6 +16,7 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
    currentHealth = 300;
    maxHealth = 300;
    attackDamage = 30;
+
 
 
 }
@@ -86,22 +88,22 @@ void Enemy::isSelected()
        bool inside = true;
 
        //Mouse is left of the button
-       if( x < enemySprite->getPosRect().x )
+       if( x < enemySprite->getPositionRect().x )
        {
            inside = false;
        }
        //Mouse is right of the button
-       else if( x >enemySprite->getPosRect().x + enemySprite->getPosRect().w )
+       else if( x >enemySprite->getPositionRect().x + enemySprite->getPositionRect().w )
        {
            inside = false;
        }
        //Mouse above the button
-       else if( y < enemySprite->getPosRect().y )
+       else if( y < enemySprite->getPositionRect().y )
        {
            inside = false;
        }
        //Mouse below the button
-       else if( y > enemySprite->getPosRect().y + enemySprite->getPosRect().h )
+       else if( y > enemySprite->getPositionRect().y + enemySprite->getPositionRect().h )
        {
            inside = false;
        }
@@ -109,7 +111,7 @@ void Enemy::isSelected()
        //Mouse is outside button
        if( !inside )
        {
-
+           mouseOver = false;
        }
        //Mouse is inside button
        else
@@ -120,14 +122,18 @@ void Enemy::isSelected()
            switch( setup->getMainEvent()->type )
            {
                case SDL_MOUSEMOTION:
-             std::cout <<" Over enemy " << std::endl;
+             //std::cout <<" Over enemy " << std::endl;
+               mouseOver = true;
 
 
                break;
 
                case SDL_MOUSEBUTTONDOWN:
                // button pressed
-               std::cout <<"pressed" << std::endl;
+               //std::cout <<"pressed" << std::endl;
+               mouseOver = false;
+                selected = true;
+                SDL_Delay(300);
 
 
 
@@ -135,9 +141,12 @@ void Enemy::isSelected()
 
                case SDL_MOUSEBUTTONUP:
                std::cout <<"released" << std::endl;
+               mouseOver = false;
+                selected = false;
+                SDL_Delay(300);
 
 
-               selected = true;
+
 
                break;
            }
@@ -165,6 +174,16 @@ bool Enemy::getSelected() const
 void Enemy::setSelected(bool value)
 {
     selected = value;
+}
+
+bool Enemy::getMouseOver() const
+{
+    return mouseOver;
+}
+
+void Enemy::setMouseOver(bool value)
+{
+    mouseOver = value;
 }
 
 

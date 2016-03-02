@@ -10,8 +10,8 @@ class BattleSystem
 {
 public:
     BattleSystem();
-    void updateBattle(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party);
-    void setAttacks(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party);
+    void updateBattle(std::vector<Entity *> enemies, std::vector<Entity *> party);
+    void setAttacks(std::vector<Entity *> list, bool value);
     void executeAttacks();
     void endBattle();
 
@@ -19,16 +19,16 @@ public:
 
     bool getLostBattle() const;
 
-    bool getPlayerTurn(std::vector<MainCharacter *> party);
+    bool getPlayerTurn(std::vector<Entity *> party);
     void setPlayerTurn(bool value);
-    bool getEnemyTurn(std::vector<Enemy *> enemies);
+    bool getEnemyTurn(std::vector<Entity *> enemies);
 
 private:
     bool playerTurn;
     bool winBattle;
     bool lostBattle;
-    std::vector<Enemy *> enemies;
-    std::vector<MainCharacter *> party;
+    std::vector<Entity *> enemies;
+    std::vector<Entity *> party;
     int turnCount;
 
 

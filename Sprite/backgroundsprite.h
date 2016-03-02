@@ -22,8 +22,13 @@ public:
     virtual void setRenderer(SDL_Renderer *value);
     virtual void setPosition(int X, int Y);
     void setSize(int w, int h);
+    void setPositionRect(int x, int y);
+
+    void setInitFrame(int startFrame,int row);
+    virtual SDL_Rect getPositionRect();
 
 private:
+    SDL_Rect positionRect;
 
 
 

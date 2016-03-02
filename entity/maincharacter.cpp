@@ -4,6 +4,7 @@
 MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::string path)
 {
      isMoving = false;
+     canAttack = false;
      name = playerName;
 
     setup = gameSetup;
@@ -140,5 +141,30 @@ bool MainCharacter::getCanAttack() const
 void MainCharacter::setCanAttack(bool value)
 {
     canAttack = value;
+}
+
+void MainCharacter::isSelected()
+{
+
+}
+
+bool MainCharacter::getSelected() const
+{
+
+}
+
+void MainCharacter::setSelected(bool value)
+{
+
+}
+
+bool MainCharacter::getMouseOver() const
+{
+    return mouseOver;
+}
+
+void MainCharacter::setMouseOver(bool value)
+{
+    mouseOver = value;
 }
 

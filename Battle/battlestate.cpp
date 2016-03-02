@@ -10,7 +10,7 @@ void BattleState::Init(GameEngine *game)
 
 
     menu = new MenuSprite(game->getRenderer(),"resources/Battle/menu.png");
-    background = new BackgroundSprite(game->getRenderer(),"resources/Battle/battle.png");
+    background = new BackgroundSprite(game->getRenderer(),"resources/Battle/forest.png");
     selected = new MenuSprite(game->getRenderer(),"resources/Battle/select.png");
     infoBox = new MenuSprite(game->getRenderer(),"resources/Battle/infobox.png");
     enemy = new Enemy(game->getSetup(),"Old Hermit","resources/Battle/Hermit2.png");
@@ -24,24 +24,44 @@ void BattleState::Init(GameEngine *game)
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     enemies.push_back(enemy);
     enemies.push_back(enemy2);
+    turnFlag = true;
+    srand(time(NULL));
             //new Entity(game->getSetup(),game->getScreenWidth()/4,game->getScreenHeight()-menu->getHeight()*1.5,"Hermit","resources/Battle/Hermit2.png");
    // player = game->getParty().front();
 
     visitor = new DrawVisitor();
 
-    game->getParty()->back()->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-game->getScreenHeight()/3);
+    //game->getParty()->back()->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4,game->getScreenHeight()-game->getScreenHeight()/3);
 
-    int spot = 0;
-    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    int playerpos = 0;
+    for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
     {
+        (*i)->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4 - playerpos,game->getScreenHeight()-game->getScreenHeight()/3 - playerpos);
+
+        playerpos +=50;
+        i++;
+
+    }
+    int spot = 0;
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
+    {
+
+
 
       (*i)->setOrigin(game->getScreenWidth()/4 + spot,game->getScreenHeight() - game->getScreenHeight()*0.4 - spot);
         i++;
-        spot+=50;
+        spot+=(100);
+
+    }
+    for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
+    {
+        (*i)->getSprite()->setInitFrame(0,1);
+
+        i++;
 
     }
    // enemies.front()->setOrigin(game->getScreenWidth()/4,game->getScreenHeight() - game->getScreenHeight()*0.4);
-    game->getParty()->front()->getSprite()->setInitFrame(0,1);
+   // game->getParty()->front()->getSprite()->setInitFrame(0,1);
     background->setSize(game->getScreenWidth(),game->getScreenHeight());
 
     menu->setSize(0,game->getScreenHeight()-menu->getRect().h ,game->getScreenWidth(),menu->getRect().h);
@@ -51,13 +71,14 @@ void BattleState::Init(GameEngine *game)
     enemyField->setPosition( 20,game->getScreenHeight()-menu->getRect().h+ 100);
     playerField->setText(game->getParty()->front()->getBattleStats());
     enemyField->setText(enemy->getBattleStats());
-    battleInfo->setPosition(infoBox->getPosRect().x + infoBox->getRect().w/10,infoBox->getPosRect().y);
+    battleInfo->setPosition(infoBox->getPositionRect().x + infoBox->getRect().w/10,infoBox->getPositionRect().y);
     battleMenu->setSize(game->getScreenWidth()/2- battleMenu->getRect().w/2,game->getScreenHeight()-battleMenu->getRect().h, battleMenu->getRect().w, battleMenu->getRect().h);
     attackanim->setPositionRect(500,500);
     attackanim->setupAnimation(7,1);
     attackanim->setInitFrame(0,0);
     battleSystem = new BattleSystem();
-    battleSystem->setAttacks(enemies,*game->getParty());
+
+    battleSystem->setAttacks(*game->getParty(),true);
 
 
 
@@ -75,13 +96,14 @@ void BattleState::HandleEvents(GameEngine *game)
     Attack->handleEvent();
     Ability->handleEvent();
     Item->handleEvent();
-    PlayerTurn(game);
-    EnemyTurn(game);
 
 
 
 
-    std::cout <<std::boolalpha <<  Attack->getPressed();
+
+
+
+//    std::cout <<std::boolalpha <<  Attack->getPressed();
 
 
 
@@ -99,13 +121,26 @@ void BattleState::Update(GameEngine *game)
     int spot = 0;
 
     playerField->setText(game->getParty()->front()->getBattleStats());
-    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
 
         enemyField->setPosition( 20,game->getScreenHeight()-menu->getRect().h*0.9 + spot);
         enemyField->setText((*i)->getBattleStats());
            enemyField->Display(game->getSetup());
            spot +=30;
+
+        i++;
+
+
+    }
+    int place = 0;
+    for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
+    {
+
+        playerField->setPosition(game->getScreenWidth() - game->getScreenWidth()/3 ,game->getScreenHeight()-menu->getRect().h*0.9+ place);
+        playerField->setText((*i)->getBattleStats());
+        playerField->Display(game->getSetup());
+           place +=30;
 
         i++;
 
@@ -122,6 +157,18 @@ void BattleState::Update(GameEngine *game)
 
 
 
+  if(turnFlag)
+    {
+
+       PlayerTurn(game);
+
+    }
+    if(!turnFlag)
+    {
+        EnemyTurn(game);
+
+    }
+
 
 
 
@@ -132,7 +179,7 @@ void BattleState::Draw(GameEngine *game)
 
     background->accept(visitor);
     infoBox->accept(visitor);
-    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
 
       (*i)->getSprite()->accept(visitor);
@@ -141,7 +188,15 @@ void BattleState::Draw(GameEngine *game)
 
     }
 
-    game->getParty()->front()->getSprite()->accept(visitor);
+    for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
+    {
+        (*i)->getSprite()->accept(visitor);
+
+        i++;
+
+    }
+
+   // game->getParty()->front()->getSprite()->accept(visitor);
     menu->accept(visitor);
 
 
@@ -182,43 +237,18 @@ void BattleState::Cleanup()
 
 }
 
-void BattleState::chooseEnemy(GameEngine * game, Enemy * enemy)
+void BattleState::chooseEnemy(GameEngine * game ,Entity * player, Entity * enemy)
 {
-
-
-
-    std::cout << game->getParty()<<std::endl;
-
-
-
-    std::vector<MainCharacter*>::iterator i =game->getParty()->begin();
-   while(i <game->getParty()->end())
+    if(player->getCanAttack() == true && enemy->getSelected())
     {
+        player->attack(enemy);
+        enemy->setSelected(false);
+        std::cout <<player->getName() << " attacks " << enemy->getName() <<std::endl;
+        player->setCanAttack(false);
+        Attack->setPressed(false);
+        SDL_Delay(1000);
 
-       std::cout <<game->getParty()->size()<<std::endl;
-        std::cout << "i name is " <<(*i)->getName() << std::endl;
-         std::cout << "in the choose enemy loop before the if statement" << std::endl;
-         std::cout <<std::boolalpha <<  (*i)->getCanAttack()<< std::endl;
-
-
-         if((*i)->getCanAttack() == true && Attack->getPressed())
-        {
-
-
-             SDL_Delay(1000);
-             (*i)->attack(enemy);
-
-
-
-            (*i)->setCanAttack(false);
-
-             }else{std::cout << "can't attack" << std::endl;}
-
-        i++;
-
-    }
-//    selected->setPosition(enemies.back()->getSprite()->getPosRect().x - enemies.back()->getSprite()->getPosRect().w/2,enemies.back()->getSprite()->getPosRect().y + enemies.back()->getSprite()->getPosRect().h/2);
-//    selected->accept(visitor);
+    }else{std::cout << player->getName() << " can't attack" << std::endl;}
 
 
 }
@@ -226,88 +256,119 @@ void BattleState::chooseEnemy(GameEngine * game, Enemy * enemy)
 void BattleState::drawBattleMenu()
 {
     battleMenu->accept(visitor);
-    Attack->Draw(battleMenu->getPosRect().x +20,battleMenu->getPosRect().y + 20);
-    Ability->Draw(battleMenu->getPosRect().x +20,battleMenu->getPosRect().y + 50);
-    Item->Draw(battleMenu->getPosRect().x +20,battleMenu->getPosRect().y + 80);
+    Attack->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 20);
+    Ability->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 50);
+    Item->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 80);
 }
 
-void BattleState::PlayerTurn(GameEngine * game)
+bool BattleState::PlayerTurn(GameEngine * game)
 {
-    if(battleSystem->getPlayerTurn(*game->getParty()))
-    {
-        if(Attack->getPressed())
-        {
-            battleInfo->setText("");
-            battleInfo->setText("Select enemy to attack");
-            battleInfo->Display(game->getSetup());
 
-            for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+
+        if( battleSystem->getPlayerTurn(*game->getParty())==true)
+        {
+            for(std::vector<Entity*>::iterator itrParty = game->getParty()->begin();itrParty < game->getParty()->end();  itrParty++)
             {
+                    if((*itrParty)->getCanAttack())
+                    {
+                        for(std::vector<Entity*>::iterator itrEnemies = enemies.begin(); itrEnemies!= enemies.end(); itrEnemies++)
+                        {
+                            if(!Attack->getPressed() && battleSystem->getPlayerTurn(*game->getParty())==true)
+                            {
+                                battleInfo->setText("Its " +(*itrParty)->getName() + "'s turn select action" );
+                                battleInfo->Display(game->getSetup());
+                            }
+                            if(Attack->getPressed())
+                            {
+                                battleInfo->setText("Select enemy to attack");
+                                battleInfo->Display(game->getSetup());
+                                (*itrEnemies)->isSelected();
+                            }
 
-              (*i)->isSelected();
 
+                            if(!(*itrEnemies)->getMouseOver())
+                            {
 
-                if((*i)->getSelected())
-                {
+                            }
+                            else if((*itrEnemies)->getMouseOver())
+                            {
+                                selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                                        ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
+                                selected->accept(visitor);
+                            }
+//                        std::cout << "Enemy is selected is "<<std::boolalpha << (*itrEnemies)->getSelected();
+//                        std::cout << (*itrParty)->getName() <<" has attacked "<<(*itrEnemies)->getName();
+                            if((*itrEnemies)->getSelected())
+                            {
+                                chooseEnemy(game,(*itrParty),(*itrEnemies));
+                                //  (*itrParty)->attack((*itrEnemies));
+                                (*itrEnemies)->setSelected(false);
+                                (*itrParty)->setCanAttack(false);
+                            }
 
-                    chooseEnemy(game,(*i));
-
-
+                    }
+                        break;
                 }
-                  i++;
             }
+                drawBattleMenu();
+        return true;
 
+    }else{turnFlag = false;
 
-        }
-
-        if(!Attack->getPressed())
-        {
-        battleInfo->setText("player turn select action");
-        battleInfo->Display(game->getSetup());
-        }
-
-        std::cout<< "player turn is " <<std::boolalpha <<  battleSystem->getPlayerTurn(*game->getParty())<< std::endl;
-
-        drawBattleMenu();
-
-    }
-
+        battleSystem->setAttacks(enemies,true);
+     //   std::cout << "got to the else in player turn and should consider putting the turnflag and attacks here" << std::endl;
+        return false;}
 
 }
 
-void BattleState::EnemyTurn(GameEngine *game)
+bool BattleState::EnemyTurn(GameEngine *game)
 {
+
+
     if(battleSystem->getEnemyTurn(enemies))
     {
+        battleInfo->setText("Enemy Turn");
+        std::cout << "enemyturn" << std::endl;
+        battleInfo->Display(game->getSetup());
+             SDL_Delay(1000);
 
-            battleInfo->setText("Enemy Turn");
-            battleInfo->Display(game->getSetup());
-            SDL_Delay(1000);
-
-            for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+            for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
             {
 
                 if((*i)->getCanAttack() == true)
                {
-
+                    int  x = rand() % game->getParty()->size();
 
                     SDL_Delay(1000);
-                    (*i)->attack(game->getParty()->front());
+                    (*i)->attack(game->getParty()->at(x));
 
 
 
                    (*i)->setCanAttack(false);
 
-                    }else{std::cout << "can't attack" << std::endl;}
+                    break;
+                    }else{std::cout << (*i)->getName() << " can't attack" << std::endl;}
 
                i++;
 
 
+
             }
-
-
-
+            return true;
+    }else{
+        turnFlag = true;
+        battleSystem->setAttacks(*game->getParty(),true);
+        return false;
     }
+
+
+
+
+
+//    if(!battleSystem->getEnemyTurn(enemies))
+//    {
+//        PlayerTurn(game);
+//    }
 
 
 }

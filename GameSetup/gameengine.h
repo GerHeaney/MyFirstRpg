@@ -60,7 +60,7 @@ public:
     Camera *getGameCamera() const;
     void setGameCamera(Camera *value);
 
-    std::vector<MainCharacter *> *getParty();
+    std::vector<Entity *> *getParty();
 
 private:
     float cameraX;
@@ -72,7 +72,7 @@ private:
     bool quit;
     bool running;
     std::vector<GameState*> states;
-    std::vector<MainCharacter*> party;
+    std::vector<Entity*> party;
 
     Environment* stage1;
     GameState * intro;
@@ -81,7 +81,8 @@ private:
 
     SDL_Rect camera;
     SDL_setup* setup;
-     MainCharacter *player;
+     MainCharacter * player;
+     MainCharacter * player2;
     //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
 

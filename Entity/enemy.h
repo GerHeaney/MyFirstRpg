@@ -34,16 +34,20 @@ public:
     virtual void attack(Entity * player);
     void isSelected();
 
-    bool getCanAttack() const;
-    void setCanAttack(bool value);
+    virtual bool getCanAttack() const;
+    virtual void setCanAttack(bool value);
 
     bool getSelected() const;
     void setSelected(bool value);
 
+    bool getMouseOver() const;
+    void setMouseOver(bool value);
+
 private:
     EnemySprite * enemySprite;
-    bool canAttack;
+
     bool selected;
+
 
 
 

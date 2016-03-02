@@ -17,7 +17,7 @@ MenuSprite::MenuSprite(SDL_Renderer *gameRenderer, std::string path)
         rect.h = surface->h;
 
 
-        posRect = {0,0,surface->w,surface->h};
+        positionRect = {0,0,surface->w,surface->h};
 
 }
 
@@ -63,6 +63,18 @@ void MenuSprite::setRect(const SDL_Rect &value)
     rect = value;
 }
 
+void MenuSprite::setPositionRect(int x, int y)
+{
+
+    positionRect.x = x;
+    positionRect.y = y;
+}
+
+void MenuSprite::setInitFrame(int startFrame, int row)
+{
+
+}
+
 SDL_Renderer *MenuSprite::getRenderer() const
 {
     return renderer;
@@ -75,20 +87,20 @@ void MenuSprite::setRenderer(SDL_Renderer *value)
 
 void MenuSprite::setPosition(int X, int Y)
 {
-    posRect.x = X;
-    posRect.y = Y;
+    positionRect.x = X;
+    positionRect.y = Y;
 }
 
 void MenuSprite::setSize(int x, int y, int w, int h)
 {
-    posRect.x = x;
-    posRect.y = y;
-    posRect.w = w;
-    posRect.h = h;
+    positionRect.x = x;
+    positionRect.y = y;
+    positionRect.w = w;
+    positionRect.h = h;
 }
 
-SDL_Rect MenuSprite::getPosRect() const
+SDL_Rect MenuSprite::getPositionRect()
 {
-    return posRect;
+    return positionRect;
 }
 

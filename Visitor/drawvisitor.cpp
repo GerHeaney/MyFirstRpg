@@ -44,7 +44,7 @@ void DrawVisitor::visit(MovingSprite *sprite)
 
 void DrawVisitor::visit(EnemySprite *sprite)
 {
-    SDL_Rect posRect = sprite->getPosRect();
+    SDL_Rect posRect = sprite->getPositionRect();
     SDL_Rect srcRect = sprite->getRect();
     SDL_Rect dstRect = {0,0,srcRect.w,srcRect.h};
     SDL_RenderCopy(sprite->getRenderer(),sprite->getImage(),&srcRect,&posRect);
@@ -56,7 +56,7 @@ void DrawVisitor::visit(EnemySprite *sprite)
 void DrawVisitor::visit(MenuSprite *sprite)
 {
     SDL_Rect srcRect = sprite->getRect();
-    SDL_Rect posRect = sprite->getPosRect();
+    SDL_Rect posRect = sprite->getPositionRect();
 
     SDL_RenderCopy(sprite->getRenderer(),sprite->getImage(),&srcRect,&posRect);
 

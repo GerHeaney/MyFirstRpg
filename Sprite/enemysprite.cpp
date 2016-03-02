@@ -83,8 +83,18 @@ void EnemySprite::setPosition(int x, int y)
 
 }
 
-SDL_Rect EnemySprite::getPosRect() const
+SDL_Rect EnemySprite::getPositionRect()
 {
     return posRect;
+}
+
+void EnemySprite::setPositionRect(int x, int y)
+{
+
+}
+
+void EnemySprite::setInitFrame(int startFrame, int row)
+{
+
 }
 

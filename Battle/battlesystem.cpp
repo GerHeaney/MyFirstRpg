@@ -8,7 +8,7 @@ BattleSystem::BattleSystem()
 
 }
 
-void BattleSystem::updateBattle(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party)
+void BattleSystem::updateBattle(std::vector<Entity *> enemies, std::vector<Entity *> party)
 {
 
 
@@ -30,7 +30,7 @@ void BattleSystem::updateBattle(std::vector<Enemy *> enemies, std::vector<MainCh
            winBattle = false;
 
 
-    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
       //  std::cout << "the enemy health before check is " <<enemies.front()->getCurrentHealth() << std::endl;
        if((*i)->getCurrentHealth() ==0)
@@ -50,13 +50,13 @@ void BattleSystem::updateBattle(std::vector<Enemy *> enemies, std::vector<MainCh
 
 }
 
-void BattleSystem::setAttacks(std::vector<Enemy *> enemies, std::vector<MainCharacter *> party)
+void BattleSystem::setAttacks(std::vector<Entity *> list,bool value)
 {
-    playerTurn = true;
-    for(std::vector<MainCharacter*>::iterator i = party.begin();i!=party.end();)
+
+    for(std::vector<Entity*>::iterator i = list.begin();i!=list.end();)
     {
-        std::cout << "attack is set" << std::endl;
-        (*i)->setCanAttack(true);
+//        std::cout << "attack is set" << std::endl;
+        (*i)->setCanAttack(value);
         i++;
 
     }
@@ -85,9 +85,10 @@ bool BattleSystem::getLostBattle() const
     return lostBattle;
 }
 
-bool BattleSystem::getPlayerTurn(std::vector<MainCharacter *> party)
+bool BattleSystem::getPlayerTurn(std::vector<Entity *> party)
 {
-    for(std::vector<MainCharacter*>::iterator i = party.begin();i!=party.end();)
+    int turnCount = 0;
+    for(std::vector<Entity*>::iterator i = party.begin();i!=party.end();)
     {
 
         if((*i)->getCanAttack())
@@ -99,20 +100,22 @@ bool BattleSystem::getPlayerTurn(std::vector<MainCharacter *> party)
     }
     if(turnCount == 0)
     {
-        std::cout << "turns are empty" << std::endl;
+        std::cout << "party turns are empty" << std::endl;
+        setAttacks(enemies,true);
         return false;
+
     }else
     {
-        std::cout << "turn count is " << turnCount << std::endl;
+//        std::cout << "turn count is " << turnCount << std::endl;
         turnCount = 0;
         return true;
     }
 
 
 }
-bool BattleSystem::getEnemyTurn(std::vector<Enemy *> enemies)
+bool BattleSystem::getEnemyTurn(std::vector<Entity *> enemies)
 {
-    for(std::vector<Enemy*>::iterator i = enemies.begin();i!=enemies.end();)
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
 
         if((*i)->getCanAttack())
@@ -124,11 +127,11 @@ bool BattleSystem::getEnemyTurn(std::vector<Enemy *> enemies)
     }
     if(turnCount == 0)
     {
-        std::cout << "turns are empty" << std::endl;
+        std::cout << "enemy turns are empty" << std::endl;
         return false;
     }else
     {
-        std::cout << "turn count is " << turnCount << std::endl;
+//        std::cout << "turn count is " << turnCount << std::endl;
         turnCount = 0;
         return true;
     }

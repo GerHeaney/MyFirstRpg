@@ -4,6 +4,7 @@ DisplayField::DisplayField()
 {
     gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
     textColor = { 250, 250, 250 };
+    text = "  ";
 }
 
 DisplayField::~DisplayField()
@@ -51,4 +52,13 @@ void DisplayField::setText(std::string item1, std::string item2)
 {
     text = (item1 + " " + item2);
    // std::cout << text << std::endl;
+}
+
+std::string DisplayField::toString(int number)
+{
+    std::ostringstream infoString;
+    infoString << number;
+    std::string numberString = infoString.str();
+    return numberString;
+
 }

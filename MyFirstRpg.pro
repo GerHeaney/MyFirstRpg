@@ -39,7 +39,10 @@ SOURCES += main.cpp \
     RenderItems/displayfield.cpp \
     Battle/battlestate.cpp \
     Battle/battlesystem.cpp \
-    Battle/attack.cpp
+    Battle/attack.cpp \
+    Entity/level.cpp \
+    State/victorystate.cpp \
+    State/menustate.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -69,7 +72,10 @@ HEADERS  += \
     RenderItems/displayfield.h \
     Battle/battlestate.h \
     Battle/battlesystem.h \
-    Battle/attack.h
+    Battle/attack.h \
+    Entity/level.h \
+    State/victorystate.h \
+    State/menustate.h
 
 
 

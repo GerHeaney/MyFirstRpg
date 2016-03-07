@@ -33,9 +33,15 @@ void KeyboardMovement::Move(SDL_setup * setup)
 
 
 
-    switch(setup->getMainEvent()->type)
+
+
+    while(SDL_PollEvent(setup->getMainEvent()))
     {
-    case SDL_KEYDOWN:
+//    switch(setup->getMainEvent()->type)
+//    {
+//    case SDL_KEYDOWN:
+    if(setup->getMainEvent()->type == SDL_KEYDOWN && setup->getMainEvent()->key.repeat == 0 )
+    {
 
         switch(setup->getMainEvent()->key.keysym.sym)
         {
@@ -59,11 +65,11 @@ void KeyboardMovement::Move(SDL_setup * setup)
                break;
         }
 
+}
 
 
-        break;
-    case SDL_KEYUP:
-
+    if(setup->getMainEvent()->type == SDL_KEYUP)
+    {
     switch(setup->getMainEvent()->key.keysym.sym)
     {
       case SDLK_UP:
@@ -96,11 +102,9 @@ void KeyboardMovement::Move(SDL_setup * setup)
        default:
            break;
     }
-        break;
-    default:
-        break;
-    }
 
+    }
+}
     if(timeCheck +10 < SDL_GetTicks())
     {
 
@@ -140,6 +144,7 @@ void KeyboardMovement::Move(SDL_setup * setup)
         }
         timeCheck = SDL_GetTicks();
     }
+
 }
 
 void KeyboardMovement::Stop()

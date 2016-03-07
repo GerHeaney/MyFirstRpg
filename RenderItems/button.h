@@ -17,7 +17,7 @@ class Button
         void Init(SDL_setup *setup);
         void setPosition( int x, int y );
         ~Button();
-        void handleEvent(SDL_setup *setup);
+        void handleEvent(SDL_Event *e, SDL_setup *setup);
         bool loadFromFile( std::string path );
         int getWidth();
         int getHeight();

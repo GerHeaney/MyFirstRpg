@@ -7,6 +7,7 @@
 #include "State/fieldstate.h"
 #include "RenderItems/fontbutton.h"
 #include "Visitor/drawvisitor.h"
+#include "State/victorystate.h"
 
 class IntroState : public GameState
 {
@@ -25,7 +26,7 @@ public:
     void Cleanup();
 
     void Pause();
-    void Resume();
+    void Resume(GameEngine *game);
 
     void Draw();
     static IntroState * Instance() {

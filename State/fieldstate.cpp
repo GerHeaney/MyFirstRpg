@@ -5,18 +5,30 @@ FieldState FieldState::field;
 
 void FieldState::Init(GameEngine *game)
 {
+
     std::cout <<" got to  field init" << std::endl;
     stage1 = new BackgroundSprite(game->getSetup()->getRenderer(),"resources/map.png");
             //new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
     player = game->getPlayer();
     player->setOrigin(0,0);
     srand(time(NULL));
-    x =10;
+    x =1;
  //   std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
     player->getSprite()->setY(0);
+    Level * level = new Level();
  //   std::cout <<" got to end of field init" << std::endl;
+
+
+   std::cout<<player->getName() <<" is level "  << player->getEntityLevel()->getCurrentLevel()<< std::endl;
+   std::cout<<player->getName() <<" has "  << player->getEntityLevel()->getCurrentXP()<< " xp "<< std::endl;
+   std::cout<<player->getName() <<" needs "  << player->getEntityLevel()->getNextLevelXP()<<" xp for the next level" << std::endl;
+
+
+
+
+   level->setuplevels(300,350000,30);
 
 
 
@@ -61,14 +73,17 @@ void FieldState::Pause()
 {
 
 }
-void FieldState::Resume()
+void FieldState::Resume(GameEngine *game)
 {
-    std::cout <<" got to  field resume" << std::endl;
-
+    std::cout<<player->getName() <<" is level "  << player->getEntityLevel()->getCurrentLevel()<< std::endl;
+    std::cout<<player->getName() <<" has "  << player->getEntityLevel()->getCurrentXP()<< " xp "<< std::endl;
+    std::cout<<player->getName() <<" needs "  << (player->getEntityLevel()->getNextLevelXP()) - (player->getEntityLevel()->getCurrentXP())<<" xp for the next level" << std::endl;
     move->Stop();
     player->getSprite()->setPositionRect(player->getSprite()->getX() - camera.x,player->getSprite()->getY() - camera.y);
 
 }
+
+
 void FieldState::Cleanup()
 {
     std::cout <<" got to  field cleanup" << std::endl;

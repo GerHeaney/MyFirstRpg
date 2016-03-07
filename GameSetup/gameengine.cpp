@@ -65,7 +65,7 @@ void GameEngine::PopState()
 
     // resume previous state
     if ( !states.empty() ) {
-        states.back()->Resume();
+        states.back()->Resume(this);
     }
 }
 
@@ -158,15 +158,17 @@ std::vector<Entity *> *GameEngine::getParty()
 void GameEngine::GameLoop()
 {
 
-    while(running && setup->getMainEvent()->type !=SDL_QUIT)
+    while (running && setup->getMainEvent()->type != SDL_QUIT)
     {
+
+
         setup->Begin();
-
-
         Draw();
         Update();
         HandleEvents();
         setup->End();
+
+
 
     }
 }

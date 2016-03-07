@@ -55,9 +55,13 @@ void IntroState::Update(GameEngine *game)
 }
 void IntroState::HandleEvents(GameEngine *game)
 {
-    nButton->handleEvent(game->getSetup());
-    lButton->handleEvent(game->getSetup());
-    qButton->handleEvent(game->getSetup());
+    while(SDL_PollEvent(game->getSetup()->getMainEvent()))
+    {
+    qButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
+    nButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
+    lButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
+    }
+
     if(nButton->getPressed() == true)
     {
         game->PushState(FieldState::Instance());
@@ -73,16 +77,16 @@ void IntroState::Pause()
 {
 
 }
-void IntroState::Resume()
+void IntroState::Resume(GameEngine *game)
 {
 
 }
 void IntroState::Cleanup()
 {
     std::cout << "reached the cleanup" << std::endl;
-//    delete nButton;
-//    //delete menu;
-//    delete lButton;
-//    delete qButton;
+    delete nButton;
+    delete menu;
+    delete lButton;
+    delete qButton;
 
 }

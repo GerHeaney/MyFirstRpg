@@ -64,7 +64,7 @@ void SDL_setup::setMainEvent(SDL_Event *value)
 
 void SDL_setup::Begin()
 {
-    SDL_PollEvent(mainEvent);
+    //SDL_PollEvent(mainEvent);
     SDL_RenderClear(renderer);
 }
 void SDL_setup::End()

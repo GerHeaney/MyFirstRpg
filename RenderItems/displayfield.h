@@ -1,8 +1,7 @@
 #ifndef DISPLAYFIELD_H
 #define DISPLAYFIELD_H
 #include "GameSetup/sdl_setup.h"
-
-
+#include <sstream>
 class DisplayField
 {
 public:
@@ -12,7 +11,7 @@ public:
     void Display(SDL_setup *setup);
     void setPosition(int x, int y);
     void setText(std::string item1 = "",std::string item2 = "");
-
+    std::string toString(int number);
 private:
     int xPos;
     int yPos;

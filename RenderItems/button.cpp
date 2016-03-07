@@ -37,8 +37,10 @@ void Button::setPosition( int x, int y )
 
 
 }
-void Button::handleEvent(SDL_setup *setup)
+void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
 {
+
+
 
      //Get mouse position
         int x, y;
@@ -75,16 +77,13 @@ void Button::handleEvent(SDL_setup *setup)
             selectedTexture = NULL;
             render(setup);
 
-        }
-        //Mouse is inside button
-        else
-        {
-           // while(SDL_PollEvent(setup->getMainEvent()) != 0)
+        }else{
 
             //Set mouse over sprite
-            switch( setup->getMainEvent()->type )
+            switch(e->type )
             {
                 case SDL_MOUSEMOTION:
+                std::cout << "over the button" << std::endl;
                 surface = IMG_Load("resources/MainMenu/selected.png");
                 selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
 
@@ -113,7 +112,12 @@ void Button::handleEvent(SDL_setup *setup)
             }
 
 
-    }
+        }
+
+
+
+
+
 }
 
 void Button::render(SDL_setup *setup)

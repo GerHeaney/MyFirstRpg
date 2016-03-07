@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "Sprite/movingsprite.h"
+#include "Sprite/backgroundsprite.h"
 #include "Entity/entity.h"
 
 
@@ -21,6 +22,7 @@ public:
 
     void setOrigin(int X, int Y);
     MovingSprite *getSprite();
+    virtual MenuSprite * getIcon();
     void setSprite(MovingSprite *value);
     void setInitFrame(int startFrame,int row);
     bool GetMoving();
@@ -45,19 +47,25 @@ public:
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
-    virtual void isSelected();
+    virtual void isSelected(SDL_setup * setup);
     virtual bool getSelected() const ;
     virtual void setSelected(bool value);
 
     bool getMouseOver() const;
     void setMouseOver(bool value);
+    virtual Level *getEntityLevel();
+
+    virtual int getExperience() ;
+    virtual void setExperience(int value);
 
 private:
 
     bool isMoving;
 
 
+
     MovingSprite * playerSprite;
+    MenuSprite * icon;
 
 //    CSprite* player;
 //    SDL_setup *setup;

@@ -25,7 +25,7 @@ public:
     void Cleanup();
 
     void Pause();
-    void Resume();
+    void Resume(GameEngine *game);
 
     void Draw();
     void chooseEnemy(GameEngine *game, Entity *player, Entity *enemy);
@@ -65,6 +65,7 @@ private:
     Entity * player;
     SDL_Rect camera;
     bool turnFlag;
+    int rewardXP;
 
 };
 

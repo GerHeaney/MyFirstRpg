@@ -9,13 +9,12 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
     mouseOver = false;
     name = passedName;
 
-
-   setup = gameSetup;
-
-   enemySprite = new EnemySprite(setup->getRenderer(),path.c_str());
+   enemySprite = new EnemySprite(gameSetup->getRenderer(),path.c_str());
+   entityLevel = new Level();
    currentHealth = 300;
    maxHealth = 300;
    attackDamage = 30;
+   experience = 200;
 
 
 
@@ -23,8 +22,8 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 
 Enemy::~Enemy()
 {
-   // delete setup;
-    //delete enemySprite;
+
+   delete enemySprite;
 }
 
 
@@ -36,6 +35,11 @@ void Enemy::setSprite(EnemySprite *value)
 EnemySprite *Enemy::getSprite()
 {
     return enemySprite;
+}
+
+MenuSprite *Enemy::getIcon()
+{
+
 }
 
 std::string Enemy::getName() const
@@ -75,7 +79,7 @@ void Enemy::attack(Entity *player)
         player->setCurrentHealth(0);
     }
 }
-void Enemy::isSelected()
+void Enemy::isSelected(SDL_setup * setup)
 {
 
 
@@ -184,6 +188,21 @@ bool Enemy::getMouseOver() const
 void Enemy::setMouseOver(bool value)
 {
     mouseOver = value;
+}
+
+Level *Enemy::getEntityLevel()
+{
+    return entityLevel;
+}
+
+int Enemy::getExperience()
+{
+    return experience;
+}
+
+void Enemy::setExperience(int value)
+{
+    experience = value;
 }
 
 

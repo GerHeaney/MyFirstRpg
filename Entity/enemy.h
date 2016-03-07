@@ -25,6 +25,7 @@ public:
     virtual std::string toString(int number);
     void setSprite(EnemySprite * value);
     EnemySprite * getSprite();
+    virtual MenuSprite * getIcon();
     virtual std::string getName() const;
     virtual void setName(const std::string &value);
     virtual std::string getBattleStats();
@@ -32,7 +33,7 @@ public:
     virtual int getCurrentHealth() const;
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * player);
-    void isSelected();
+    void isSelected(SDL_setup *setup);
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
@@ -42,11 +43,16 @@ public:
 
     bool getMouseOver() const;
     void setMouseOver(bool value);
+    virtual Level *getEntityLevel();
+
+    virtual int getExperience();
+    virtual void setExperience(int value);
 
 private:
     EnemySprite * enemySprite;
 
     bool selected;
+
 
 
 

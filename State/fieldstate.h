@@ -21,7 +21,7 @@ public:
     void Cleanup();
 
     void Pause();
-    void Resume();
+    void Resume(GameEngine *game);
 
     void Draw();
     static FieldState * Instance() {
@@ -37,6 +37,7 @@ private:
      SDL_Rect  camera;
      KeyboardMovement * move;
      int x;
+
 };
 
 #endif // FIELDSTATE_H

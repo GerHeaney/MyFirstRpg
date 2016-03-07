@@ -14,7 +14,7 @@ public:
     virtual void Cleanup() = 0;
 
     virtual void Pause() = 0;
-    virtual void Resume() = 0;
+    virtual void Resume(GameEngine *game) = 0;
     void ChangeState(GameEngine* game, GameState* state) {
         game->ChangeState(state);
     }

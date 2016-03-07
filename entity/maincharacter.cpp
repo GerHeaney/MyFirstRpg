@@ -7,13 +7,13 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
      canAttack = false;
      name = playerName;
 
-    setup = gameSetup;
-
-    playerSprite = new MovingSprite(setup->getRenderer(),path.c_str());
+    playerSprite = new MovingSprite(gameSetup->getRenderer(),path.c_str());
+    icon = new MenuSprite(gameSetup->getRenderer(),("resources/Characters/" + playerName + ".png"));
     playerSprite->setupAnimation(4,4);
+    entityLevel = new Level();
     currentHealth = 300;
     maxHealth = 300;
-    attackDamage = 50;
+    attackDamage = 300;
 
 }
 MainCharacter::~MainCharacter()
@@ -25,6 +25,11 @@ MainCharacter::~MainCharacter()
 MovingSprite *MainCharacter::getSprite()
 {
     return playerSprite;
+}
+
+MenuSprite *MainCharacter::getIcon()
+{
+    return icon;
 }
 
 void MainCharacter::setSprite(MovingSprite *value)
@@ -143,7 +148,7 @@ void MainCharacter::setCanAttack(bool value)
     canAttack = value;
 }
 
-void MainCharacter::isSelected()
+void MainCharacter::isSelected(SDL_setup *setup)
 {
 
 }
@@ -166,5 +171,20 @@ bool MainCharacter::getMouseOver() const
 void MainCharacter::setMouseOver(bool value)
 {
     mouseOver = value;
+}
+
+Level *MainCharacter::getEntityLevel()
+{
+    return entityLevel;
+}
+
+int MainCharacter::getExperience()
+{
+    return experience;
+}
+
+void MainCharacter::setExperience(int value)
+{
+    experience = value;
 }
 

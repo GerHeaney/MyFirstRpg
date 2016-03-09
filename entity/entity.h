@@ -10,6 +10,7 @@
 #include "Sprite/isprite.h"
 #include "Sprite/menusprite.h"
 #include "Entity/level.h"
+#include "Item/item.h"
 
 
 class Entity
@@ -27,6 +28,9 @@ public:
 
     virtual int getAbilityPower() const = 0;
     virtual void setAbilityPower(int value) = 0;
+
+    virtual int getMaxAP()= 0;
+    virtual void setMaxAP(int value ) = 0;
 
     virtual int getAttackDamage() const = 0;
     virtual void setAttackDamage(int value) = 0;
@@ -59,7 +63,10 @@ public:
     virtual int getExperience() = 0;
     virtual void setExperience(int value) = 0;
 
+
+
 protected:
+    Item * weapon;
     Level * entityLevel;
     bool isMoving;
     bool canAttack;
@@ -70,6 +77,7 @@ protected:
     int currentHealth;
     int maxHealth;
     int abilityPower;
+    int maxAP;
     int attackDamage;
     int experience;
     int level;

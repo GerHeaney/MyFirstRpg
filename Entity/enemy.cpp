@@ -246,6 +246,16 @@ void Enemy::setAbilityPower(int value)
     abilityPower = value;
 }
 
+int Enemy::getMaxAP()
+{
+    return maxAP;
+}
+
+void Enemy::setMaxAP(int value)
+{
+    maxAP = value;
+}
+
 int Enemy::getAttackDamage() const
 {
     return attackDamage;

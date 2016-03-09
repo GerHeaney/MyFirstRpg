@@ -13,7 +13,7 @@
 class FontButton
 {
 public:
-    FontButton(SDL_setup *passedSetup, std::string passedPath, std::string drawText) ;
+    FontButton(SDL_setup *passedSetup, std::string drawText) ;
     ~FontButton();
     void Draw(int X, int Y);
     void handleEvent();
@@ -26,8 +26,17 @@ public:
 
     void setPressed(bool value);
 
+    SDL_Point getPosition() const;
+
+    bool getInside() const;
+    void setInside(bool value);
+
+    SDL_Rect getButton() const;
+    void setButton(const SDL_Rect &value);
+
 private:
     bool pressed;
+    bool inside;
     SDL_Point mPosition;
     SDL_setup * setup;
     SDL_Rect  button;  

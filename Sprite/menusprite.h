@@ -32,6 +32,7 @@ private:
     SDL_Rect positionRect;
 
 
+
 };
 
 #endif // MENUSPRITE_H

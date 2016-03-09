@@ -17,9 +17,9 @@ void BattleState::Init(GameEngine *game)
     playerField = new DisplayField();
     enemyField = new DisplayField();
     battleInfo = new DisplayField();
-    Attack = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Attack");
-    Ability = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Ability");
-    Item = new FontButton(game->getSetup(),"resources/MainMenu/new.png","Item");
+    Attack = new FontButton(game->getSetup(),"Attack");
+    Ability = new FontButton(game->getSetup(),"Ability");
+    Item = new FontButton(game->getSetup(),"Item");
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     battleSystem = new BattleSystem();
     visitor = new DrawVisitor();

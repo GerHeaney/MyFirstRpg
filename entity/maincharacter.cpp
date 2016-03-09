@@ -14,6 +14,8 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     currentHealth = 300;
     maxHealth = 300;
     attackDamage = 300;
+    abilityPower = 50;
+    maxAP = 50;
 
 }
 MainCharacter::~MainCharacter()
@@ -79,6 +81,16 @@ int MainCharacter::getAbilityPower() const
 void MainCharacter::setAbilityPower(int value)
 {
     abilityPower = value;
+}
+
+int MainCharacter::getMaxAP()
+{
+    return maxAP;
+}
+
+void MainCharacter::setMaxAP(int value)
+{
+    maxAP = value;
 }
 
 int MainCharacter::getAttackDamage() const

@@ -192,7 +192,7 @@ void VictoryState::screenClick(GameEngine * game)
                     std::cout << "counter is" << counter << std::endl;
 
                 }
-               // rewardXP = 0;
+                rewardXP = 0;
                 counter++;
             }
 

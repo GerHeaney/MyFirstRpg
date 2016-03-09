@@ -1,10 +1,9 @@
 #include "RenderItems/fontbutton.h"
 
-FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::string drawText)
+FontButton::FontButton(SDL_setup *passedSetup,std::string drawText)
 {
 
-    setup = passedSetup;
-    path = passedPath;
+    setup = passedSetup;  
     text = drawText;
     textColor = { 250, 250, 250 };
 
@@ -12,6 +11,7 @@ FontButton::FontButton(SDL_setup *passedSetup, std::string passedPath,std::strin
    // mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
 
     pressed = false;
+    inside = false;
 
 
 }
@@ -37,6 +37,31 @@ bool FontButton::getPressed() const
 void FontButton::setPressed(bool value)
 {
     pressed = value;
+}
+
+SDL_Point FontButton::getPosition() const
+{
+    return mPosition;
+}
+
+bool FontButton::getInside() const
+{
+    return inside;
+}
+
+void FontButton::setInside(bool value)
+{
+    inside = value;
+}
+
+SDL_Rect FontButton::getButton() const
+{
+    return button;
+}
+
+void FontButton::setButton(const SDL_Rect &value)
+{
+    button = value;
 }
 
 
@@ -76,9 +101,10 @@ void FontButton::handleEvent()
     //Get mouse position
        int x, y;
        SDL_GetMouseState( &x, &y );
+        inside = true;
 
        //Check if mouse is in button
-       bool inside = true;
+
 
        //Mouse is left of the button
        if( x < mPosition.x )
@@ -106,10 +132,12 @@ void FontButton::handleEvent()
        {
            SetTextColour(250,250,250);
 
+
        }
        //Mouse is inside button
        else
        {
+
 
 
            //Set mouse over sprite

@@ -20,6 +20,9 @@ public:
     virtual int getAbilityPower() const;
     virtual void setAbilityPower(int value);
 
+    virtual int getMaxAP();
+    virtual void setMaxAP(int value );
+
     virtual int getAttackDamage() const;
     virtual void setAttackDamage(int value);
     virtual std::string toString(int number);

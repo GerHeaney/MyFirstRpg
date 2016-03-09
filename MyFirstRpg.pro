@@ -42,7 +42,9 @@ SOURCES += main.cpp \
     Battle/attack.cpp \
     Entity/level.cpp \
     State/victorystate.cpp \
-    State/menustate.cpp
+    Menu/menustate.cpp \
+    Item/weapon.cpp \
+    Item/potion.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -75,7 +77,10 @@ HEADERS  += \
     Battle/attack.h \
     Entity/level.h \
     State/victorystate.h \
-    State/menustate.h
+    Menu/menustate.h \
+    Item/item.h \
+    Item/weapon.h \
+    Item/potion.h
 
 
 

@@ -34,6 +34,12 @@ public:
     SDL_Rect getButton() const;
     void setButton(const SDL_Rect &value);
 
+    std::string getText() const;
+    void setText(const std::string &value);
+
+    SDL_Color getTextColor() const;
+    void setTextColor(const SDL_Color &value);
+
 private:
     bool pressed;
     bool inside;

@@ -8,7 +8,11 @@ public:
     Potion();
 
 
+    virtual MenuSprite *getIcon() const;
+    virtual void setIcon(MenuSprite *value);
+
 private:
+
 };
 
 #endif // POTION_H

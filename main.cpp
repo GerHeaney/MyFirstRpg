@@ -7,7 +7,6 @@
 #include <iostream>
 #include "GameSetup/gameengine.h"
 #include "State/IntroState.h"
-#include "Menu/menustate.h"
 #include "Battle/battlestate.h"
 #undef main
 
@@ -16,7 +15,7 @@ int main( int argc, char* args[] )
 
 
     GameEngine*  game = new GameEngine(1368,768);
-    game->ChangeState(MenuState::Instance());
+    game->ChangeState(IntroState::Instance());
     game->GameLoop();
 
     return 0;

@@ -5,6 +5,7 @@ DisplayField::DisplayField()
     gameFont = TTF_OpenFont( "resources/RPGSystem.ttf", 35 );
     textColor = { 250, 250, 250 };
     text = "  ";
+
 }
 
 DisplayField::~DisplayField()
@@ -19,10 +20,11 @@ void DisplayField::Init()
 
 }
 
-void DisplayField::Display(SDL_setup * setup)
+void DisplayField::Display(SDL_setup * setup,int red,int green, int blue)
 {
+    SDL_Color colour = {red,green,blue};
 
-    SDL_Surface * displaySurface = TTF_RenderText_Solid( gameFont, text.c_str(),textColor );
+    SDL_Surface * displaySurface = TTF_RenderText_Solid( gameFont, text.c_str(),colour );
     if( displaySurface == NULL )
     {
         printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -61,4 +63,14 @@ std::string DisplayField::toString(int number)
     std::string numberString = infoString.str();
     return numberString;
 
+}
+
+SDL_Color DisplayField::getTextColor() const
+{
+    return textColor;
+}
+
+void DisplayField::setTextColor(int red, int green, int blue)
+{
+    textColor = {red,green,blue};
 }

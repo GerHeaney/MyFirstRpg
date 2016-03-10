@@ -205,6 +205,16 @@ void Enemy::setExperience(int value)
     experience = value;
 }
 
+Item *Enemy::getWeapon() const
+{
+    return weapon;
+}
+
+void Enemy::setWeapon(Item *value)
+{
+    weapon = value;
+}
+
 
 
 void Enemy::setOrigin(int X, int Y)

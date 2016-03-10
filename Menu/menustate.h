@@ -4,10 +4,10 @@
 #include "Sprite/backgroundsprite.h"
 #include "State/gamestate.h"
 #include "RenderItems/button.h"
-#include "State/fieldstate.h"
+#include "RenderItems/displayfield.h"
 #include "RenderItems/fontbutton.h"
 #include "Visitor/drawvisitor.h"
-#include "State/victorystate.h"
+
 
 
 class MenuState : public GameState
@@ -29,13 +29,14 @@ protected:
       MenuState(){}
 
 private:
-      enum MenuStates
+      enum States
       {
           STATE_INTRO,
           STATE_ITEM,
           STATE_EQUIP,
           STATE_SKILLS
       };
+      States switchState(States state);
       static MenuState  menu;
       MenuSprite * back;
       MenuSprite * options;
@@ -45,8 +46,10 @@ private:
       FontButton * Item;
       FontButton * Equip;
       FontButton * Skills;
+      FontButton * Weapon;
       int offset = 20;
       int state;
+      Entity * selectedPlayer;
       //Add teh states stuff in main character so i can select a character
 
 };

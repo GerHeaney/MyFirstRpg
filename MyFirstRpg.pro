@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     State/victorystate.cpp \
     Menu/menustate.cpp \
     Item/weapon.cpp \
-    Item/potion.cpp
+    Item/potion.cpp \
+    Item/inventory.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -80,7 +81,8 @@ HEADERS  += \
     Menu/menustate.h \
     Item/item.h \
     Item/weapon.h \
-    Item/potion.h
+    Item/potion.h \
+    Item/inventory.h
 
 
 

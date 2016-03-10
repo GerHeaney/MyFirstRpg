@@ -51,10 +51,14 @@ public:
     virtual int getExperience();
     virtual void setExperience(int value);
 
+    virtual Item *getWeapon() const;
+    virtual void setWeapon(Item *value);
+
 private:
     EnemySprite * enemySprite;
 
     bool selected;
+
 
 
 

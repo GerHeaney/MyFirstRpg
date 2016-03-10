@@ -7,6 +7,7 @@
 #include "Sprite/movingsprite.h"
 #include "Sprite/backgroundsprite.h"
 #include "Entity/entity.h"
+#include "Item/weapon.h"
 
 
 
@@ -61,6 +62,9 @@ public:
     virtual int getExperience() ;
     virtual void setExperience(int value);
 
+    virtual Item *getWeapon() const;
+    virtual void setWeapon(Item *value);
+
 private:
 
     bool isMoving;
@@ -69,6 +73,7 @@ private:
 
     MovingSprite * playerSprite;
     MenuSprite * icon;
+
 
 //    CSprite* player;
 //    SDL_setup *setup;

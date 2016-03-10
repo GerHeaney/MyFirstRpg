@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include <Sprite/menusprite.h>
+
 class Item
 {
 public:
@@ -24,12 +26,16 @@ public:
     virtual std::string getName()  = 0;
     virtual void setName(const std::string &value) = 0;
 
+    virtual MenuSprite *getIcon() const = 0;
+    virtual void setIcon(MenuSprite *value) = 0;
+
 protected:
 
     int cost;
     int power;
     std::string name;
     TYPE type;
+    MenuSprite * icon;
 
 
 

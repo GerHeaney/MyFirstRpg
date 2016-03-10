@@ -4,6 +4,7 @@
 #include "GameSetup/sdl_setup.h"
 #include "Sprite/backgroundsprite.h"
 #include "State/gamestate.h"
+#include "Menu/menustate.h"
 #include <math.h>
 #include <time.h>
 #include "Battle/battlestate.h"

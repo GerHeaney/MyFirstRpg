@@ -44,6 +44,16 @@ void Weapon::setName(const std::string &value)
     name = value;
 }
 
+MenuSprite *Weapon::getIcon() const
+{
+    return icon;
+}
+
+void Weapon::setIcon(MenuSprite *value)
+{
+    icon = value;
+}
+
 
 Item::TYPE Weapon::getType()
 {

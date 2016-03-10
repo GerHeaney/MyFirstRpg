@@ -65,9 +65,12 @@ public:
 
 
 
+    virtual Item *getWeapon() const = 0;
+    virtual void setWeapon(Item *value)  = 0;
+
 protected:
-    Item * weapon;
     Level * entityLevel;
+    Item * weapon;
     bool isMoving;
     bool canAttack;
     bool selected;
@@ -85,4 +88,3 @@ protected:
 };
 
 #endif // ENTITY_H
-

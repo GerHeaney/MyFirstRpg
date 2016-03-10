@@ -25,6 +25,8 @@ MenuSprite::~MenuSprite()
 {
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(image);
+    renderer = NULL;
+    delete renderer;
 }
 
 void MenuSprite::accept(IVisitor *v)

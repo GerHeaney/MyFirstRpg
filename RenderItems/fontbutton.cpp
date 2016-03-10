@@ -18,10 +18,8 @@ FontButton::FontButton(SDL_setup *passedSetup,std::string drawText)
 
 FontButton::~FontButton()
 {
- //   TTF_CloseFont(gameFont);
-
-
-
+    setup = NULL;
+    delete setup;
 }
 void FontButton::setPosition( int x, int y )
 {
@@ -64,6 +62,17 @@ void FontButton::setButton(const SDL_Rect &value)
     button = value;
 }
 
+std::string FontButton::getText() const
+{
+    return text;
+}
+
+void FontButton::setText(const std::string &value)
+{
+    text = value;
+}
+
+
 
 
 void FontButton::Draw(int X , int Y)
@@ -101,31 +110,34 @@ void FontButton::handleEvent()
     //Get mouse position
        int x, y;
        SDL_GetMouseState( &x, &y );
-        inside = true;
+
+       std::cout << " x position is " << x << std::endl;
+        std::cout << " y position is " << y << std::endl;
+        inside = false;
 
        //Check if mouse is in button
 
 
        //Mouse is left of the button
-       if( x < mPosition.x )
+       if( x > mPosition.x  && x < mPosition.x + button.w && y >mPosition.y && y < mPosition.y + button.h)
        {
-           inside = false;
+           inside = true;
        }
-       //Mouse is right of the button
-       else if( x > mPosition.x + button.w )
-       {
-           inside = false;
-       }
+//       //Mouse is right of the button
+//       else if( x > mPosition.x + button.w )
+//       {
+//           inside = false;
+//       }
        //Mouse above the button
-       else if( y < mPosition.y )
-       {
-           inside = false;
-       }
+//       else if( y >mPosition.y && y < mPosition.y + button.h)
+//       {
+//           inside = true;
+//       }
        //Mouse below the button
-       else if( y > mPosition.y + button.h )
-       {
-           inside = false;
-       }
+//       else if( y > mPosition.y + button.h )
+//       {
+//           inside = false;
+//       }
 
        //Mouse is outside button
        if( !inside )
@@ -135,7 +147,7 @@ void FontButton::handleEvent()
 
        }
        //Mouse is inside button
-       else
+       if(inside)
        {
 
 

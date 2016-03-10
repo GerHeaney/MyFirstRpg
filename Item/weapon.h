@@ -21,7 +21,11 @@ public:
     virtual void setName(const std::string &value) ;
 
 
+    virtual MenuSprite *getIcon() const;
+    virtual void setIcon(MenuSprite *value);
+
 private:
+
 
 
 };

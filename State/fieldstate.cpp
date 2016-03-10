@@ -1,6 +1,7 @@
 #include "fieldstate.h"
 
 
+
 FieldState FieldState::field;
 
 void FieldState::Init(GameEngine *game)
@@ -67,6 +68,10 @@ void FieldState::HandleEvents(GameEngine *game)
 //    std::cout <<" got to end of handle events" << std::endl;
 
     move->Move(game->getSetup());
+    if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_i)
+    {
+        game->PushState(MenuState::Instance());
+    }
 
 }
 void FieldState::Pause()

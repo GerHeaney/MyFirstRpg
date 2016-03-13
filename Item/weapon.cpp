@@ -1,12 +1,13 @@
 #include "weapon.h"
 
 
-Weapon::Weapon(Item::TYPE wType, std::string wName, int wCost, int wPower)
+Weapon::Weapon(SDL_setup * setup, Item::TYPE wType, std::string wName, int wCost, int wPower,std::string path)
 {
    type = wType;
    name = wName;
    cost = wCost;
    power = wPower;
+   icon = new MenuSprite(setup->getRenderer(),path.c_str());
 
 }
 Weapon::~Weapon()

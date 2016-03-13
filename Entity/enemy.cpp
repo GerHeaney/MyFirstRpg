@@ -79,6 +79,11 @@ void Enemy::attack(Entity *player)
         player->setCurrentHealth(0);
     }
 }
+
+void Enemy::useAbility(Entity *player)
+{
+
+}
 void Enemy::isSelected(SDL_setup * setup)
 {
 

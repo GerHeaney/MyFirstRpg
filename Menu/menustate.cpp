@@ -137,6 +137,9 @@ void MenuState::Draw(GameEngine *game)
          back->accept(&visitor);
          back->setSize(0,game->getScreenHeight()/3,game->getScreenWidth(),game->getScreenHeight()/3 *2);
          back->accept(&visitor);
+         back->setSize(game->getScreenWidth()/3*2,game->getScreenHeight()/3,game->getScreenWidth()/3,game->getScreenHeight()/3 *2);
+         back->accept(&visitor);
+
          selectedPlayer->getIcon()->setPositionRect(scrpos,scrpos);
          selectedPlayer->getIcon()->accept(&visitor);
          line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x+selectedPlayer->getIcon()->getPositionRect().w
@@ -160,16 +163,22 @@ void MenuState::Draw(GameEngine *game)
          line1->setText(" Equipped Weapon :");
          line1->Display(game->getSetup(),50);
 
+         selectedPlayer->getWeapon()->getIcon()->setPosition(Weapon->getPosition().x -
+                                                             selectedPlayer->getWeapon()->getIcon()->getPositionRect().w,Weapon->getPosition().y);
+         selectedPlayer->getWeapon()->getIcon()->accept(&visitor);
 
 
-         Weapon->Draw(selectedPlayer->getIcon()->getPositionRect().x + selectedPlayer->getIcon()->getPositionRect().w * 5,
+
+         Weapon->Draw(selectedPlayer->getIcon()->getPositionRect().x + selectedPlayer->getWeapon()->getIcon()->getPositionRect().w
+                      + selectedPlayer->getIcon()->getPositionRect().w * 5,
                       selectedPlayer->getIcon()->getPositionRect().y + 90);
 
           std::cout <<std::boolalpha <<  Weapon->getInside();
          if(Weapon->getInside())
          {
              std::cout <<"inside weapon" << std::endl;
-             selected->setPosition(Weapon->getPosition().x - selected->getRect().w,Weapon->getPosition().y + selected->getRect().h/2);
+             selected->setPosition(selectedPlayer->getWeapon()->getIcon()->getPositionRect().x - selectedPlayer->getWeapon()->getIcon()->getRect().w*1.5,
+                                   selectedPlayer->getWeapon()->getIcon()->getPositionRect().y + selectedPlayer->getWeapon()->getIcon()->getPositionRect().h/2);
              selected->accept(&visitor);
          }
 

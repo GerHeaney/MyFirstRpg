@@ -148,8 +148,11 @@ void BattleState::Draw(GameEngine *game)
     infoBox->accept(visitor);
     for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
+        if((*i)->getCurrentHealth() > 0)
+        {
 
       (*i)->getSprite()->accept(visitor);
+        }
         i++;
     }
     for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
@@ -241,7 +244,10 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             {
                                 battleInfo->setText("Select enemy to attack");
                                 battleInfo->Display(game->getSetup());
+                                if((*itrEnemies)->getCurrentHealth() > 0)
+                                {
                                 (*itrEnemies)->isSelected(game->getSetup());
+                                }
                             }
 
 
@@ -294,7 +300,7 @@ bool BattleState::EnemyTurn(GameEngine *game)
             for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
             {
 
-                if((*i)->getCanAttack() == true)
+                if((*i)->getCanAttack() == true && (*i)->getCurrentHealth() > 0)
                {
                     int  x = rand() % game->getParty()->size();
 

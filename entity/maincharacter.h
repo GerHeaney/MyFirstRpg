@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <map>
 #include <iostream>
 #include "Sprite/movingsprite.h"
 #include "Sprite/backgroundsprite.h"
@@ -48,6 +49,7 @@ public:
     virtual int getCurrentHealth() const;
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * enemy);
+    virtual void useAbility(Entity* enemy);
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
@@ -68,6 +70,7 @@ public:
 private:
 
     bool isMoving;
+    std::map<Item::TYPE,int> skills;
 
 
 

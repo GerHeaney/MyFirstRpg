@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "Visitor/ivisitor.h"
+#include "GameSetup/sdl_setup.h"
 
 
 

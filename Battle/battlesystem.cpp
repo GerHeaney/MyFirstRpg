@@ -118,7 +118,7 @@ bool BattleSystem::getEnemyTurn(std::vector<Entity *> enemies)
     for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
 
-        if((*i)->getCanAttack())
+        if((*i)->getCanAttack() && (*i)->getCurrentHealth() > 0 )
         {
             turnCount++;
         }

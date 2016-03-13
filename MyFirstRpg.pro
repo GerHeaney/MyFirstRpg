@@ -45,7 +45,11 @@ SOURCES += main.cpp \
     Menu/menustate.cpp \
     Item/weapon.cpp \
     Item/potion.cpp \
-    Item/inventory.cpp
+    Item/inventory.cpp \
+    Skills/swordskill.cpp \
+    Skills/axeskill.cpp \
+    Skills/spearskill.cpp \
+    Skills/maceskill.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -82,7 +86,12 @@ HEADERS  += \
     Item/item.h \
     Item/weapon.h \
     Item/potion.h \
-    Item/inventory.h
+    Item/inventory.h \
+    Skills/iskill.h \
+    Skills/swordskill.h \
+    Skills/axeskill.h \
+    Skills/spearskill.h \
+    Skills/maceskill.h
 
 
 

@@ -12,6 +12,7 @@ Level::Level()
     A = (double)minXP / (exp(B) - 1.0);
    // setuplevels(200,100000,20);
     currentLevel = 1;
+    skillPoints = 0;
     currentXP = 0;
     nextLevelXP = 0;
     lastLevelXP = 0;
@@ -155,6 +156,7 @@ void Level::levelUP()
         if(requiredXP <=0)
         {
              currentLevel++;
+             skillPoints++;
         requiredXP += getNextLevelXP();
         }
         std::cout << "You have reached level " << currentLevel << std::endl;

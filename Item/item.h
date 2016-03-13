@@ -11,7 +11,7 @@ class Item
 {
 public:
     enum TYPE {
-        AXE,SWORD,SPEAR,BOW,USABLE
+        AXE,SWORD,SPEAR,MACE,USABLE
     };
     virtual ~Item() {}
     virtual TYPE getType() = 0;

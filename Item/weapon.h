@@ -3,10 +3,11 @@
 
 #include "Item/item.h"
 
+
 class Weapon : public Item
 {
 public:
-    Weapon(Item::TYPE wType, std::string wName, int wCost, int wPower);
+   Weapon(SDL_setup *setup, Item::TYPE wType, std::string wName, int wCost, int wPower, std::string path);
     ~Weapon();
     virtual Item::TYPE getType() ;
     virtual void setType(const Item::TYPE &value) ;
@@ -23,6 +24,7 @@ public:
 
     virtual MenuSprite *getIcon() const;
     virtual void setIcon(MenuSprite *value);
+
 
 private:
 

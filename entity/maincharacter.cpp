@@ -13,12 +13,16 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     icon = new MenuSprite(gameSetup->getRenderer(),("resources/Characters/" + playerName + ".png"));
     playerSprite->setupAnimation(4,4);
     entityLevel = new Level();
-    weapon = new Weapon(Item::SWORD,"Iron Sword",50,30);
+    weapon = new Weapon(gameSetup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png");
     currentHealth = 300;
     maxHealth = 300;
-    attackDamage = 300;
+    attackDamage = 80;
     abilityPower = 50;
     maxAP = 50;
+    skills[Item::AXE] = 0;
+    skills[Item::SWORD] = 0;
+    skills[Item::SPEAR] = 0;
+    skills[Item::MACE] = 0;
 
 }
 MainCharacter::~MainCharacter()
@@ -145,7 +149,21 @@ void MainCharacter::setCurrentHealth(int value)
 
 void MainCharacter::attack(Entity *enemy)
 {
-    enemy->setCurrentHealth(enemy->getCurrentHealth() - attackDamage);
+    int damage = attackDamage + weapon->getPower();
+
+    enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
+
+    if(enemy->getCurrentHealth() <=0)
+    {
+        enemy->setCurrentHealth(0);
+    }
+}
+
+void MainCharacter::useAbility(Entity *enemy)
+{
+    int damage = attackDamage + weapon->getPower();
+
+    enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
 
     if(enemy->getCurrentHealth() <=0)
     {

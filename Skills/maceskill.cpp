@@ -1,8 +1,12 @@
 #include "maceskill.h"
 
 
-MaceSkill::MaceSkill()
+MaceSkill::MaceSkill(int cost, int power, int requiredSkill, std::string name)
 {
+    this->cost = cost;
+    this->power = power;
+    this->requiredSkill = requiredSkill;
+    this->name = name;
 
 }
 
@@ -51,4 +55,15 @@ std::string MaceSkill::getName() const
 void MaceSkill::setName(const std::string &value)
 {
     name = value;
+}
+
+
+bool MaceSkill::getActive() const
+{
+    return active;
+}
+
+void MaceSkill::setActive(bool value)
+{
+    active = value;
 }

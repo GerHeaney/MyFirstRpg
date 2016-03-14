@@ -1,7 +1,11 @@
 #include "swordskill.h"
 
-SwordSkill::SwordSkill()
+SwordSkill::SwordSkill(int cost, int power, int requiredSkill, std::string name)
 {
+    this->cost = cost;
+    this->power = power;
+    this->requiredSkill = requiredSkill;
+    this->name = name;
 
 }
 
@@ -50,4 +54,15 @@ std::string SwordSkill::getName() const
 void SwordSkill::setName(const std::string &value)
 {
     name = value;
+}
+
+
+bool SwordSkill::getActive() const
+{
+    return active;
+}
+
+void SwordSkill::setActive(bool value)
+{
+    active = value;
 }

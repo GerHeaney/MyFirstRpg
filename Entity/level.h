@@ -31,7 +31,7 @@ public:
     void setMaxXP(int value);
 
 
-    int getSkillPoints() const;
+    int getSkillPoints() ;
     void setSkillPoints(int value);
     int getMinXP() const;
     void setMinXP(int value);
@@ -44,7 +44,7 @@ public:
     void setLastLevelXP(int value);
 
     void levelUP();
-    int getRequiredXP() const;
+    int getRequiredXP();
     void setRequiredXP(int value);
 
 private:

@@ -19,10 +19,17 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     attackDamage = 80;
     abilityPower = 50;
     maxAP = 50;
-    skills[Item::AXE] = 0;
-    skills[Item::SWORD] = 0;
-    skills[Item::SPEAR] = 0;
-    skills[Item::MACE] = 0;
+    skillMap["Axe Skill"] = 0;
+    skillMap["Sword Skill"] = 1;
+    skillMap["Mace Skill"] = 2;
+    skillMap["Spear Skill"] = 3;
+
+
+    std::map<std::string,int>::iterator it = skillMap.begin();
+
+    for (it=skillMap.begin(); it!=skillMap.end(); ++it)
+       std::cout << it->first << " => " << it->second << '\n';
+
 
 }
 MainCharacter::~MainCharacter()
@@ -307,3 +314,24 @@ void MainCharacter::setWeapon(Item *value)
     weapon = value;
 }
 
+
+
+std::list<ISkill *> MainCharacter::getList()
+{
+    return skillList;
+}
+
+std::map<std::string, int> *MainCharacter::getSkillMap()
+{
+    return &skillMap;
+}
+
+void MainCharacter::setSkillMap(const std::map<std::string, int> &value)
+{
+    skillMap = value;
+}
+
+std::list<ISkill *> MainCharacter::getSkillList() const
+{
+    return skillList;
+}

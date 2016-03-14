@@ -1,8 +1,12 @@
 
 #include "axeskill.h"
 
-AxeSkill::AxeSkill()
+AxeSkill::AxeSkill(int cost, int power, int requiredSkill, std::string name)
 {
+    this->cost = cost;
+    this->power = power;
+    this->requiredSkill = requiredSkill;
+    this->name = name;
 
 }
 
@@ -51,4 +55,15 @@ std::string AxeSkill::getName() const
 void AxeSkill::setName(const std::string &value)
 {
     name = value;
+}
+
+
+bool AxeSkill::getActive() const
+{
+    return active;
+}
+
+void AxeSkill::setActive(bool value)
+{
+    active = value;
 }

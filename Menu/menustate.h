@@ -47,6 +47,10 @@ private:
       FontButton * Equip;
       FontButton * Skills;
       FontButton * Weapon;
+      FontButton * Axe;
+      FontButton * Mace;
+      FontButton * Spear;
+      FontButton * Sword;
       int offset = 20;
       int state;
       Entity * selectedPlayer;

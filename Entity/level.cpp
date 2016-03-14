@@ -12,7 +12,7 @@ Level::Level()
     A = (double)minXP / (exp(B) - 1.0);
    // setuplevels(200,100000,20);
     currentLevel = 1;
-    skillPoints = 0;
+    skillPoints = 1;
     currentXP = 0;
     nextLevelXP = 0;
     lastLevelXP = 0;
@@ -41,7 +41,7 @@ void Level::setMaxXP(int value)
     maxXP = value;
 }
 
-int Level::getSkillPoints() const
+int Level::getSkillPoints()
 {
     return skillPoints;
 }
@@ -141,8 +141,11 @@ int Level::getCurrentLevel() const
 }
 
 void Level::setCurrentLevel(int value)
-{
+{    
     currentLevel = value;
+    skillPoints = currentLevel;
+    requiredXP = getNextLevelXP();
+
 }
 void Level::levelUP()
 {
@@ -166,8 +169,8 @@ void Level::levelUP()
 
 }
 
-int Level::getRequiredXP() const
-{
+int Level::getRequiredXP()
+{     
     return requiredXP;
 }
 

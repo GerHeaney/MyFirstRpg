@@ -66,11 +66,17 @@ public:
 
     virtual Item *getWeapon() const;
     virtual void setWeapon(Item *value);
+    virtual std::list<ISkill *> getList();
+
+    virtual std::map<std::string, int>* getSkillMap();
+    virtual void setSkillMap(const std::map<std::string, int> &value);
+
+     virtual std::list<ISkill *> getSkillList() const ;
 
 private:
 
     bool isMoving;
-    std::map<Item::TYPE,int> skills;
+
 
 
 
@@ -80,6 +86,10 @@ private:
 
 //    CSprite* player;
 //    SDL_setup *setup;
+
+
+
+
 
 
 

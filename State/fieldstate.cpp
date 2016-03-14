@@ -18,6 +18,7 @@ void FieldState::Init(GameEngine *game)
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
     player->getSprite()->setY(0);
+    std::cout <<" skillpoints are " << player->getEntityLevel()->getSkillPoints()<< std::endl;
     Level * level = new Level();
  //   std::cout <<" got to end of field init" << std::endl;
 

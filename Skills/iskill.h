@@ -18,7 +18,11 @@ public:
     virtual std::string getName() const=0;
     virtual void setName(const std::string &value)=0;
 
+    virtual bool getActive() const  = 0;
+    virtual void setActive(bool value) = 0;
+
 protected:
+    bool active = false;
     int cost;
     int power;
     int requiredSkill;
@@ -27,3 +31,4 @@ protected:
 };
 
 #endif // ISKILL_H
+

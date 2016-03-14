@@ -14,6 +14,10 @@ void MenuState::Init(GameEngine *game)
     Equip = new FontButton(game->getSetup(),"Equip");
     Skills = new FontButton(game->getSetup(),"Skills");   
     Weapon = new FontButton(game->getSetup(),"Weapon");
+    Axe = new FontButton(game->getSetup(),">");
+    Mace  = new FontButton(game->getSetup(),">");
+    Spear = new FontButton(game->getSetup(),">");
+    Sword = new FontButton(game->getSetup(),">");
     selected = new MenuSprite(game->getRenderer(),"resources/Battle/select.png");
     back->setSize(0,0,game->getScreenWidth()- options->getRect().w ,game->getScreenHeight());
     options->setPosition(game->getScreenWidth() - options->getRect().w,0);
@@ -115,9 +119,37 @@ void MenuState::Draw(GameEngine *game)
                     if( (*i)->getSelected())
                     {
                         selectedPlayer = (*i);
-                        switchState(STATE_EQUIP);
                         Weapon->setText(selectedPlayer->getWeapon()->getName());
                         Weapon->setInside(false);
+                        switchState(STATE_EQUIP);
+
+
+                    }
+            }
+            if(Skills->getPressed())
+            {
+
+                    (*i)->isSelected(game->getSetup());
+
+                    if((*i)->getMouseOver())
+                    {
+                        selected->setPosition((*i)->getIcon()->getPositionRect().x - selected->getRect().w,
+                                              (*i)->getIcon()->getPositionRect().y + selected->getRect().h/2);
+                        selected->accept(&visitor);
+                        std::cout << "over";
+
+                    }
+                    if( (*i)->getSelected())
+                    {
+                        selectedPlayer = (*i);
+                        Axe->setPressed(false);
+                        Mace->setPressed(false);
+                        Sword->setPressed(false);
+                        Spear->setPressed(false);
+                        Axe->setInside(false);
+
+                        switchState(STATE_SKILLS);
+
 
                     }
             }
@@ -185,6 +217,95 @@ void MenuState::Draw(GameEngine *game)
 
         break;
 }
+    case(STATE_SKILLS):
+    {
+        int scrpos = 40;
+        back->setSize(0,0,game->getScreenWidth(),game->getScreenHeight()/3);
+        back->accept(&visitor);
+        back->setSize(game->getScreenWidth()/3*2,game->getScreenHeight()/3,game->getScreenWidth()/3,game->getScreenHeight()/3 *2);
+        back->accept(&visitor);
+        back->setSize(0,game->getScreenHeight()/3,game->getScreenWidth() - game->getScreenWidth()/3,game->getScreenHeight()/3 *2);
+        back->accept(&visitor);
+
+        selectedPlayer->getIcon()->setPositionRect(scrpos,scrpos);
+        selectedPlayer->getIcon()->accept(&visitor);
+
+        line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x+selectedPlayer->getIcon()->getPositionRect().w
+                           + selectedPlayer->getIcon()->getPositionRect().w/3 ,selectedPlayer->getIcon()->getPositionRect().y);
+        line1->setText(selectedPlayer->getName());
+        line1->Display(game->getSetup());
+
+        line1->setText("LV: " + selectedPlayer->toString(selectedPlayer->getEntityLevel()->getCurrentLevel()));
+        line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x+selectedPlayer->getIcon()->getPositionRect().w
+                           + selectedPlayer->getIcon()->getPositionRect().w/3 ,selectedPlayer->getIcon()->getPositionRect().y + 30);
+        line1->Display(game->getSetup());
+
+        line1->setText("HP: " + selectedPlayer->toString(selectedPlayer->getCurrentHealth()) + "/" +selectedPlayer->toString(selectedPlayer->getMaxHealth()));
+        line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x+selectedPlayer->getIcon()->getPositionRect().w+
+                           selectedPlayer->getIcon()->getPositionRect().w/3 ,selectedPlayer->getIcon()->getPositionRect().y + 60);
+        line1->Display(game->getSetup());
+
+        line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x+selectedPlayer->getIcon()->getPositionRect().w+
+                           selectedPlayer->getIcon()->getPositionRect().w/3,selectedPlayer->getIcon()->getPositionRect().y + 90);
+        line1->setText("AP: " + selectedPlayer->toString(selectedPlayer->getAbilityPower()) + "/" +selectedPlayer->toString(selectedPlayer->getMaxAP()));
+        line1->Display(game->getSetup());
+
+        line1->setPosition(selectedPlayer->getIcon()->getPositionRect().x + selectedPlayer->getIcon()->getPositionRect().w * 3,
+                           selectedPlayer->getIcon()->getPositionRect().y + 90);
+        line1->setText(" Available skill points :" + selectedPlayer->toString(selectedPlayer->getEntityLevel()->getSkillPoints()));
+        line1->Display(game->getSetup());
+
+        std::map<std::string,int>::iterator it = selectedPlayer->getSkillMap()->begin();
+
+        int x = 30;
+        Axe->Draw(back->getPositionRect().x + scrpos + 200 ,back->getPositionRect().y + x);
+        Mace->Draw(back->getPositionRect().x + scrpos + 200 ,back->getPositionRect().y + x*2);
+        Spear->Draw(back->getPositionRect().x + scrpos + 200 ,back->getPositionRect().y + x*3);
+        Sword->Draw(back->getPositionRect().x + scrpos + 200 ,back->getPositionRect().y + x*4);
+        for (it=selectedPlayer->getSkillMap()->begin(); it!=selectedPlayer->getSkillMap()->end(); ++it)
+        {
+           std::cout << it->first << " => " << it->second << '\n';
+        line1->setPosition(back->getPositionRect().x + scrpos ,back->getPositionRect().y + x);
+        line1->setText(  it->first );
+        line1->Display(game->getSetup());
+
+        line1->setPosition(back->getPositionRect().x + scrpos*5 ,back->getPositionRect().y + x);
+        line1->setText(  selectedPlayer->toString(it->second ));
+        line1->Display(game->getSetup());
+        x += 30;
+        }
+        std::cout <<"Available skills "<<selectedPlayer->getEntityLevel()->getSkillPoints() << std::endl;
+        if(Axe->getPressed() && selectedPlayer->getEntityLevel()->getSkillPoints() > 0)
+        {
+            selectedPlayer->getSkillMap()->at("Axe Skill")++;
+
+            selectedPlayer->getEntityLevel()->setSkillPoints(selectedPlayer->getEntityLevel()->getSkillPoints() -1);
+            Axe->setPressed(false);
+        }
+        if(Mace->getPressed() && selectedPlayer->getEntityLevel()->getSkillPoints() > 0)
+        {
+            selectedPlayer->getSkillMap()->at("Mace Skill")++;
+
+            selectedPlayer->getEntityLevel()->setSkillPoints(selectedPlayer->getEntityLevel()->getSkillPoints() -1);
+            Mace->setPressed(false);
+        }
+        if(Spear->getPressed() && selectedPlayer->getEntityLevel()->getSkillPoints() > 0)
+        {
+            selectedPlayer->getSkillMap()->at("Spear Skill")++;
+
+            selectedPlayer->getEntityLevel()->setSkillPoints(selectedPlayer->getEntityLevel()->getSkillPoints() -1);
+            Spear->setPressed(false);
+        }
+        if(Sword->getPressed() && selectedPlayer->getEntityLevel()->getSkillPoints() > 0)
+        {
+            selectedPlayer->getSkillMap()->at("Sword Skill")++;
+
+            selectedPlayer->getEntityLevel()->setSkillPoints(selectedPlayer->getEntityLevel()->getSkillPoints() -1);
+            Sword->setPressed(false);
+        }
+
+        break;
+    }
     }
 
 
@@ -202,6 +323,10 @@ void MenuState::HandleEvents(GameEngine *game)
         Equip->handleEvent();
         Skills->handleEvent();
         Weapon->handleEvent();
+        Axe->handleEvent();
+        Mace->handleEvent();
+        Spear->handleEvent();
+        Sword->handleEvent();
 
     }
     if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)

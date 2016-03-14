@@ -5,7 +5,7 @@
 class SwordSkill : public ISkill
 {
 public:
-    SwordSkill(int cost, int power, int requiredSkill, std::string name);
+    SwordSkill(Item::TYPE type,int cost, int power, int requiredSkill, std::string name);
     ~SwordSkill();
 
 
@@ -21,6 +21,8 @@ public:
     virtual void setName(const std::string &value);
     virtual bool getActive() const;
     virtual void setActive(bool value);
+    virtual Item::TYPE getType() const;
+    virtual void setType(const Item::TYPE &value);
 };
 
 #endif // SWORDSKILL_H

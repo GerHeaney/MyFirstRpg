@@ -54,11 +54,10 @@ public:
 
     virtual Item *getWeapon() const;
     virtual void setWeapon(Item *value);
-    virtual std::list<ISkill *> getList();
 
     virtual std::map<std::string, int>* getSkillMap() ;
     virtual void setSkillMap(const std::map<std::string, int> &value);
-     virtual std::list<ISkill *> getSkillList() const;
+     virtual SkillList *getSkillList() const;
 
 private:
     EnemySprite * enemySprite;

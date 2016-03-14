@@ -6,6 +6,7 @@ MenuState MenuState::menu;
 
 void MenuState::Init(GameEngine *game)
 {   
+    exit = false;
     state = STATE_INTRO;
     back = new MenuSprite(game->getRenderer(),"resources/Menu/menuback.png");
     options = new MenuSprite(game->getRenderer(),"resources/menu/options.png");
@@ -19,8 +20,7 @@ void MenuState::Init(GameEngine *game)
     Spear = new FontButton(game->getSetup(),">");
     Sword = new FontButton(game->getSetup(),">");
     selected = new MenuSprite(game->getRenderer(),"resources/Battle/select.png");
-    back->setSize(0,0,game->getScreenWidth()- options->getRect().w ,game->getScreenHeight());
-    options->setPosition(game->getScreenWidth() - options->getRect().w,0);
+
     //Item->setPosition(options->getPositionRect().x,options->getPositionRect().y);
 
     buttons.push_back(Item);
@@ -40,6 +40,9 @@ void MenuState::Draw(GameEngine *game)
     {
     case STATE_INTRO:
     {
+
+        back->setSize(0,0,game->getScreenWidth()- options->getRect().w ,game->getScreenHeight());
+        options->setPosition(game->getScreenWidth() - options->getRect().w,0);
         back->accept(&visitor);
         options->accept(&visitor);
 
@@ -121,6 +124,7 @@ void MenuState::Draw(GameEngine *game)
                         selectedPlayer = (*i);
                         Weapon->setText(selectedPlayer->getWeapon()->getName());
                         Weapon->setInside(false);
+                        selectedPlayer->setSelected(false);
                         switchState(STATE_EQUIP);
 
 
@@ -147,6 +151,7 @@ void MenuState::Draw(GameEngine *game)
                         Sword->setPressed(false);
                         Spear->setPressed(false);
                         Axe->setInside(false);
+                        selectedPlayer->setSelected(false);
 
                         switchState(STATE_SKILLS);
 
@@ -256,6 +261,17 @@ void MenuState::Draw(GameEngine *game)
         line1->Display(game->getSetup());
 
         std::map<std::string,int>::iterator it = selectedPlayer->getSkillMap()->begin();
+        std::list<ISkill*>::iterator iList ;
+        for(iList = selectedPlayer->getSkillList()->getSkillList()->begin();iList!=selectedPlayer->getSkillList()->getSkillList()->end();)
+        {
+            if(selectedPlayer->getSkillMap()->at("Axe Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::AXE)
+            {
+                (*iList)->setActive(true);
+            }
+            std::cout << "Weapon type is " <<(*iList)->getType() <<std::endl;
+            std::cout << std::boolalpha << (*iList)->getActive() << std::endl;
+            iList++;
+        }
 
         int x = 30;
         Axe->Draw(back->getPositionRect().x + scrpos + 200 ,back->getPositionRect().y + x);
@@ -329,11 +345,50 @@ void MenuState::HandleEvents(GameEngine *game)
         Sword->handleEvent();
 
     }
-    if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)
+    if(game->getSetup()->getMainEvent()->type == SDL_KEYDOWN)
     {
-        game->PopState();
-    }
 
+        if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)
+        {
+            if(state == STATE_INTRO)
+            {
+                exit = true;
+
+
+            }
+
+            if(state != STATE_INTRO)
+            {
+
+                exit = false;
+            }
+
+
+        }
+
+
+    }
+    if(game->getSetup()->getMainEvent()->type == SDL_KEYUP)
+    {
+
+        if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)
+        {
+            if(state != STATE_INTRO)
+            {
+                switchState(STATE_INTRO);
+
+
+            }
+            if(state == STATE_INTRO )
+            {
+                if(exit)
+                {
+                game->PopState();
+                }
+            }
+
+        }
+    }
 }
 
 void MenuState::Cleanup()
@@ -361,8 +416,19 @@ void MenuState::Resume(GameEngine *game)
 
 }
 
+
 MenuState::States MenuState::switchState(MenuState::States state)
 {
     this->state = state;
 
+}
+
+bool MenuState::getExit() const
+{
+    return exit;
+}
+
+void MenuState::setExit(bool value)
+{
+    exit = value;
 }

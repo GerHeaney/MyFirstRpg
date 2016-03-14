@@ -1,8 +1,9 @@
 #include "maceskill.h"
 
 
-MaceSkill::MaceSkill(int cost, int power, int requiredSkill, std::string name)
+MaceSkill::MaceSkill(Item::TYPE type, int cost, int power, int requiredSkill, std::string name)
 {
+    this->type = type;
     this->cost = cost;
     this->power = power;
     this->requiredSkill = requiredSkill;
@@ -66,4 +67,15 @@ bool MaceSkill::getActive() const
 void MaceSkill::setActive(bool value)
 {
     active = value;
+}
+
+
+Item::TYPE MaceSkill::getType() const
+{
+    return type;
+}
+
+void MaceSkill::setType(const Item::TYPE &value)
+{
+    type = value;
 }

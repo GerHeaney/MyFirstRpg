@@ -22,14 +22,18 @@ public:
 
     virtual void Pause();
     virtual void Resume(GameEngine *game);
+
     static MenuState * Instance() {
         return &menu;
     }
+    bool getExit() const;
+    void setExit(bool value);
+
 protected:
-      MenuState(){}
+    MenuState(){}
 
 private:
-      enum States
+    enum States
       {
           STATE_INTRO,
           STATE_ITEM,
@@ -54,6 +58,7 @@ private:
       int offset = 20;
       int state;
       Entity * selectedPlayer;
+      bool exit;
       //Add teh states stuff in main character so i can select a character
 
 };

@@ -288,9 +288,6 @@ std::string Enemy::toString(int number)
 
 
 
-std::list<ISkill *> Enemy::getList()
-{
-}
 
 std::map<std::string, int> *Enemy::getSkillMap()
 {
@@ -302,7 +299,7 @@ void Enemy::setSkillMap(const std::map<std::string, int> &value)
     skillMap = value;
 }
 
-std::list<ISkill *> Enemy::getSkillList() const
+SkillList *Enemy::getSkillList() const
 {
 
 }

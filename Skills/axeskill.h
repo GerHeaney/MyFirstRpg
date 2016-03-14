@@ -5,7 +5,7 @@
 class AxeSkill : public ISkill
 {
 public:
-    AxeSkill(int cost, int power, int requiredSkill, std::string name);
+    AxeSkill(Item::TYPE type, int cost, int power, int requiredSkill, std::string name);
     ~AxeSkill();
 
 
@@ -21,6 +21,8 @@ public:
     virtual void setName(const std::string &value);
     virtual bool getActive() const;
     virtual void setActive(bool value);
+    virtual Item::TYPE getType() const;
+    virtual void setType(const Item::TYPE &value);
 };
 
 #endif // AXESKILL_H

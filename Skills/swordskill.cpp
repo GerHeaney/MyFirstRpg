@@ -1,7 +1,8 @@
 #include "swordskill.h"
 
-SwordSkill::SwordSkill(int cost, int power, int requiredSkill, std::string name)
+SwordSkill::SwordSkill(Item::TYPE type, int cost, int power, int requiredSkill, std::string name)
 {
+    this->type = type;
     this->cost = cost;
     this->power = power;
     this->requiredSkill = requiredSkill;
@@ -65,4 +66,15 @@ bool SwordSkill::getActive() const
 void SwordSkill::setActive(bool value)
 {
     active = value;
+}
+
+
+Item::TYPE SwordSkill::getType() const
+{
+    return type;
+}
+
+void SwordSkill::setType(const Item::TYPE &value)
+{
+    type = value;
 }

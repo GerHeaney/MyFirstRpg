@@ -1,8 +1,9 @@
 #include "spearskill.h"
 
 
-SpearSkill::SpearSkill(int cost, int power, int requiredSkill, std::string name)
+SpearSkill::SpearSkill(Item::TYPE type, int cost, int power, int requiredSkill, std::string name)
 {
+    this->type = type;
     this->cost = cost;
     this->power = power;
     this->requiredSkill = requiredSkill;
@@ -66,4 +67,15 @@ bool SpearSkill::getActive() const
 void SpearSkill::setActive(bool value)
 {
     active = value;
+}
+
+
+Item::TYPE SpearSkill::getType() const
+{
+    return type;
+}
+
+void SpearSkill::setType(const Item::TYPE &value)
+{
+    type = value;
 }

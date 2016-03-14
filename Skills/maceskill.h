@@ -6,7 +6,7 @@
 class MaceSkill : public ISkill
 {
 public:
-    MaceSkill(int cost,int power,int requiredSkill,std::string name);
+    MaceSkill(Item::TYPE type,int cost,int power,int requiredSkill,std::string name);
     ~MaceSkill();
 
     // ISkill interface
@@ -21,6 +21,8 @@ public:
     virtual void setName(const std::string &value);
     virtual bool getActive() const;
     virtual void setActive(bool value);
+    virtual Item::TYPE getType() const;
+    virtual void setType(const Item::TYPE &value);
 };
 
 #endif // MACESKILL_H

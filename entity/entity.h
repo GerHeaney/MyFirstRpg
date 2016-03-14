@@ -13,7 +13,7 @@
 #include "Sprite/menusprite.h"
 #include "Entity/level.h"
 #include "Item/item.h"
-#include "Skills/iskill.h"
+#include "Skills/skilllist.h"
 
 
 class Entity
@@ -70,14 +70,12 @@ public:
 
 
     virtual Item *getWeapon() const = 0;
-    virtual void setWeapon(Item *value)  = 0;
-
-    virtual std::list<ISkill*> getList() = 0;
+    virtual void setWeapon(Item *value)  = 0;   
 
     virtual std::map<std::string, int> *getSkillMap()  = 0;
     virtual void setSkillMap(const std::map<std::string, int> &value) = 0;
 
-    virtual std::list<ISkill *> getSkillList() const = 0;
+    virtual SkillList *getSkillList() const = 0;
 
 protected:
     Level * entityLevel;
@@ -95,7 +93,7 @@ protected:
     int attackDamage;
     int experience;
     int level;
-    std::list<ISkill*> skillList;
+    SkillList * skillList;
     std::map<std::string,int> skillMap;
 
 

@@ -1,6 +1,7 @@
 #ifndef ISKILL_H
 #define ISKILL_H
 #include <iostream>
+#include "Item/item.h"
 
 class ISkill
 {
@@ -21,12 +22,16 @@ public:
     virtual bool getActive() const  = 0;
     virtual void setActive(bool value) = 0;
 
+    virtual Item::TYPE getType() const = 0;
+    virtual void setType(const Item::TYPE &value) = 0;
+
 protected:
     bool active = false;
     int cost;
     int power;
     int requiredSkill;
     std::string name;
+    Item::TYPE type;
 
 };
 

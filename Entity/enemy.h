@@ -36,7 +36,7 @@ public:
     virtual int getCurrentHealth() const;
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * player);
-    virtual void useAbility(Entity* player);
+    virtual void useAbility(ISkill * skill,Entity* player);
     void isSelected(SDL_setup *setup);
 
     virtual bool getCanAttack() const;
@@ -73,6 +73,11 @@ private:
 
 
 
+
+    // Entity interface
+public:
+
+    virtual void useItem(Item *item);
 };
 
 #endif // ENEMY_H

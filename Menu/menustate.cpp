@@ -268,6 +268,18 @@ void MenuState::Draw(GameEngine *game)
             {
                 (*iList)->setActive(true);
             }
+            if(selectedPlayer->getSkillMap()->at("Mace Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::MACE)
+            {
+                (*iList)->setActive(true);
+            }
+            if(selectedPlayer->getSkillMap()->at("Spear Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SPEAR)
+            {
+                (*iList)->setActive(true);
+            }
+            if(selectedPlayer->getSkillMap()->at("Sword Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SWORD)
+            {
+                (*iList)->setActive(true);
+            }
             std::cout << "Weapon type is " <<(*iList)->getType() <<std::endl;
             std::cout << std::boolalpha << (*iList)->getActive() << std::endl;
             iList++;

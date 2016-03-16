@@ -29,13 +29,15 @@ public:
 
     void Draw();
     void chooseEnemy(GameEngine *game, Entity *player, Entity *enemy);
-    void drawBattleMenu();
+    void drawBattleMenu(GameEngine *game);
     bool PlayerTurn(GameEngine * game);
     bool EnemyTurn(GameEngine * game);
     void displayMessage(GameEngine * game);
+    void checkSkills(GameEngine *game);
     static BattleState * Instance() {
         return &battle;
     }
+    void drawSkillsMenu();
 protected:
     BattleState() {}
 
@@ -53,6 +55,9 @@ private:
     FontButton * Attack;
     FontButton * Ability;
     FontButton * Item;
+    FontButton * Skill1;
+    FontButton * Skill2;
+    FontButton * Skill3;
     static BattleState battle;
     SDL_Point playerPosition;
     SDL_Point enemyPosition;

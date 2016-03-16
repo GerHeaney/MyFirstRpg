@@ -49,7 +49,7 @@ public:
     virtual int getCurrentHealth() const;
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * enemy);
-    virtual void useAbility(Entity* enemy);
+    virtual void useAbility(ISkill * skill,Entity* enemy);
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
@@ -94,6 +94,10 @@ private:
 
 
 
+
+    // Entity interface
+public:
+    virtual void useItem(Item *item);
 };
 
 #endif // MAINCHARACTER_H

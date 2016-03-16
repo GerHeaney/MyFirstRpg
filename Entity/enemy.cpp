@@ -80,7 +80,7 @@ void Enemy::attack(Entity *player)
     }
 }
 
-void Enemy::useAbility(Entity *player)
+void Enemy::useAbility(ISkill *skill, Entity *player)
 {
 
 }
@@ -302,4 +302,10 @@ void Enemy::setSkillMap(const std::map<std::string, int> &value)
 SkillList *Enemy::getSkillList() const
 {
 
+}
+
+
+
+void Enemy::useItem(Item *item)
+{
 }

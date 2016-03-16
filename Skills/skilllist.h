@@ -15,6 +15,7 @@ class SkillList
 public:
     SkillList();
     std::list<ISkill *>* getSkillList();
+    ISkill* getSkill(Item::TYPE type,int skill);
 
   void  Init();
 private:

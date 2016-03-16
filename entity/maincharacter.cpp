@@ -19,8 +19,8 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     attackDamage = 80;
     abilityPower = 50;
     maxAP = 50;
-    skillMap["Axe Skill"] = 10;
-    skillMap["Sword Skill"] = 0;
+    skillMap["Axe Skill"] = 0;
+    skillMap["Sword Skill"] = 20;
     skillMap["Mace Skill"] = 0;
     skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
@@ -160,7 +160,7 @@ void MainCharacter::setCurrentHealth(int value)
 
 void MainCharacter::attack(Entity *enemy)
 {
-    int damage = attackDamage + weapon->getPower();
+    int damage = attackDamage + weapon->getPower() ;
 
     enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
 
@@ -170,9 +170,9 @@ void MainCharacter::attack(Entity *enemy)
     }
 }
 
-void MainCharacter::useAbility(Entity *enemy)
+void MainCharacter::useAbility(ISkill *skill, Entity *enemy)
 {
-    int damage = attackDamage + weapon->getPower();
+    int damage = attackDamage + weapon->getPower()+ (skill->getPower() *2);
 
     enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
 
@@ -334,4 +334,25 @@ void MainCharacter::setSkillMap(const std::map<std::string, int> &value)
 SkillList *MainCharacter::getSkillList() const
 {
     return skillList;
+}
+
+
+void MainCharacter::useItem(Item *item)
+{
+    if(item->getType() == Item::POTION)
+    {
+        currentHealth += item->getPower();
+        if(currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+    if(item->getType() == Item::ETHER)
+    {
+        abilityPower += item->getPower();
+        if(abilityPower >= maxAP)
+        {
+            abilityPower = maxAP;
+        }
+    }
 }

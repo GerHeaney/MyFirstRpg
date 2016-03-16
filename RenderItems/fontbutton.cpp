@@ -111,8 +111,8 @@ void FontButton::handleEvent()
        int x, y;
        SDL_GetMouseState( &x, &y );
 
-       std::cout << " x position is " << x << std::endl;
-        std::cout << " y position is " << y << std::endl;
+//       std::cout << " x position is " << x << std::endl;
+//        std::cout << " y position is " << y << std::endl;
         inside = false;
 
        //Check if mouse is in button
@@ -152,11 +152,13 @@ void FontButton::handleEvent()
 
 
 
+
            //Set mouse over sprite
            switch( setup->getMainEvent()->type )
            {
                 //over the button
-               case SDL_MOUSEMOTION:           
+               case SDL_MOUSEMOTION:
+               std::cout <<"Over button " + text<<std::endl;
                SetTextColour(150,150,150);            
                break;
 
@@ -164,7 +166,7 @@ void FontButton::handleEvent()
                case SDL_MOUSEBUTTONDOWN:             
                SetTextColour(50,50,50);
 
-                   pressed = true;
+                   this->pressed = true;
 
                break;
 

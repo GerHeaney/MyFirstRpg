@@ -47,8 +47,9 @@ public:
     virtual void setCurrentHealth(int value) = 0;
     virtual ISprite * getSprite()=0;
     virtual void attack(Entity *) = 0;
-    virtual void useAbility(Entity*) = 0;
+    virtual void useAbility(ISkill*,Entity*) = 0;
     virtual void isSelected(SDL_setup *) = 0;
+    virtual void useItem(Item* item)= 0;
 
 
     virtual bool getCanAttack() const = 0 ;

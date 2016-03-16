@@ -182,7 +182,7 @@ void VictoryState::screenClick(GameEngine * game)
                     if((*i)->getEntityLevel()->getRequiredXP() <= 0)
                     {
 
-                        (*i)->getEntityLevel()->levelUP();
+                        (*i)->levelUP();
 
                     }
 

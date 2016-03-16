@@ -12,7 +12,6 @@ void FieldState::Init(GameEngine *game)
             //new Environment(game->getSetup(),game->getScreenWidth(),game->getScreenHeight());
     player = game->getPlayer();
     player->setOrigin(0,0);
-    srand(time(NULL));
     x =1;
  //   std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);

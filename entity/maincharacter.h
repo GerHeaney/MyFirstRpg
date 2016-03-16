@@ -9,6 +9,7 @@
 #include "Sprite/backgroundsprite.h"
 #include "Entity/entity.h"
 #include "Item/weapon.h"
+#include <time.h>
 
 
 
@@ -98,6 +99,14 @@ private:
     // Entity interface
 public:
     virtual void useItem(Item *item);
+
+    // Entity interface
+public:
+    virtual void levelUP();
+
+    // Entity interface
+public:
+    virtual void setLevel(int level);
 };
 
 #endif // MAINCHARACTER_H

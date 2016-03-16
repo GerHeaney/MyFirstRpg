@@ -3,7 +3,7 @@
 #include "State/IntroState.h"
 GameEngine::GameEngine(int width, int height)
 {
-
+    srand(time(NULL));
     screenWidth = width;
     screenHeight = height;
     quit = false;

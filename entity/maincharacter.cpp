@@ -9,14 +9,16 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
      selected = false;
      name = playerName;
 
+
     playerSprite = new MovingSprite(gameSetup->getRenderer(),path.c_str());
     icon = new MenuSprite(gameSetup->getRenderer(),("resources/Characters/" + playerName + ".png"));
     playerSprite->setupAnimation(4,4);
     entityLevel = new Level();
     weapon = new Weapon(gameSetup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png");
-    currentHealth = 300;
-    maxHealth = 300;
-    attackDamage = 80;
+
+    maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+    currentHealth = maxHealth;
+    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
     abilityPower = 50;
     maxAP = 50;
     skillMap["Axe Skill"] = 0;
@@ -355,4 +357,18 @@ void MainCharacter::useItem(Item *item)
             abilityPower = maxAP;
         }
     }
+}
+
+
+void MainCharacter::levelUP()
+{
+    entityLevel->levelUP();
+    attackDamage = 60 + 8*entityLevel->getCurrentLevel() + rand()% 20;
+    maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+    maxAP += 10;
+}
+
+
+void MainCharacter::setLevel(int level)
+{
 }

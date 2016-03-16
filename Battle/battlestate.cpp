@@ -229,6 +229,9 @@ void BattleState::Cleanup()
     delete battleMenu;
   //  delete battleSystem;
     delete visitor;
+    delete Skill1;
+    delete Skill2;
+    delete Skill3;
 
 
     enemies.clear();
@@ -285,6 +288,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 battleInfo->setText("Its " +(*itrParty)->getName() + "'s turn select action" );
                                 battleInfo->Display(game->getSetup());
                             }
+                            // Attack enemy with equipped weapon
                             if(Attack->getPressed() == true)
                             {
                                 Ability->setPressed(false);
@@ -296,7 +300,9 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 (*itrEnemies)->isSelected(game->getSetup());
                                 }
                             }
-                            if(Ability->getPressed() == true)
+
+                            // Use player abilities if they have enough skill points to use one
+                            if(Ability->getPressed() == true && !Skill1->getPressed() && !Skill2->getPressed() && !Skill3->getPressed())
                             {
                                 Attack->setPressed(false);
                                    std::cout << "Ability has been pressed";
@@ -308,6 +314,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 battleMenu->setSize(game->getScreenWidth()/2- battleMenu->getRect().w/2 + battleMenu->getRect().w,game->getScreenHeight()-battleMenu->getRect().h, battleMenu->getRect().w, battleMenu->getRect().h);
                                 battleMenu->accept(visitor);
                                 drawSkillsMenu();
+                            }
 
                                 if(Skill1->getPressed() == true)
                                 {
@@ -391,7 +398,6 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                     }
                                 }
-                            }
 
 
 
@@ -414,6 +420,13 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 (*itrEnemies)->setSelected(false);
                                 (*itrParty)->setCanAttack(false);
                                 Attack->setPressed(false);
+                            }
+
+
+
+                            if(Item->getPressed())
+                            {
+
                             }
 
                     }

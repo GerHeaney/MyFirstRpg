@@ -11,9 +11,9 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 
    enemySprite = new EnemySprite(gameSetup->getRenderer(),path.c_str());
    entityLevel = new Level();
-   currentHealth = 300;
-   maxHealth = 300;
-   attackDamage = 30;
+   maxHealth = 250 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+   currentHealth = maxHealth;
+   attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
    experience = 200;
 
 
@@ -307,5 +307,15 @@ SkillList *Enemy::getSkillList() const
 
 
 void Enemy::useItem(Item *item)
+{
+}
+
+
+void Enemy::levelUP()
+{
+}
+
+
+void Enemy::setLevel(int level)
 {
 }

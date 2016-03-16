@@ -78,6 +78,14 @@ private:
 public:
 
     virtual void useItem(Item *item);
+
+    // Entity interface
+public:
+    virtual void levelUP();
+
+    // Entity interface
+public:
+    virtual void setLevel(int level);
 };
 
 #endif // ENEMY_H

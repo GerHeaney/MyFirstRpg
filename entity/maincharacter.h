@@ -10,6 +10,7 @@
 #include "Entity/entity.h"
 #include "Item/weapon.h"
 #include <time.h>
+#include "Item/inventory.h"
 
 
 
@@ -77,6 +78,7 @@ public:
 private:
 
     bool isMoving;
+    Inventory * inventory;
 
 
 

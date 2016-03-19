@@ -29,6 +29,9 @@ public:
     virtual MenuSprite *getIcon() const = 0;
     virtual void setIcon(MenuSprite *value) = 0;
 
+    virtual int getQuantity() const = 0;
+    virtual void setQuantity(int value) = 0;
+
 protected:
 
     int cost;
@@ -36,9 +39,11 @@ protected:
     std::string name;
     TYPE type;
     MenuSprite * icon;
+    int quantity;
 
 
 
 };
 
 #endif // ITEM_H
+

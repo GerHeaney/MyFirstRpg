@@ -8,6 +8,7 @@ Weapon::Weapon(SDL_setup * setup, Item::TYPE wType, std::string wName, int wCost
    cost = wCost;
    power = wPower;
    icon = new MenuSprite(setup->getRenderer(),path.c_str());
+   quantity = 0;
 
 }
 Weapon::~Weapon()
@@ -64,4 +65,15 @@ Item::TYPE Weapon::getType()
 void Weapon::setType(const Item::TYPE &value)
 {
     type = value;
+}
+
+
+int Weapon::getQuantity() const
+{
+    return quantity;
+}
+
+void Weapon::setQuantity(int value)
+{
+    quantity = value;
 }

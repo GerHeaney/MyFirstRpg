@@ -26,6 +26,11 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     skillMap["Mace Skill"] = 0;
     skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
+    Potion *potion = new Potion(gameSetup);
+    Potion * anotherPotion = new Potion(gameSetup);
+    inventory = inventory->partyInventory();
+    inventory->addItem(potion);
+    inventory->addItem(anotherPotion);
 
 
     //skillList.push_back(new AxeSkill(gameSetup,Item::AXE,"hack",10,60,));

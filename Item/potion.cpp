@@ -1,7 +1,14 @@
 #include "potion.h"
 
-Potion::Potion()
+Potion::Potion(SDL_setup *setup)
 {
+    type = Item::POTION;
+    name = "Potion";
+    cost = 100;
+    power = 250;
+    quantity = 0;
+    icon = new MenuSprite(setup->getRenderer(),"resources/Items/potion.png");
+
 
 }
 
@@ -59,3 +66,14 @@ void Potion::setName(const std::string &value)
 }
 
 
+
+
+int Potion::getQuantity() const
+{
+    return quantity;
+}
+
+void Potion::setQuantity(int value)
+{
+    quantity = value;
+}

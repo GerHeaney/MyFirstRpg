@@ -25,11 +25,8 @@ public:
     virtual MenuSprite *getIcon() const;
     virtual void setIcon(MenuSprite *value);
 
-
-private:
-
-
-
+    virtual int getQuantity() const;
+    virtual void setQuantity(int value);
 };
 
 #endif // WEAPON_H

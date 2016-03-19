@@ -1,25 +1,28 @@
-#ifndef POTION_H
-#define POTION_H
+#ifndef ETHER_H
+#define ETHER_H
 #include "Item/item.h"
 
-class Potion : public Item
+class Ether : public Item
 {
 public:
-    Potion(SDL_setup *setup);
+    Ether(SDL_setup *setup);
+    ~Ether();
 
 
-    virtual MenuSprite *getIcon() const;
-    virtual void setIcon(MenuSprite *value);
-    virtual Item::TYPE getType();
-    virtual void setType(const Item::TYPE &value);
+    // Item interface
+public:
+    virtual TYPE getType();
+    virtual void setType(const TYPE &value);
     virtual int getCost();
     virtual void setCost(int value);
     virtual int getPower();
     virtual void setPower(int value);
     virtual std::string getName();
     virtual void setName(const std::string &value);
+    virtual MenuSprite *getIcon() const;
+    virtual void setIcon(MenuSprite *value);
     virtual int getQuantity() const;
     virtual void setQuantity(int value);
 };
 
-#endif // POTION_H
+#endif // ETHER_H

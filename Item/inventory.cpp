@@ -1,31 +1,81 @@
 #include "inventory.h"
 
-Inventory::Inventory()
-{
+Inventory Inventory::inventory;
 
-}
-
-std::list<Item *> *Inventory::getInventory()
+Inventory *Inventory::partyInventory()
 {
     return &inventory;
 }
 
+std::list<Item *> *Inventory::getInventory()
+{
+    return &inventoryList;
+}
+
 void Inventory::addItem(Item *item)
 {
-    inventory.push_back(item);
+    bool contains = false;
+     std::list<Item*>::iterator i;
+     if(inventoryList.size() < 1)
+     {
+          std::cout << "inventory is empty adding" <<item->getName()<< std::endl;
+          inventoryList.push_back(item);
+     }
+    for(i = inventoryList.begin();i !=inventoryList.end();)
+    {
+
+        if((*i)->getName() == item->getName())
+        {            std::cout << " got to the true condition of the if statement in the for loop" << std::endl;
+            (*i)->setQuantity((*i)->getQuantity() +1);
+            contains = true;
+        }else
+        {
+            contains = false;
+
+        }
+        i++;
+    }
+    if(!contains)
+    {
+        item->setQuantity(1);
+         std::cout << "inventory doesn't contain" <<item->getName()<< " so now one is added" <<std::endl;
+        inventoryList.push_back(item);
+    }
 }
 
 void Inventory::removeItem(Item *item)
 {
     std::list<Item*>::iterator i;
-    for(i = inventory.begin();i !=inventory.end();)
+    for(i = inventoryList.begin();i !=inventoryList.end();)
     {
-        if((*i)->getName() == item->getName())
+        if((*i)->getType() == item->getType())
         {
-            inventory.remove((*i));
+            inventoryList.remove((*i));
             break;
         }
         i++;
     }
+}
+
+int Inventory::getAmount(Item* item)
+{
+int count = 0;
+    std::list<Item*>::iterator i;
+    for(i = inventoryList.begin();i !=inventoryList.end();)
+    {
+        if((*i)->getName() == item->getName())
+        {
+
+             count++;
+
+
+
+        }
+
+        i++;
+
+
+    }
+    return count;
 }
 

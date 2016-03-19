@@ -54,7 +54,7 @@ private:
     MenuSprite * selected;
     FontButton * Attack;
     FontButton * Ability;
-    FontButton * Item;
+    FontButton * Items;
     FontButton * Skill1;
     FontButton * Skill2;
     FontButton * Skill3;

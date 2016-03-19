@@ -50,7 +50,8 @@ SOURCES += main.cpp \
     Skills/axeskill.cpp \
     Skills/spearskill.cpp \
     Skills/maceskill.cpp \
-    Skills/skilllist.cpp
+    Skills/skilllist.cpp \
+    Item/ether.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -93,7 +94,8 @@ HEADERS  += \
     Skills/axeskill.h \
     Skills/spearskill.h \
     Skills/maceskill.h \
-    Skills/skilllist.h
+    Skills/skilllist.h \
+    Item/ether.h
 
 
 

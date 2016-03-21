@@ -1,5 +1,16 @@
 #include "potion.h"
 
+Potion::Potion()
+{
+    type = Item::POTION;
+    name = "Potion";
+    cost = 100;
+    power = 250;
+    quantity = 0;
+    icon = NULL;
+
+}
+
 Potion::Potion(SDL_setup *setup)
 {
     type = Item::POTION;
@@ -10,6 +21,10 @@ Potion::Potion(SDL_setup *setup)
     icon = new MenuSprite(setup->getRenderer(),"resources/Items/potion.png");
 
 
+}
+Potion::~Potion()
+{
+    delete icon;
 }
 
 

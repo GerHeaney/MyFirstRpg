@@ -55,7 +55,7 @@ public:
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
-    virtual void isSelected(SDL_setup * setup);
+    virtual void isSelected(SDL_setup * setup, ISprite *sprite);
     virtual bool getSelected() const ;
     virtual void setSelected(bool value);
 
@@ -99,8 +99,6 @@ private:
 
 
     // Entity interface
-public:
-    virtual void useItem(Item *item);
 
     // Entity interface
 public:
@@ -109,6 +107,10 @@ public:
     // Entity interface
 public:
     virtual void setLevel(int level);
+
+    // Entity interface
+public:
+    virtual void useItem(Entity *player, std::string item);
 };
 
 #endif // MAINCHARACTER_H

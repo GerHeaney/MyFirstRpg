@@ -37,7 +37,7 @@ public:
     virtual void setCurrentHealth(int value);
     virtual void attack(Entity * player);
     virtual void useAbility(ISkill * skill,Entity* player);
-    void isSelected(SDL_setup *setup);
+    void isSelected(SDL_setup * setup, ISprite *sprite);
 
     virtual bool getCanAttack() const;
     virtual void setCanAttack(bool value);
@@ -86,6 +86,14 @@ public:
     // Entity interface
 public:
     virtual void setLevel(int level);
+
+    // Entity interface
+public:
+    virtual void useItem(Entity *player, Item *item);
+
+    // Entity interface
+public:
+    virtual void useItem(Entity *player, std::string item);
 };
 
 #endif // ENEMY_H

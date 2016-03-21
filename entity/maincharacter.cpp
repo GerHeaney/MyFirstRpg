@@ -199,7 +199,7 @@ void MainCharacter::setCanAttack(bool value)
     canAttack = value;
 }
 
-void MainCharacter::isSelected(SDL_setup *setup)
+void MainCharacter::isSelected(SDL_setup *setup, ISprite * sprite)
 {
 
 
@@ -212,22 +212,22 @@ void MainCharacter::isSelected(SDL_setup *setup)
        bool inside = true;
 
        //Mouse is left of the button
-       if( x < icon->getPositionRect().x )
+       if( x < sprite->getPositionRect().x )
        {
            inside = false;
        }
        //Mouse is right of the button
-       else if( x >icon->getPositionRect().x + icon->getPositionRect().w )
+       else if( x >sprite->getPositionRect().x + sprite->getPositionRect().w )
        {
            inside = false;
        }
        //Mouse above the button
-       else if( y < icon->getPositionRect().y )
+       else if( y < sprite->getPositionRect().y )
        {
            inside = false;
        }
        //Mouse below the button
-       else if( y > icon->getPositionRect().y + icon->getPositionRect().h )
+       else if( y > sprite->getPositionRect().y + sprite->getPositionRect().h )
        {
            inside = false;
        }
@@ -247,7 +247,7 @@ void MainCharacter::isSelected(SDL_setup *setup)
            switch( setup->getMainEvent()->type )
            {
                case SDL_MOUSEMOTION:
-             //std::cout <<" Over enemy " << std::endl;
+             std::cout <<" Over " <<name << std::endl;
 
 
 
@@ -343,28 +343,6 @@ SkillList *MainCharacter::getSkillList() const
     return skillList;
 }
 
-
-void MainCharacter::useItem(Item *item)
-{
-    if(item->getType() == Item::POTION)
-    {
-        currentHealth += item->getPower();
-        if(currentHealth >= maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
-    if(item->getType() == Item::ETHER)
-    {
-        abilityPower += item->getPower();
-        if(abilityPower >= maxAP)
-        {
-            abilityPower = maxAP;
-        }
-    }
-}
-
-
 void MainCharacter::levelUP()
 {
     entityLevel->levelUP();
@@ -376,4 +354,27 @@ void MainCharacter::levelUP()
 
 void MainCharacter::setLevel(int level)
 {
+}
+
+
+void MainCharacter::useItem(Entity *player, std::string item)
+{
+    if(item == "Potion")
+    {
+        Potion pot;
+        player->setCurrentHealth(player->getCurrentHealth()+ pot.getPower());
+        if(player->getCurrentHealth() >= player->getMaxHealth())
+        {
+            player->setCurrentHealth(player->getMaxHealth());
+        }
+    }
+    if(item == "Ether")
+    {
+        Ether ether;
+        player->setAbilityPower(player->getAbilityPower() + ether.getPower());
+        if(player->getAbilityPower() >= player->getMaxAP())
+        {
+            player->setAbilityPower(player->getMaxAP());
+        }
+    }
 }

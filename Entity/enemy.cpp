@@ -84,7 +84,7 @@ void Enemy::useAbility(ISkill *skill, Entity *player)
 {
 
 }
-void Enemy::isSelected(SDL_setup * setup)
+void Enemy::isSelected(SDL_setup * setup, ISprite *sprite)
 {
 
 
@@ -97,22 +97,22 @@ void Enemy::isSelected(SDL_setup * setup)
        bool inside = true;
 
        //Mouse is left of the button
-       if( x < enemySprite->getPositionRect().x )
+       if( x < sprite->getPositionRect().x )
        {
            inside = false;
        }
        //Mouse is right of the button
-       else if( x >enemySprite->getPositionRect().x + enemySprite->getPositionRect().w )
+       else if( x >sprite->getPositionRect().x + sprite->getPositionRect().w )
        {
            inside = false;
        }
        //Mouse above the button
-       else if( y < enemySprite->getPositionRect().y )
+       else if( y < sprite->getPositionRect().y )
        {
            inside = false;
        }
        //Mouse below the button
-       else if( y > enemySprite->getPositionRect().y + enemySprite->getPositionRect().h )
+       else if( y > sprite->getPositionRect().y + sprite->getPositionRect().h )
        {
            inside = false;
        }
@@ -317,5 +317,15 @@ void Enemy::levelUP()
 
 
 void Enemy::setLevel(int level)
+{
+}
+
+
+void Enemy::useItem(Entity *player, Item *item)
+{
+}
+
+
+void Enemy::useItem(Entity *player, std::string item)
 {
 }

@@ -27,6 +27,8 @@ void BattleState::Init(GameEngine *game)
     Skill1 = new FontButton(game->getSetup(),"Skill 1");
     Skill2 = new FontButton(game->getSetup(),"Skill 2");
     Skill3 = new FontButton(game->getSetup(),"Skill 3");
+    Potions = new FontButton(game->getSetup(),"Potion");
+    Ethers = new FontButton(game->getSetup(),"Ether");
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     battleSystem = new BattleSystem();
     visitor = new DrawVisitor();
@@ -101,9 +103,12 @@ void BattleState::Init(GameEngine *game)
     attackanim->setupAnimation(7,1);
     attackanim->setInitFrame(0,0);
     battleSystem->setAttacks(*game->getParty(),true);
-    Skill1->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 20);
-    Skill2->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 50);
-    Skill3->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 80);
+    Skill1->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
+    Skill2->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    Skill3->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*3);
+
+    Potions->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
+    Ethers->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
 
 
     checkSkills(game);
@@ -135,6 +140,8 @@ void BattleState::HandleEvents(GameEngine *game)
         {
             Skill3->handleEvent();
         }
+        Potions->handleEvent();
+        Ethers->handleEvent();
 
     }
     if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)
@@ -145,6 +152,8 @@ void BattleState::HandleEvents(GameEngine *game)
         Skill2->setPressed(false);
         Skill3->setPressed(false);
         Items->setPressed(false);
+        Potions->setPressed(false);
+        Ethers->setPressed(false);
         for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
         {
           (*i)->setMouseOver(false);
@@ -251,6 +260,8 @@ void BattleState::Cleanup()
     delete Skill1;
     delete Skill2;
     delete Skill3;
+    delete Potions;
+    delete Ethers;
 
 
     enemies.clear();
@@ -277,9 +288,9 @@ void BattleState::drawBattleMenu(GameEngine * game)
 {
     battleMenu->setSize(game->getScreenWidth()/2- battleMenu->getRect().w/2,game->getScreenHeight()-battleMenu->getRect().h, battleMenu->getRect().w, battleMenu->getRect().h);
     battleMenu->accept(visitor);
-    Attack->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 20);
-    Ability->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 55);
-    Items->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 90);
+    Attack->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
+    Ability->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    Items->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*3);
 }
 
 bool BattleState::PlayerTurn(GameEngine * game)
@@ -312,12 +323,17 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             {
                                 Ability->setPressed(false);
                                 Items->setPressed(false);
+                                Skill1->setPressed(false);
+                                Skill2->setPressed(false);
+                                Skill3->setPressed(false);
+                                Potions->setPressed(false);
+                                Ethers->setPressed(false);
                                 std::cout << "Attack has been pressed";
                                 battleInfo->setText("Select enemy to attack");
                                 battleInfo->Display(game->getSetup());
                                 if((*itrEnemies)->getCurrentHealth() > 0)
                                 {
-                                (*itrEnemies)->isSelected(game->getSetup());
+                                (*itrEnemies)->isSelected(game->getSetup(),(*itrEnemies)->getSprite());
                                 }
                             }
 
@@ -326,6 +342,8 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             {
                                 Attack->setPressed(false);
                                 Items->setPressed(false);
+                                Potions->setPressed(false);
+                                Ethers->setPressed(false);
                                    std::cout << "Ability has been pressed";
 
                                 battleInfo->setText("Select ability to use");
@@ -339,13 +357,22 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                 if(Skill1->getPressed() == true)
                                 {
-
-                                    std::cout << "skill is pressed";
-                                    battleInfo->setText("Select enemy to attack");
-                                    battleInfo->Display(game->getSetup());
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
-                                    (*itrEnemies)->isSelected(game->getSetup());
+                                    (*itrEnemies)->isSelected(game->getSetup(),(*itrEnemies)->getSprite());
+                                        if(!(*itrEnemies)->getMouseOver())
+                                        {
+
+
+                                        }
+                                        else if((*itrEnemies)->getMouseOver())
+                                        {
+                                            battleInfo->setText("Use " +Skill1->getText()+ " on " + (*itrEnemies)->getName());
+                                            battleInfo->Display(game->getSetup());
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                                                    ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
+                                            selected->accept(visitor);
+                                        }
                                     }
                                     if(Skill1->getPressed() &&(*itrEnemies)->getSelected())
                                     {
@@ -368,12 +395,24 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 }
                                 if(Skill2->getPressed()== true)
                                 {
-                                    battleInfo->setText("Select enemy to attack");
-                                    battleInfo->Display(game->getSetup());
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
-                                    (*itrEnemies)->isSelected(game->getSetup());
+                                    (*itrEnemies)->isSelected(game->getSetup(),(*itrEnemies)->getSprite());
+                                        if(!(*itrEnemies)->getMouseOver())
+                                        {
+
+
+                                        }
+                                        else if((*itrEnemies)->getMouseOver())
+                                        {
+                                            battleInfo->setText("Use " +Skill2->getText()+ " on " + (*itrEnemies)->getName());
+                                            battleInfo->Display(game->getSetup());
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                                                    ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
+                                            selected->accept(visitor);
+                                        }
                                     }
+
                                     if(Skill2->getPressed() &&(*itrEnemies)->getSelected())
                                     {
                                         std::list<ISkill*>::iterator iList ;
@@ -395,11 +434,22 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 }
                                 if(Skill3->getPressed() == true)
                                 {
-                                    battleInfo->setText("Select enemy to attack");
-                                    battleInfo->Display(game->getSetup());
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
-                                    (*itrEnemies)->isSelected(game->getSetup());
+                                    (*itrEnemies)->isSelected(game->getSetup(),(*itrEnemies)->getSprite());
+                                        if(!(*itrEnemies)->getMouseOver())
+                                        {
+
+
+                                        }
+                                        else if((*itrEnemies)->getMouseOver())
+                                        {
+                                            battleInfo->setText("Use " +Skill3->getText()+ " on " + (*itrEnemies)->getName());
+                                            battleInfo->Display(game->getSetup());
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                                                    ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
+                                            selected->accept(visitor);
+                                        }
                                     }
                                     if(Skill3->getPressed() &&(*itrEnemies)->getSelected())
                                     {
@@ -422,16 +472,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
 
 
-                            if(!(*itrEnemies)->getMouseOver())
-                            {
 
-                            }
-                            else if((*itrEnemies)->getMouseOver())
-                            {
-                                selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
-                                                        ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
-                                selected->accept(visitor);
-                            }
 //                        std::cout << "Enemy is selected is "<<std::boolalpha << (*itrEnemies)->getSelected();
 //                        std::cout << (*itrParty)->getName() <<" has attacked "<<(*itrEnemies)->getName();
                             if(Attack->getPressed() && (*itrEnemies)->getSelected())
@@ -445,11 +486,14 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
 
 
-                            if(Items->getPressed())
+                            if(Items->getPressed() && !Potions->getPressed() && !Ethers->getPressed())
                             {
                                 Attack->setPressed(false);
                                 Ability->setPressed(false);
-                                   std::cout << "Items has been pressed";
+                                Skill1->setPressed(false);
+                                Skill2->setPressed(false);
+                                Skill3->setPressed(false);
+
 
                                 battleInfo->setText("Select item to use");
                                 battleInfo->Display(game->getSetup());
@@ -457,6 +501,70 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                 battleMenu->setSize(game->getScreenWidth()/2- battleMenu->getRect().w/2 + battleMenu->getRect().w,game->getScreenHeight()-battleMenu->getRect().h, battleMenu->getRect().w, battleMenu->getRect().h);
                                 battleMenu->accept(visitor);
+                                drawItemsMenu();
+
+                            }
+
+                            if(Potions->getPressed())
+                            {
+
+
+
+                                for(std::vector<Entity*>::iterator iParty = game->getParty()->begin();iParty < game->getParty()->end();  iParty++)
+                                {
+                                  (*iParty)->isSelected(game->getSetup(),(*iParty)->getSprite());
+                                    if(!(*iParty)->getMouseOver())
+                                    {
+
+                                    }
+                                    else if((*iParty)->getMouseOver())
+                                    {
+                                        battleInfo->setText("Use Potion on " + (*iParty)->getName());
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
+                                    }
+                                    if(Potions->getPressed() &&(*iParty)->getSelected())
+                                    {
+                                        (*itrParty)->useItem((*iParty),"Potion");
+                                        (*itrParty)->setCanAttack(false);
+                                        (*iParty)->setSelected(false);
+                                        Items->setPressed(false);
+
+                                    }
+                                }
+
+                            }
+                            if(Ethers->getPressed())
+                            {
+
+
+
+                                for(std::vector<Entity*>::iterator iParty = game->getParty()->begin();iParty < game->getParty()->end();  iParty++)
+                                {
+                                  (*iParty)->isSelected(game->getSetup(),(*iParty)->getSprite());
+                                    if(!(*iParty)->getMouseOver())
+                                    {
+
+                                    }
+                                    else if((*iParty)->getMouseOver())
+                                    {
+                                        battleInfo->setText("Use Ether on " + (*iParty)->getName());
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
+                                    }
+                                    if(Ethers->getPressed() &&(*iParty)->getSelected())
+                                    {
+                                        (*itrParty)->useItem((*iParty),"Ether");
+                                        (*itrParty)->setCanAttack(false);
+                                        (*iParty)->setSelected(false);
+                                        Ethers->setPressed(false);
+
+                                    }
+                                }
 
                             }
 
@@ -530,16 +638,22 @@ void BattleState::drawSkillsMenu()
 {
     if( Skill1->getText() != "Skill 1")
     {
-        Skill1->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 20);
+        Skill1->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
     }
     if( Skill2->getText() != "Skill 2")
     {
-        Skill2->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 55);
+        Skill2->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
     }
     if(Skill3->getText() != "Skill 3")
     {
-        Skill3->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + 90);
+        Skill3->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*3);
     }
+}
+
+void BattleState::drawItemsMenu()
+{
+    Potions->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
+    Ethers->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
 }
 void BattleState::checkSkills(GameEngine * game)
 {

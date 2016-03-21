@@ -13,6 +13,7 @@ Weapon::Weapon(SDL_setup * setup, Item::TYPE wType, std::string wName, int wCost
 }
 Weapon::~Weapon()
 {
+    delete icon;
 
 }
 

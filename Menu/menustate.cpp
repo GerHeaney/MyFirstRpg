@@ -109,7 +109,7 @@ void MenuState::Draw(GameEngine *game)
             if(Equip->getPressed())
             {
 
-                    (*i)->isSelected(game->getSetup());
+                    (*i)->isSelected(game->getSetup(),(*i)->getIcon());
 
                     if((*i)->getMouseOver())
                     {
@@ -133,7 +133,7 @@ void MenuState::Draw(GameEngine *game)
             if(Skills->getPressed())
             {
 
-                    (*i)->isSelected(game->getSetup());
+                    (*i)->isSelected(game->getSetup(),(*i)->getIcon());
 
                     if((*i)->getMouseOver())
                     {

@@ -38,6 +38,7 @@ public:
         return &battle;
     }
     void drawSkillsMenu();
+    void drawItemsMenu();
 protected:
     BattleState() {}
 
@@ -58,6 +59,8 @@ private:
     FontButton * Skill1;
     FontButton * Skill2;
     FontButton * Skill3;
+    FontButton * Potions;
+    FontButton * Ethers;
     static BattleState battle;
     SDL_Point playerPosition;
     SDL_Point enemyPosition;
@@ -71,6 +74,7 @@ private:
     SDL_Rect camera;
     bool turnFlag;
     int rewardXP;
+    int buttonOffset = 35;
 
 };
 

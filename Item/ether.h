@@ -5,6 +5,7 @@
 class Ether : public Item
 {
 public:
+    Ether();
     Ether(SDL_setup *setup);
     ~Ether();
 

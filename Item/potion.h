@@ -5,7 +5,9 @@
 class Potion : public Item
 {
 public:
+    Potion();
     Potion(SDL_setup *setup);
+    ~Potion();
 
 
     virtual MenuSprite *getIcon() const;

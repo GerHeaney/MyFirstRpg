@@ -1,5 +1,16 @@
 #include "ether.h"
 
+Ether::Ether()
+{
+    type = Item::ETHER;
+    name = "Ether";
+    cost = 250;
+    power = 50;
+    quantity = 0;
+    icon = NULL;
+
+}
+
 Ether::Ether(SDL_setup *setup)
 {
     type = Item::ETHER;
@@ -13,7 +24,7 @@ Ether::Ether(SDL_setup *setup)
 
 Ether::~Ether()
 {
-
+    delete icon;
 }
 
 Item::TYPE Ether::getType()

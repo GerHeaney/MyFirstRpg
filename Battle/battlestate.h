@@ -5,6 +5,7 @@
 #include "Sprite/enemysprite.h"
 #include "Sprite/menusprite.h"
 #include "State/gamestate.h"
+#include "State/gameover.h"
 #include "RenderItems/button.h"
 #include "Entity/maincharacter.h"
 #include "RenderItems/fontbutton.h"
@@ -38,7 +39,7 @@ public:
         return &battle;
     }
     void drawSkillsMenu();
-    void drawItemsMenu();
+    void drawItemsMenu(GameEngine *game);
 protected:
     BattleState() {}
 

@@ -10,7 +10,7 @@
 #include "Entity/entity.h"
 #include "Item/weapon.h"
 #include <time.h>
-#include "Item/inventory.h"
+
 
 
 
@@ -78,7 +78,7 @@ public:
 private:
 
     bool isMoving;
-    Inventory * inventory;
+
 
 
 
@@ -110,7 +110,18 @@ public:
 
     // Entity interface
 public:
-    virtual void useItem(Entity *player, std::string item);
+    virtual bool useItem(Entity *player, std::string item);
+
+    // Entity interface
+public:
+
+    virtual Inventory *getInventory() const;
+    virtual void setInventory(Inventory *value);
+
+    // Entity interface
+public:
+    virtual Item::TYPE getResistance() const;
+    virtual void setResistance();
 };
 
 #endif // MAINCHARACTER_H

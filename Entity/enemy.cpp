@@ -15,6 +15,7 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
    currentHealth = maxHealth;
    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
    experience = 200;
+   setResistance();
 
 
 
@@ -305,7 +306,6 @@ SkillList *Enemy::getSkillList() const
 }
 
 
-
 void Enemy::useItem(Item *item)
 {
 }
@@ -326,6 +326,45 @@ void Enemy::useItem(Entity *player, Item *item)
 }
 
 
-void Enemy::useItem(Entity *player, std::string item)
+bool Enemy::useItem(Entity *player, std::string item)
 {
+}
+
+
+
+Inventory *Enemy::getInventory() const
+{
+}
+
+void Enemy::setInventory(Inventory *value)
+{
+}
+
+
+Item::TYPE Enemy::getResistance() const
+{
+    return resistance;
+}
+
+void Enemy::setResistance()
+{
+//            int x = rand() % 4;
+//            switch (x)
+//            {
+
+//            case 0:
+//                resistance = Item::AXE;
+//                break;
+//            case 1:
+//                 resistance = Item::SWORD;
+//                break;
+//            case 2:
+//                 resistance = Item::SPEAR;
+//                break;
+//            case 3:
+//                 resistance = Item::MACE;
+//                break;
+//            }
+
+
 }

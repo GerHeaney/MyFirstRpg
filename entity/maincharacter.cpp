@@ -30,7 +30,7 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     Potion * anotherPotion = new Potion(gameSetup);
     inventory = inventory->partyInventory();
     inventory->addItem(potion);
-    inventory->addItem(anotherPotion);
+
 
 
     //skillList.push_back(new AxeSkill(gameSetup,Item::AXE,"hack",10,60,));
@@ -168,6 +168,13 @@ void MainCharacter::setCurrentHealth(int value)
 void MainCharacter::attack(Entity *enemy)
 {
     int damage = attackDamage + weapon->getPower() ;
+
+
+    if(weapon->getType() == enemy->getResistance())
+    {
+        damage = damage/3;
+        std::cout <<enemy->getName() << " is resitant to " << name <<"'s weapon type"<<std::endl;
+    }
 
     enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
 
@@ -357,24 +364,93 @@ void MainCharacter::setLevel(int level)
 }
 
 
-void MainCharacter::useItem(Entity *player, std::string item)
+bool MainCharacter::useItem(Entity *player, std::string item)
 {
-    if(item == "Potion")
+    for(std::list<Item*>::iterator i = inventory->getInventory()->begin();i!=inventory->getInventory()->end();)
     {
-        Potion pot;
-        player->setCurrentHealth(player->getCurrentHealth()+ pot.getPower());
-        if(player->getCurrentHealth() >= player->getMaxHealth())
+
+
+
+        if(item == "Potion")
         {
-            player->setCurrentHealth(player->getMaxHealth());
+
+            Potion pot;
+            if(pot.getName() == (*i)->getName())
+            {
+                if( (*i)->getQuantity() >1)
+                {
+                    (*i)->setQuantity((*i)->getQuantity() -1);
+                    player->setCurrentHealth(player->getCurrentHealth()+ pot.getPower());
+                    if(player->getCurrentHealth() >= player->getMaxHealth())
+                    {
+                        player->setCurrentHealth(player->getMaxHealth());
+                    }
+                    return true;
+
+                }else if((*i)->getQuantity() ==1)
+                {
+                    inventory->removeItem((*i));
+                    player->setCurrentHealth(player->getCurrentHealth()+ pot.getPower());
+                    if(player->getCurrentHealth() >= player->getMaxHealth())
+                    {
+                        player->setCurrentHealth(player->getMaxHealth());
+                    }
+                    return true;
+                }
+
+
+            }
+
         }
-    }
-    if(item == "Ether")
-    {
-        Ether ether;
-        player->setAbilityPower(player->getAbilityPower() + ether.getPower());
-        if(player->getAbilityPower() >= player->getMaxAP())
+        if(item == "Ether")
         {
-            player->setAbilityPower(player->getMaxAP());
+            Ether ether;
+            if(ether.getName() == (*i)->getName())
+            {
+                if( (*i)->getQuantity() >1)
+                {
+                    (*i)->setQuantity((*i)->getQuantity() -1);
+                    player->setAbilityPower(player->getAbilityPower() + ether.getPower());
+                    if(player->getAbilityPower() >= player->getMaxAP())
+                    {
+                        player->setAbilityPower(player->getMaxAP());
+                    }
+                    return true;
+                }else if((*i)->getQuantity() ==1)
+                {
+                    inventory->removeItem((*i));
+                    player->setAbilityPower(player->getAbilityPower() + ether.getPower());
+                    if(player->getAbilityPower() >= player->getMaxAP())
+                    {
+                        player->setAbilityPower(player->getMaxAP());
+                    }
+                    return true;
+                }
+            }
+
         }
+        std::cout  << (*i)->getName() << "  x"<< (*i)->getQuantity() << std::endl;
+
+        i++;
     }
+}
+
+
+Inventory *MainCharacter::getInventory() const
+{
+    return inventory;
+}
+
+void MainCharacter::setInventory(Inventory *value)
+{
+    inventory = value;
+}
+
+
+Item::TYPE MainCharacter::getResistance() const
+{
+}
+
+void MainCharacter::setResistance()
+{
 }

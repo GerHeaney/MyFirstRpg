@@ -27,8 +27,8 @@ void BattleState::Init(GameEngine *game)
     Skill1 = new FontButton(game->getSetup(),"Skill 1");
     Skill2 = new FontButton(game->getSetup(),"Skill 2");
     Skill3 = new FontButton(game->getSetup(),"Skill 3");
-    Potions = new FontButton(game->getSetup(),"Potion");
-    Ethers = new FontButton(game->getSetup(),"Ether");
+    Potions = new FontButton(game->getSetup(),"Item 1");
+    Ethers = new FontButton(game->getSetup(),"Item 2");
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     battleSystem = new BattleSystem();
     visitor = new DrawVisitor();
@@ -123,6 +123,8 @@ void BattleState::Init(GameEngine *game)
 
 void BattleState::HandleEvents(GameEngine *game)
 {
+    int x = rand() % 5;
+    std::cout << "x is " <<x<< std::endl;
     while(SDL_PollEvent(game->getSetup()->getMainEvent()))
     {
         Attack->handleEvent();
@@ -140,8 +142,15 @@ void BattleState::HandleEvents(GameEngine *game)
         {
             Skill3->handleEvent();
         }
-        Potions->handleEvent();
-        Ethers->handleEvent();
+        if(Potions->getText() != "Item 1")
+        {
+            Potions->handleEvent();
+        }
+        if(Ethers->getText() != "Item 2")
+        {
+            Ethers->handleEvent();
+        }
+
 
     }
     if(game->getSetup()->getMainEvent()->key.keysym.sym == SDLK_ESCAPE)
@@ -197,6 +206,12 @@ void BattleState::Update(GameEngine *game)
         game->PushState(VictoryState::Instance());
         //game->PopState();
     }
+    if(battleSystem->getLostBattle())
+    {
+        game->ChangeState(GameOver::Instance());
+    }
+
+
   if(turnFlag)
     {
        PlayerTurn(game);
@@ -297,6 +312,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
 {
 
 
+
 //     std::cout << "Attack is "<<std::boolalpha << Attack->getPressed() <<std::endl;
 //      std::cout << "Ability is "<<std::boolalpha << Ability->getPressed()<<std::endl;
 //       std::cout << "Item is "<<std::boolalpha << Item->getPressed()<<std::endl;
@@ -321,6 +337,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             // Attack enemy with equipped weapon
                             if(Attack->getPressed() == true)
                             {
+
                                 Ability->setPressed(false);
                                 Items->setPressed(false);
                                 Skill1->setPressed(false);
@@ -328,12 +345,26 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 Skill3->setPressed(false);
                                 Potions->setPressed(false);
                                 Ethers->setPressed(false);
+
                                 std::cout << "Attack has been pressed";
-                                battleInfo->setText("Select enemy to attack");
-                                battleInfo->Display(game->getSetup());
+
                                 if((*itrEnemies)->getCurrentHealth() > 0)
                                 {
                                 (*itrEnemies)->isSelected(game->getSetup(),(*itrEnemies)->getSprite());
+                                }
+                                if(!(*itrEnemies)->getMouseOver())
+                                {
+
+
+                                }
+                                else if((*itrEnemies)->getMouseOver())
+                                {
+
+                                    battleInfo->setText("Attack " + (*itrEnemies)->getName());
+                                    battleInfo->Display(game->getSetup());
+                                    selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                                            ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
+                                    selected->accept(visitor);
                                 }
                             }
 
@@ -501,7 +532,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                 battleMenu->setSize(game->getScreenWidth()/2- battleMenu->getRect().w/2 + battleMenu->getRect().w,game->getScreenHeight()-battleMenu->getRect().h, battleMenu->getRect().w, battleMenu->getRect().h);
                                 battleMenu->accept(visitor);
-                                drawItemsMenu();
+                                drawItemsMenu(game);
 
                             }
 
@@ -531,6 +562,8 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         (*itrParty)->setCanAttack(false);
                                         (*iParty)->setSelected(false);
                                         Items->setPressed(false);
+                                        Potions->setPressed(false);
+                                        Ethers->setPressed(false);
 
                                     }
                                 }
@@ -562,6 +595,8 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         (*itrParty)->setCanAttack(false);
                                         (*iParty)->setSelected(false);
                                         Ethers->setPressed(false);
+                                        Items->setPressed(false);
+                                        Potions->setPressed(false);
 
                                     }
                                 }
@@ -599,16 +634,25 @@ bool BattleState::EnemyTurn(GameEngine *game)
 
                 if((*i)->getCanAttack() == true && (*i)->getCurrentHealth() > 0)
                {
-                    int  x = rand() % game->getParty()->size();
-
-                    SDL_Delay(1000);
-                    (*i)->attack(game->getParty()->at(x));
+                    int  x = rand() % game->getParty()->size() ;
 
 
+                    if(game->getParty()->at(x)->getCurrentHealth() > 0)
+                    {
 
-                   (*i)->setCanAttack(false);
 
-                    break;
+                        SDL_Delay(1000);
+                        (*i)->attack(game->getParty()->at(x));
+                        std::cout << (*i)->getName()<< " attacks " << game->getParty()->at(x)->getName() <<std::endl;
+
+
+
+                       (*i)->setCanAttack(false);
+                         break;
+                    }
+
+
+
                     }else{std::cout << (*i)->getName() << " can't attack" << std::endl;}
 
                i++;
@@ -650,10 +694,45 @@ void BattleState::drawSkillsMenu()
     }
 }
 
-void BattleState::drawItemsMenu()
+void BattleState::drawItemsMenu(GameEngine * game)
 {
-    Potions->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
-    Ethers->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    bool havePotion = false;
+    bool haveEther = false;
+    for(std::list<Item*>::iterator i = game->getParty()->front()->getInventory()->getInventory()->begin();i!=game->getParty()->front()->getInventory()->getInventory()->end();)
+    {
+        std::cout << "here in the draw items menu i have a " << (*i)->getName() <<std::endl;
+         if((*i)->getName() == "Potion" && (*i)->getQuantity() > 0)
+         {
+             havePotion = true;
+             Potions->setText("Potion");
+         }
+         if((*i)->getName() == "Ether" && (*i)->getQuantity() > 0)
+         {
+             haveEther = true;
+             Ethers->setText("Ether");
+         }
+        i++;
+        if(!havePotion)
+        {
+            Potions->setText("Item 1");
+        }
+        if(!haveEther)
+        {
+            Ethers->setText("Item 2");
+        }
+
+
+    }
+    if(Potions->getText() != "Item 1")
+    {
+        Potions->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
+    }
+    if(Ethers->getText() != "Item 2")
+    {
+        Ethers->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    }
+
+
 }
 void BattleState::checkSkills(GameEngine * game)
 {

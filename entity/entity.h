@@ -15,6 +15,7 @@
 #include "Item/item.h"
 #include "Item/ether.h"
 #include "Skills/skilllist.h"
+#include "Item/inventory.h"
 
 
 class Entity
@@ -50,7 +51,7 @@ public:
     virtual void attack(Entity *) = 0;
     virtual void useAbility(ISkill*,Entity*) = 0;
     virtual void isSelected(SDL_setup *, ISprite *) = 0;
-    virtual void useItem(Entity * player,std::string item)= 0;
+    virtual bool useItem(Entity * player,std::string item)= 0;
 
 
     virtual bool getCanAttack() const = 0 ;
@@ -81,9 +82,16 @@ public:
 
     virtual SkillList *getSkillList() const = 0;
 
+    virtual Inventory *getInventory() const= 0;
+    virtual void setInventory(Inventory *value) = 0;
+
+    virtual Item::TYPE getResistance() const= 0;
+    virtual void setResistance() = 0;
+
 protected:
     Level * entityLevel;
     Item * weapon;
+    Item::TYPE resistance;
     bool isMoving;
     bool canAttack;
     bool selected;
@@ -99,9 +107,11 @@ protected:
     int level;
     SkillList * skillList;
     std::map<std::string,int> skillMap;
+    Inventory * inventory;
 
 
 };
 
 #endif // ENTITY_H
+
 

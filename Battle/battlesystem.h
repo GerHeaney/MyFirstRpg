@@ -26,9 +26,7 @@ public:
 private:
     bool playerTurn;
     bool winBattle;
-    bool lostBattle;
-    std::vector<Entity *> enemies;
-    std::vector<Entity *> party;
+    bool lostBattle;   
     int turnCount;
 
 

@@ -13,6 +13,7 @@
 #include "Entity/enemy.h"
 #include "RenderItems/displayfield.h"
 #include "Battle/battlesystem.h"
+#include "Battle/enemylist.h"
 #include <time.h>
 
 
@@ -63,12 +64,14 @@ private:
     FontButton * Potions;
     FontButton * Ethers;
     static BattleState battle;
-    SDL_Point playerPosition;
-    SDL_Point enemyPosition;
+    SDL_Point pos1;
+    SDL_Point pos2;
+    SDL_Point pos3;
+    SDL_Point pos4;
+    std::vector<SDL_Point> positions;
     SDL_Rect menuRect;
     BackgroundSprite * background;
-    Enemy * enemy;
-    Enemy * enemy2;
+
     Entity * pEnemy = NULL;
     MenuSprite * menu;
     Entity * player;
@@ -77,6 +80,7 @@ private:
     int rewardXP;
     int buttonOffset = 35;
 
+    void setEnemies(GameEngine *game);
 };
 
 #endif // BATTLESTATE_H

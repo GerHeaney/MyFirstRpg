@@ -11,7 +11,7 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
 
    enemySprite = new EnemySprite(gameSetup->getRenderer(),path.c_str());
    entityLevel = new Level();
-   maxHealth = 250 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+   maxHealth = 180 + 100* entityLevel->getCurrentLevel() + rand() % 50;
    currentHealth = maxHealth;
    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
    experience = 200;
@@ -348,23 +348,28 @@ Item::TYPE Enemy::getResistance() const
 
 void Enemy::setResistance()
 {
-//            int x = rand() % 4;
-//            switch (x)
-//            {
+    int x = rand() % 4;
+    switch (x)
+    {
 
-//            case 0:
-//                resistance = Item::AXE;
-//                break;
-//            case 1:
-//                 resistance = Item::SWORD;
-//                break;
-//            case 2:
-//                 resistance = Item::SPEAR;
-//                break;
-//            case 3:
-//                 resistance = Item::MACE;
-//                break;
-//            }
+    case 0:
+        resistance = Item::AXE;
+        std::cout << name<< " resistance is  axes"<<std::endl;
+        break;
+    case 1:
+        resistance = Item::SWORD;
+        std::cout << name<< " resistance is  swords"<<std::endl;
+        break;
+    case 2:
+        resistance = Item::SPEAR;
+        std::cout << name<< " resistance is  spears"<<std::endl;
+        break;
+    case 3:
+        resistance = Item::MACE;
+        std::cout << name<< " resistance is  maces"<<std::endl;
+        break;
+    }
+
 
 
 }

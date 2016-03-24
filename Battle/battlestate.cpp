@@ -16,8 +16,6 @@ void BattleState::Init(GameEngine *game)
     background = new BackgroundSprite(game->getRenderer(),"resources/Battle/forest.png");
     selected = new MenuSprite(game->getRenderer(),"resources/Battle/select.png");
     infoBox = new MenuSprite(game->getRenderer(),"resources/Battle/infobox.png");
-    enemy = new Enemy(game->getSetup(),"Old Hermit","resources/Battle/Hermit2.png");
-    enemy2 = new Enemy(game->getSetup(),"Old Hermit 2","resources/Battle/Hermit4.png");
     playerField = new DisplayField();
     enemyField = new DisplayField();
     battleInfo = new DisplayField();
@@ -31,7 +29,9 @@ void BattleState::Init(GameEngine *game)
     Ethers = new FontButton(game->getSetup(),"Item 2");
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     battleSystem = new BattleSystem();
-    visitor = new DrawVisitor();
+    visitor = new DrawVisitor();   
+
+
     Inventory *inventory = inventory->partyInventory();
     inventory->addItem(new Ether(game->getSetup()));
     inventory->addItem(new Ether(game->getSetup()));
@@ -49,8 +49,6 @@ void BattleState::Init(GameEngine *game)
 
 
 
-    enemies.push_back(enemy);
-    enemies.push_back(enemy2);
     turnFlag = true;
     rewardXP = 0;
     srand(time(NULL));
@@ -67,22 +65,10 @@ void BattleState::Init(GameEngine *game)
         i++;
 
     }
-    int spot = 0;
-    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
-    {
 
-
-
-      (*i)->setOrigin(game->getScreenWidth()/4 + spot,game->getScreenHeight() - game->getScreenHeight()*0.4 - spot);
-        rewardXP += (*i)->getExperience();
-        std::cout << "reward xp is " << rewardXP << std::endl;
-        i++;
-        spot+=(100);
-
-
-    }
     for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
     {
+        std::cout<<(*i)->getName() << " has " <<(*i)->getWeapon()->getName() << " equipped" << std::endl;
         (*i)->getSprite()->setInitFrame(0,1);
 
         i++;
@@ -92,12 +78,11 @@ void BattleState::Init(GameEngine *game)
    // game->getParty()->front()->getSprite()->setInitFrame(0,1);
     background->setSize(game->getScreenWidth(),game->getScreenHeight());
     menu->setSize(0,game->getScreenHeight()-menu->getRect().h ,game->getScreenWidth(),menu->getRect().h);
-    infoBox->setSize(game->getScreenWidth()/3,game->getScreenHeight()-game->getScreenHeight()*0.9,game->getScreenWidth()/3,infoBox->getRect().h*0.8);
+    infoBox->setSize(game->getScreenWidth()/3,game->getScreenHeight()-game->getScreenHeight()*0.95,game->getScreenWidth()/3,infoBox->getRect().h*0.8);
     playerField->setPosition(game->getScreenWidth() - game->getScreenWidth()/3 ,game->getScreenHeight()-menu->getRect().h+ 100);
     enemyField->setPosition( 20,game->getScreenHeight()-menu->getRect().h+ 100);
-    playerField->setText(game->getParty()->front()->getBattleStats());
-    enemyField->setText(enemy->getBattleStats());
-    battleInfo->setPosition(infoBox->getPositionRect().x + infoBox->getRect().w/10,infoBox->getPositionRect().y);
+
+    battleInfo->setPosition(infoBox->getPositionRect().x + infoBox->getRect().w/30,infoBox->getPositionRect().y);
 
     attackanim->setPositionRect(500,500);
     attackanim->setupAnimation(7,1);
@@ -111,7 +96,23 @@ void BattleState::Init(GameEngine *game)
     Ethers->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
 
 
-    checkSkills(game);
+
+
+    pos1.x =game->getScreenWidth()*0.05;
+    pos1.y =game->getScreenHeight() - game->getScreenHeight()*0.8;
+    pos2.x =game->getScreenWidth()*0.25;
+    pos2.y =game->getScreenHeight() -game->getScreenHeight()*0.8;
+    pos3.x =game->getScreenWidth()*0.05;
+    pos3.y =game->getScreenHeight() - game->getScreenHeight()*0.5;
+    pos4.x = game->getScreenWidth()*0.25;
+    pos4.y = game->getScreenHeight() - game->getScreenHeight()*0.5;
+
+    positions.push_back(pos1);
+    positions.push_back(pos2);
+    positions.push_back(pos3);
+    positions.push_back(pos4);
+
+    setEnemies(game);
 
 
 
@@ -123,8 +124,8 @@ void BattleState::Init(GameEngine *game)
 
 void BattleState::HandleEvents(GameEngine *game)
 {
-    int x = rand() % 5;
-    std::cout << "x is " <<x<< std::endl;
+
+
     while(SDL_PollEvent(game->getSetup()->getMainEvent()))
     {
         Attack->handleEvent();
@@ -261,8 +262,6 @@ void BattleState::Cleanup()
     delete background;
     delete selected;
     delete infoBox;
-    delete enemy;
-    delete enemy2;
     delete playerField;
     delete enemyField;
     delete battleInfo;
@@ -326,6 +325,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
             {
                     if((*itrParty)->getCanAttack())
                     {
+                        checkSkills(game);
                         for(std::vector<Entity*>::iterator itrEnemies = enemies.begin(); itrEnemies!= enemies.end(); itrEnemies++)
                         {
                             if(!Attack->getPressed() &&!Ability->getPressed() &&!Items->getPressed() && battleSystem->getPlayerTurn(*game->getParty())==true)
@@ -362,7 +362,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                     battleInfo->setText("Attack " + (*itrEnemies)->getName());
                                     battleInfo->Display(game->getSetup());
-                                    selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                    selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/6
                                                             ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
                                     selected->accept(visitor);
                                 }
@@ -400,7 +400,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         {
                                             battleInfo->setText("Use " +Skill1->getText()+ " on " + (*itrEnemies)->getName());
                                             battleInfo->Display(game->getSetup());
-                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/6
                                                                     ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
                                             selected->accept(visitor);
                                         }
@@ -438,7 +438,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         {
                                             battleInfo->setText("Use " +Skill2->getText()+ " on " + (*itrEnemies)->getName());
                                             battleInfo->Display(game->getSetup());
-                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/6
                                                                     ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
                                             selected->accept(visitor);
                                         }
@@ -477,7 +477,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         {
                                             battleInfo->setText("Use " +Skill3->getText()+ " on " + (*itrEnemies)->getName());
                                             battleInfo->Display(game->getSetup());
-                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/2
+                                            selected->setPosition((*itrEnemies)->getSprite()->getPositionRect().x-(*itrEnemies)->getSprite()->getPositionRect().w/6
                                                                     ,(*itrEnemies)->getSprite()->getPositionRect().y + (*itrEnemies)->getSprite()->getRect().h/2);
                                             selected->accept(visitor);
                                         }
@@ -807,9 +807,10 @@ void BattleState::checkSkills(GameEngine * game)
             {
                 if((*itrParty)->getWeapon()->getType() == Item::SWORD)
                 {
+                     std::cout <<(*itrParty)->getName()<<" has the sword skill " << std::endl;
                     if((*iList)->getRequiredSkill() == 5)
                     {
-                     //   std::cout <<" got to the assignment of the sword skill ";
+
                         Skill1->setText((*iList)->getName());
                     }
                     if((*iList)->getRequiredSkill() == 10)
@@ -829,4 +830,39 @@ void BattleState::checkSkills(GameEngine * game)
             iList++;
         }
     }
+}
+
+void BattleState::setEnemies(GameEngine * game)
+{
+    EnemyList list;
+
+    int amount = rand()% 4 +1;
+
+    while(amount > 0)
+    {
+        int x = rand() % 11 ;
+         std::cout << "enemy in list is" << list.getEnemies().at(x)<<std::endl;
+         Enemy * enemy1 = new Enemy(game->getSetup(),list.getEnemies().at(x),"resources/Battle/Enemies/"+ list.getEnemies().at(x)+".png");
+         enemies.push_back(enemy1);
+         amount--;
+    }
+
+    int spot = 0;
+    for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
+    {
+
+
+
+
+      (*i)->setOrigin(positions.at(spot).x,positions.at(spot).y);
+        rewardXP += (*i)->getExperience();
+        std::cout << "reward xp is " << rewardXP << std::endl;
+         spot++;
+        i++;
+
+
+
+    }
+
+
 }

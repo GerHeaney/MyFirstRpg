@@ -14,6 +14,9 @@ GameEngine::GameEngine(int width, int height)
     player2 = new MainCharacter(setup,"Ger","resources/Characters/belf22.png");
     player = new MainCharacter(setup,"Bill","resources/Characters/belf1.png");
 
+    player->setWeapon(new Weapon(setup,Item::SPEAR,"Javelin",200,120,"resources/Items/spear.png"));
+    player2->setWeapon(new Weapon(setup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png"));
+
     gameCamera = new Camera();
     gameCamera->setCameraW(width);
     gameCamera->setCameraH(height);

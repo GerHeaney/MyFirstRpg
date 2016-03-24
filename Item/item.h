@@ -32,6 +32,9 @@ public:
     virtual int getQuantity() const = 0;
     virtual void setQuantity(int value) = 0;
 
+    virtual bool getEquipped() const= 0;
+    virtual void setEquipped(bool value)= 0;
+
 protected:
 
     int cost;
@@ -40,6 +43,7 @@ protected:
     TYPE type;
     MenuSprite * icon;
     int quantity;
+    bool equipped;
 
 
 

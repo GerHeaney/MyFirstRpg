@@ -39,23 +39,23 @@ void BattleSystem::updateBattle(std::vector<Entity *> enemies, std::vector<Entit
     //checking party members for health greater than 0
     //If all members health is 0 game is over
     int healthcounter = party.size();
-    std::cout << "healthcounter is " << healthcounter <<std::endl;
+  //  std::cout << "healthcounter is " << healthcounter <<std::endl;
     for(std::vector<Entity*>::iterator i = party.begin();i!=party.end();)
     {
 
         if((*i)->getCurrentHealth() <=0)
         {
             healthcounter--;
-            std::cout << "healthcounter in for loop is" << healthcounter <<std::endl;
+            //std::cout << "healthcounter in for loop is" << healthcounter <<std::endl;
         }
 
         i++;
 
     }
-    std::cout << "healthcounter after for loop is " << healthcounter <<std::endl;
+   // std::cout << "healthcounter after for loop is " << healthcounter <<std::endl;
     if(healthcounter == 0)
     {
-        std::cout << "got to the lose battle bool change " << healthcounter <<std::endl;
+  //      std::cout << "got to the lose battle bool change " << healthcounter <<std::endl;
         lostBattle = true;
     }
 

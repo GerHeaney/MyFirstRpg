@@ -27,6 +27,11 @@ public:
 
     virtual int getQuantity() const;
     virtual void setQuantity(int value);
+
+   // Item interface
+public:
+   virtual bool getEquipped() const;
+   virtual void setEquipped(bool value);
 };
 
 #endif // WEAPON_H

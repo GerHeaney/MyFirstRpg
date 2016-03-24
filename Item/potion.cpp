@@ -92,3 +92,12 @@ void Potion::setQuantity(int value)
 {
     quantity = value;
 }
+
+
+bool Potion::getEquipped() const
+{
+}
+
+void Potion::setEquipped(bool value)
+{
+}

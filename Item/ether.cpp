@@ -87,3 +87,12 @@ void Ether::setQuantity(int value)
 {
     quantity = value;
 }
+
+
+bool Ether::getEquipped() const
+{
+}
+
+void Ether::setEquipped(bool value)
+{
+}

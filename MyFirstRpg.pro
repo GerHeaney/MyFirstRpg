@@ -52,7 +52,8 @@ SOURCES += main.cpp \
     Skills/maceskill.cpp \
     Skills/skilllist.cpp \
     Item/ether.cpp \
-    State/gameover.cpp
+    State/gameover.cpp \
+    Battle/enemylist.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -97,7 +98,8 @@ HEADERS  += \
     Skills/maceskill.h \
     Skills/skilllist.h \
     Item/ether.h \
-    State/gameover.h
+    State/gameover.h \
+    Battle/enemylist.h
 
 
 

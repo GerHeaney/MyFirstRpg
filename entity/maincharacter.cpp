@@ -14,11 +14,12 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     icon = new MenuSprite(gameSetup->getRenderer(),("resources/Characters/" + playerName + ".png"));
     playerSprite->setupAnimation(4,4);
     entityLevel = new Level();
-    weapon = new Weapon(gameSetup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png");
+    weapon = NULL;
+    //weapon->setEquipped(true);
 
     maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
     currentHealth = maxHealth;
-    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
+    attackDamage = 90 + 8* entityLevel->getCurrentLevel() + rand() % 20;
     abilityPower = 50;
     maxAP = 50;
     skillMap["Axe Skill"] = 0;
@@ -27,9 +28,10 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
     Potion *potion = new Potion(gameSetup);
-    Potion * anotherPotion = new Potion(gameSetup);
+
     inventory = inventory->partyInventory();
     inventory->addItem(potion);
+
 
 
 
@@ -329,7 +331,9 @@ Item *MainCharacter::getWeapon() const
 
 void MainCharacter::setWeapon(Item *value)
 {
+
     weapon = value;
+    weapon->setEquipped(true);
 }
 
 

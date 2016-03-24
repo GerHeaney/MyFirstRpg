@@ -78,3 +78,14 @@ void Weapon::setQuantity(int value)
 {
     quantity = value;
 }
+
+
+bool Weapon::getEquipped() const
+{
+    return equipped;
+}
+
+void Weapon::setEquipped(bool value)
+{
+    equipped = value;
+}

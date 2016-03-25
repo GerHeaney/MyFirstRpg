@@ -325,7 +325,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
             {
                     if((*itrParty)->getCanAttack())
                     {
-                        checkSkills(game);
+
                         for(std::vector<Entity*>::iterator itrEnemies = enemies.begin(); itrEnemies!= enemies.end(); itrEnemies++)
                         {
                             if(!Attack->getPressed() &&!Ability->getPressed() &&!Items->getPressed() && battleSystem->getPlayerTurn(*game->getParty())==true)
@@ -371,6 +371,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             // Use player abilities if they have enough skill points to use one
                             if(Ability->getPressed() == true && !Skill1->getPressed() && !Skill2->getPressed() && !Skill3->getPressed())
                             {
+                                checkSkills(game,(*itrParty));
                                 Attack->setPressed(false);
                                 Items->setPressed(false);
                                 Potions->setPressed(false);
@@ -581,7 +582,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                     {
 
                                     }
-                                    else if((*iParty)->getMouseOver())
+                                    else if((*iParty)->getMouseOver() &&(*iParty)->getCurrentHealth() >0)
                                     {
                                         battleInfo->setText("Use Ether on " + (*iParty)->getName());
                                         battleInfo->Display(game->getSetup());
@@ -589,7 +590,15 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                                                 ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
                                         selected->accept(visitor);
                                     }
-                                    if(Ethers->getPressed() &&(*iParty)->getSelected())
+                                    else if((*iParty)->getMouseOver() &&(*iParty)->getCurrentHealth() <=0)
+                                    {
+                                        battleInfo->setText( (*iParty)->getName() + " is KO'd");
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
+                                    }
+                                    if(Ethers->getPressed() &&(*iParty)->getSelected() &&(*iParty)->getCurrentHealth() >0)
                                     {
                                         (*itrParty)->useItem((*iParty),"Ether");
                                         (*itrParty)->setCanAttack(false);
@@ -734,17 +743,16 @@ void BattleState::drawItemsMenu(GameEngine * game)
 
 
 }
-void BattleState::checkSkills(GameEngine * game)
+void BattleState::checkSkills(GameEngine * game,Entity * player)
 {
 
     std::list<ISkill*>::iterator iList ;
-    for(std::vector<Entity*>::iterator itrParty = game->getParty()->begin();itrParty < game->getParty()->end();  itrParty++)
-    {
-        for(iList = (*itrParty)->getSkillList()->getSkillList()->begin();iList!=(*itrParty)->getSkillList()->getSkillList()->end();)
+
+        for(iList = player->getSkillList()->getSkillList()->begin();iList!=player->getSkillList()->getSkillList()->end();)
         {
-            if((*itrParty)->getSkillMap()->at("Axe Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::AXE)
+            if(player->getSkillMap()->at("Axe Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::AXE)
             {
-                if((*itrParty)->getWeapon()->getType() == Item::AXE)
+                if(player->getWeapon()->getType() == Item::AXE)
                 {
                     if((*iList)->getRequiredSkill() == 5)
                     {
@@ -763,9 +771,9 @@ void BattleState::checkSkills(GameEngine * game)
                     (*iList)->setActive(true);
                 }
             }
-            if((*itrParty)->getSkillMap()->at("Mace Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::MACE)
+            if(player->getSkillMap()->at("Mace Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::MACE)
             {
-                if((*itrParty)->getWeapon()->getType() == Item::MACE)
+                if(player->getWeapon()->getType() == Item::MACE)
                 {
                     if((*iList)->getRequiredSkill() == 5)
                     {
@@ -783,9 +791,9 @@ void BattleState::checkSkills(GameEngine * game)
                     (*iList)->setActive(true);
                 }
             }
-            if((*itrParty)->getSkillMap()->at("Spear Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SPEAR)
+            if(player->getSkillMap()->at("Spear Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SPEAR)
             {
-                if((*itrParty)->getWeapon()->getType() == Item::SPEAR)
+                if(player->getWeapon()->getType() == Item::SPEAR)
                 {
                     if((*iList)->getRequiredSkill() == 5)
                     {
@@ -803,11 +811,11 @@ void BattleState::checkSkills(GameEngine * game)
                     (*iList)->setActive(true);
                 }
             }
-            if((*itrParty)->getSkillMap()->at("Sword Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SWORD)
+            if(player->getSkillMap()->at("Sword Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SWORD)
             {
-                if((*itrParty)->getWeapon()->getType() == Item::SWORD)
+                if(player->getWeapon()->getType() == Item::SWORD)
                 {
-                     std::cout <<(*itrParty)->getName()<<" has the sword skill " << std::endl;
+                     std::cout <<player->getName()<<" has the sword skill " << std::endl;
                     if((*iList)->getRequiredSkill() == 5)
                     {
 
@@ -829,7 +837,7 @@ void BattleState::checkSkills(GameEngine * game)
 //            std::cout << std::boolalpha << (*iList)->getActive() << std::endl;
             iList++;
         }
-    }
+
 }
 
 void BattleState::setEnemies(GameEngine * game)

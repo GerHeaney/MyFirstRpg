@@ -35,7 +35,7 @@ public:
     bool PlayerTurn(GameEngine * game);
     bool EnemyTurn(GameEngine * game);
     void displayMessage(GameEngine * game);
-    void checkSkills(GameEngine *game);
+    void checkSkills(GameEngine *game, Entity *player);
     static BattleState * Instance() {
         return &battle;
     }

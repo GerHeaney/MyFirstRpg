@@ -156,7 +156,7 @@ void Level::levelUP()
         std::cout << "added xp is " << getNextLevelXP() + getLastLevelXP()<< std::endl;
 
 
-        if(requiredXP <=0)
+       while(requiredXP <=0)
         {
              currentLevel++;
              skillPoints++;

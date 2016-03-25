@@ -6,7 +6,7 @@ void VictoryState::Init(GameEngine *game)
 {
     clicked = false;
     counter = 0;
-    rewardXP = 100;
+   // rewardXP = 100;
     textRow = new MenuSprite(game->getRenderer(),"resources/Battle/infobox.png");
     expRow = new MenuSprite(game->getRenderer(),"resources/Battle/infobox.png");
     goldRow = new MenuSprite(game->getRenderer(),"resources/Battle/infobox.png");

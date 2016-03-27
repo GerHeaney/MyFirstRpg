@@ -88,6 +88,7 @@ public:
     virtual Item::TYPE getResistance() const= 0;
     virtual void setResistance() = 0;
 
+
 protected:
     Level * entityLevel;
     Item * weapon;

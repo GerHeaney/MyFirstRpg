@@ -28,6 +28,9 @@ void Inventory::addItem(Item *item)
         {            std::cout << " got to the true condition of the if statement in the for loop" << std::endl;
             (*i)->setQuantity((*i)->getQuantity() +1);
             contains = true;
+            //delete item;
+            break;
+
         }else
         {
             contains = false;

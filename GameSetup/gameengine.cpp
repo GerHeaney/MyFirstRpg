@@ -16,6 +16,7 @@ GameEngine::GameEngine(int width, int height)
 
     player->setWeapon(new Weapon(setup,Item::SPEAR,"Javelin",200,120,"resources/Items/spear.png"));
     player2->setWeapon(new Weapon(setup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png"));
+    player->getSkillMap()->at("Spear Skill") = 20;
 
     gameCamera = new Camera();
     gameCamera->setCameraW(width);

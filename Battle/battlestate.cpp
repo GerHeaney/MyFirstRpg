@@ -33,10 +33,7 @@ void BattleState::Init(GameEngine *game)
 
 
     Inventory *inventory = inventory->partyInventory();
-    inventory->addItem(new Ether(game->getSetup()));
-    inventory->addItem(new Ether(game->getSetup()));
-    inventory->addItem(new Ether(game->getSetup()));
-    inventory->addItem(new Ether(game->getSetup()));
+
     inventory->addItem(new Weapon(game->getSetup(),Item::AXE,"Battle Axe",200,100,"resources/Items/axe.png"));
 
     for(std::list<Item*>::iterator i = inventory->getInventory()->begin();i!=inventory->getInventory()->end();)
@@ -131,26 +128,30 @@ void BattleState::HandleEvents(GameEngine *game)
         Attack->handleEvent();
         Ability->handleEvent();
         Items->handleEvent();
-        if( Skill1->getText() != "Skill 1")
-        {
-            Skill1->handleEvent();
-        }
-        if( Skill2->getText() != "Skill 2")
-        {
-            Skill2->handleEvent();
-        }
-        if(Skill3->getText() != "Skill 3")
-        {
-            Skill3->handleEvent();
-        }
-        if(Potions->getText() != "Item 1")
-        {
-            Potions->handleEvent();
-        }
-        if(Ethers->getText() != "Item 2")
-        {
-            Ethers->handleEvent();
-        }
+
+            if( Skill1->getText() != "Skill 1")
+            {
+                Skill1->handleEvent();
+            }
+            if( Skill2->getText() != "Skill 2")
+            {
+                Skill2->handleEvent();
+            }
+            if(Skill3->getText() != "Skill 3")
+            {
+                Skill3->handleEvent();
+            }
+
+
+            if(Potions->getText() != "Item 1")
+            {
+                Potions->handleEvent();
+            }
+            if(Ethers->getText() != "Item 2")
+            {
+                Ethers->handleEvent();
+            }
+
 
 
     }
@@ -164,11 +165,12 @@ void BattleState::HandleEvents(GameEngine *game)
         Items->setPressed(false);
         Potions->setPressed(false);
         Ethers->setPressed(false);
-        for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
-        {
-          (*i)->setMouseOver(false);
-            i++;
-        }
+//        for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
+//        {
+//            (*i)->setSelected(false);
+//          (*i)->setMouseOver(false);
+//            i++;
+//        }
     }
     //    std::cout <<std::boolalpha <<  Attack->getPressed();
     //       game->getParty().front()->attack(enemies.front());
@@ -181,19 +183,24 @@ void BattleState::Update(GameEngine *game)
     playerField->setText(game->getParty()->front()->getBattleStats());
     for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
     {
-        enemyField->setPosition( 20,game->getScreenHeight()-menu->getRect().h*0.9 + spot);
-        enemyField->setText((*i)->getBattleStats());
-        enemyField->Display(game->getSetup());
-        spot +=30;
+        if((*i)->getCurrentHealth() >0)
+        {
+            enemyField->setPosition( 20,game->getScreenHeight()-menu->getRect().h*0.9 + spot);
+            enemyField->setText((*i)->getBattleStats());
+            enemyField->Display(game->getSetup());
+            spot +=30;
+        }
         i++;
 
     }
     int place = 0;
     for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
     {
-        playerField->setPosition(game->getScreenWidth() - game->getScreenWidth()/3 ,game->getScreenHeight()-menu->getRect().h*0.9+ place);
-        playerField->setText((*i)->getBattleStats());
+        playerField->setPosition(game->getScreenWidth() - game->getScreenWidth()*0.4 ,game->getScreenHeight()-menu->getRect().h*0.9+ place);
+        playerField->setText((*i)->getName() + " HP:  "+(*i)->toString((*i)->getCurrentHealth()) + "/" + (*i)->toString((*i)->getMaxHealth())
+                             +"  AP: " + (*i)->toString((*i)->getAbilityPower()) + "/" + (*i)->toString((*i)->getMaxAP()));
         playerField->Display(game->getSetup());
+
         place +=30;
         i++;
     }
@@ -314,7 +321,9 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
 //     std::cout << "Attack is "<<std::boolalpha << Attack->getPressed() <<std::endl;
 //      std::cout << "Ability is "<<std::boolalpha << Ability->getPressed()<<std::endl;
-//       std::cout << "Item is "<<std::boolalpha << Item->getPressed()<<std::endl;
+//       std::cout << "Item is "<<std::boolalpha << Items->getPressed()<<std::endl;
+//       std::cout << "Potions is "<<std::boolalpha << Potions->getPressed()<<std::endl;
+//       std::cout << "Ethers is "<<std::boolalpha << Ethers->getPressed()<<std::endl;
 //        std::cout << "Skill1 is "<<std::boolalpha << Skill1->getPressed()<<std::endl;
 //          std::cout << "Skill2 is "<<std::boolalpha << Skill2->getPressed()<<std::endl;
 //           std::cout << "Skill3 is "<<std::boolalpha << Skill3->getPressed()<<std::endl;
@@ -346,7 +355,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 Potions->setPressed(false);
                                 Ethers->setPressed(false);
 
-                                std::cout << "Attack has been pressed";
+                              //  std::cout << "Attack has been pressed";
 
                                 if((*itrEnemies)->getCurrentHealth() > 0)
                                 {
@@ -367,16 +376,29 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                     selected->accept(visitor);
                                 }
                             }
+                            if(Attack->getPressed() && (*itrEnemies)->getSelected())
+                            {
+                               // chooseEnemy(game,(*itrParty),(*itrEnemies));
+                                  (*itrParty)->attack((*itrEnemies));
+                                (*itrEnemies)->setSelected(false);
+                                (*itrParty)->setCanAttack(false);
+                                Attack->setPressed(false);
+                            }
 
                             // Use player abilities if they have enough skill points to use one
                             if(Ability->getPressed() == true && !Skill1->getPressed() && !Skill2->getPressed() && !Skill3->getPressed())
                             {
+
+
+                                Potions->setPosition(0,0);
+                                Ethers->setPosition(0,0);
+
                                 checkSkills(game,(*itrParty));
                                 Attack->setPressed(false);
                                 Items->setPressed(false);
                                 Potions->setPressed(false);
                                 Ethers->setPressed(false);
-                                   std::cout << "Ability has been pressed";
+                         //          std::cout << "Ability has been pressed";
 
                                 battleInfo->setText("Select ability to use");
                                 battleInfo->Display(game->getSetup());
@@ -387,7 +409,8 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 drawSkillsMenu();
                             }
 
-                                if(Skill1->getPressed() == true)
+                                if(Skill1->getPressed() == true && (*itrParty)->getAbilityPower() >=(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getCost()
+                                        && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getCost() >=0)
                                 {
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
@@ -406,26 +429,30 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                             selected->accept(visitor);
                                         }
                                     }
+
                                     if(Skill1->getPressed() &&(*itrEnemies)->getSelected())
                                     {
-                                        std::list<ISkill*>::iterator iList ;
-                                        for(iList = (*itrParty)->getSkillList()->getSkillList()->begin();iList!=(*itrParty)->getSkillList()->getSkillList()->end();)
-                                        {
-                                            if((*iList)->getName() == Skill1->getText())
+
+                                            if((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getName() == Skill1->getText())
                                             {
-                                                (*itrParty)->useAbility((*iList),(*itrEnemies));
+                                                (*itrParty)->useAbility((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5),(*itrEnemies));
                                                 (*itrEnemies)->setSelected(false);
                                                 (*itrParty)->setCanAttack(false);
                                                 Skill1->setPressed(false);
                                                 Ability->setPressed(false);
                                             }
-                                            iList++;
-                                        }
+
 
                                     }
 
+                                }else if(Skill1->getPressed() == true && (*itrParty)->getAbilityPower() <(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getCost()
+                                         && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getCost() <0)
+                                {
+                                    battleInfo->setText("Ability Power too low");
+                                    battleInfo->Display(game->getSetup());
                                 }
-                                if(Skill2->getPressed()== true)
+                                if(Skill2->getPressed()== true && (*itrParty)->getAbilityPower() >=(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),10)->getCost()
+                                        && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),5)->getCost() >=0)
                                 {
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
@@ -447,24 +474,25 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                     if(Skill2->getPressed() &&(*itrEnemies)->getSelected())
                                     {
-                                        std::list<ISkill*>::iterator iList ;
-                                        for(iList = (*itrParty)->getSkillList()->getSkillList()->begin();iList!=(*itrParty)->getSkillList()->getSkillList()->end();)
+                                        if((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),10)->getName() == Skill2->getText())
                                         {
-                                            if((*iList)->getName() == Skill2->getText())
-                                            {
-                                                (*itrParty)->useAbility((*iList),(*itrEnemies));
-                                                (*itrEnemies)->setSelected(false);
-                                                (*itrParty)->setCanAttack(false);
-                                                Skill2->setPressed(false);
-                                                Ability->setPressed(false);
-                                            }
-                                            iList++;
+                                            (*itrParty)->useAbility((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),10),(*itrEnemies));
+                                            (*itrEnemies)->setSelected(false);
+                                            (*itrParty)->setCanAttack(false);
+                                            Skill2->setPressed(false);
+                                            Ability->setPressed(false);
                                         }
 
                                     }
 
+                                }else if(Skill2->getPressed() == true && (*itrParty)->getAbilityPower() <(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),10)->getCost()
+                                         && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),10)->getCost() <0)
+                                {
+                                    battleInfo->setText("Ability Power too low");
+                                    battleInfo->Display(game->getSetup());
                                 }
-                                if(Skill3->getPressed() == true)
+                                if(Skill3->getPressed() == true&& (*itrParty)->getAbilityPower() >=(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20)->getCost()
+                                        && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20)->getCost() >=0)
                                 {
                                     if((*itrEnemies)->getCurrentHealth() > 0)
                                     {
@@ -485,21 +513,21 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                     }
                                     if(Skill3->getPressed() &&(*itrEnemies)->getSelected())
                                     {
-                                        std::list<ISkill*>::iterator iList ;
-                                        for(iList = (*itrParty)->getSkillList()->getSkillList()->begin();iList!=(*itrParty)->getSkillList()->getSkillList()->end();)
+                                        if((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20)->getName() == Skill3->getText())
                                         {
-                                            if((*iList)->getName() == Skill3->getText())
-                                            {
-                                                (*itrParty)->useAbility((*iList),(*itrEnemies));
-                                                (*itrEnemies)->setSelected(false);
-                                                (*itrParty)->setCanAttack(false);
-                                                Skill3->setPressed(false);
-                                                Ability->setPressed(false);
-                                            }
-                                            iList++;
+                                            (*itrParty)->useAbility((*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20),(*itrEnemies));
+                                            (*itrEnemies)->setSelected(false);
+                                            (*itrParty)->setCanAttack(false);
+                                            Skill3->setPressed(false);
+                                            Ability->setPressed(false);
                                         }
 
                                     }
+                                }else if(Skill3->getPressed() == true && (*itrParty)->getAbilityPower() <(*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20)->getCost()
+                                         && (*itrParty)->getAbilityPower() - (*itrParty)->getSkillList()->getSkill((*itrParty)->getWeapon()->getType(),20)->getCost() <0)
+                                {
+                                    battleInfo->setText("Ability Power too low");
+                                    battleInfo->Display(game->getSetup());
                                 }
 
 
@@ -507,19 +535,18 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
 //                        std::cout << "Enemy is selected is "<<std::boolalpha << (*itrEnemies)->getSelected();
 //                        std::cout << (*itrParty)->getName() <<" has attacked "<<(*itrEnemies)->getName();
-                            if(Attack->getPressed() && (*itrEnemies)->getSelected())
-                            {
-                               // chooseEnemy(game,(*itrParty),(*itrEnemies));
-                                  (*itrParty)->attack((*itrEnemies));
-                                (*itrEnemies)->setSelected(false);
-                                (*itrParty)->setCanAttack(false);
-                                Attack->setPressed(false);
-                            }
+
 
 
 
                             if(Items->getPressed() && !Potions->getPressed() && !Ethers->getPressed())
                             {
+                                Skill1->setPosition(0,0);
+                                Skill2->setPosition(0,0);
+                                Skill3->setPosition(0,0);
+
+
+
                                 Attack->setPressed(false);
                                 Ability->setPressed(false);
                                 Skill1->setPressed(false);
@@ -539,9 +566,6 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                             if(Potions->getPressed())
                             {
-
-
-
                                 for(std::vector<Entity*>::iterator iParty = game->getParty()->begin();iParty < game->getParty()->end();  iParty++)
                                 {
                                   (*iParty)->isSelected(game->getSetup(),(*iParty)->getSprite());
@@ -572,9 +596,6 @@ bool BattleState::PlayerTurn(GameEngine * game)
                             }
                             if(Ethers->getPressed())
                             {
-
-
-
                                 for(std::vector<Entity*>::iterator iParty = game->getParty()->begin();iParty < game->getParty()->end();  iParty++)
                                 {
                                   (*iParty)->isSelected(game->getSetup(),(*iParty)->getSprite());
@@ -746,97 +767,134 @@ void BattleState::drawItemsMenu(GameEngine * game)
 void BattleState::checkSkills(GameEngine * game,Entity * player)
 {
 
-    std::list<ISkill*>::iterator iList ;
 
-        for(iList = player->getSkillList()->getSkillList()->begin();iList!=player->getSkillList()->getSkillList()->end();)
+         std::cout << "checking skills for "<< player->getName()<< std::endl;
+        if(player->getWeapon()->getType() == Item::AXE)
         {
-            if(player->getSkillMap()->at("Axe Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::AXE)
-            {
-                if(player->getWeapon()->getType() == Item::AXE)
+
+
+                if(player->getSkillMap()->at("Axe Skill") == 5)
                 {
-                    if((*iList)->getRequiredSkill() == 5)
-                    {
-                   //     std::cout <<" got to the assignment of the axe skill ";
-                        Skill1->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 10)
-                    {
-                        Skill2->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 20)
-                    {
-                        Skill3->setText((*iList)->getName());
-                    }
 
-                    (*iList)->setActive(true);
-                }
-            }
-            if(player->getSkillMap()->at("Mace Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::MACE)
-            {
-                if(player->getWeapon()->getType() == Item::MACE)
+                    Skill1->setText(player->getSkillList()->getSkill(Item::AXE,5)->getName());
+                }else if(player->getSkillMap()->at("Axe Skill") < 5)
                 {
-                    if((*iList)->getRequiredSkill() == 5)
-                    {
-                        Skill1->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 10)
-                    {
-                        Skill2->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 20)
-                    {
-                        Skill3->setText((*iList)->getName());
-                    }
-
-                    (*iList)->setActive(true);
+                    Skill1->setText("Skill 1");
                 }
-            }
-            if(player->getSkillMap()->at("Spear Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SPEAR)
-            {
-                if(player->getWeapon()->getType() == Item::SPEAR)
+                if(player->getSkillMap()->at("Axe Skill") == 10)
                 {
-                    if((*iList)->getRequiredSkill() == 5)
-                    {
-                        Skill1->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 10)
-                    {
-                        Skill2->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 20)
-                    {
-                        Skill3->setText((*iList)->getName());
-                    }
 
-                    (*iList)->setActive(true);
-                }
-            }
-            if(player->getSkillMap()->at("Sword Skill") >= (*iList)->getRequiredSkill() && (*iList)->getType() == Item::SWORD)
-            {
-                if(player->getWeapon()->getType() == Item::SWORD)
+                    Skill2->setText(player->getSkillList()->getSkill(Item::AXE,10)->getName());
+                }else if(player->getSkillMap()->at("Axe Skill") < 10)
                 {
-                     std::cout <<player->getName()<<" has the sword skill " << std::endl;
-                    if((*iList)->getRequiredSkill() == 5)
-                    {
-
-                        Skill1->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 10)
-                    {
-                        Skill2->setText((*iList)->getName());
-                    }
-                    if((*iList)->getRequiredSkill() == 20)
-                    {
-                        Skill3->setText((*iList)->getName());
-                    }
-
-                    (*iList)->setActive(true);
+                    Skill2->setText("Skill 2");
                 }
-            }
-//            std::cout << "Weapon type is " <<(*iList)->getType() <<std::endl;
-//            std::cout << std::boolalpha << (*iList)->getActive() << std::endl;
-            iList++;
+                if(player->getSkillMap()->at("Axe Skill") == 20)
+                {
+
+                    Skill1->setText(player->getSkillList()->getSkill(Item::AXE,20)->getName());
+                }else if(player->getSkillMap()->at("Axe Skill") < 20)
+                {
+                    Skill1->setText("Skill 1");
+                }
+
+
+
         }
+        if(player->getWeapon()->getType() == Item::MACE)
+        {
+
+                if(player->getSkillMap()->at("Mace Skill") == 5)
+                {
+
+                    Skill1->setText(player->getSkillList()->getSkill(Item::MACE,5)->getName());
+                }else if(player->getSkillMap()->at("Mace Skill") < 5)
+                {
+                    Skill1->setText("Skill 1");
+                }
+                if(player->getSkillMap()->at("Mace Skill") == 10)
+                {
+
+                    Skill2->setText(player->getSkillList()->getSkill(Item::MACE,10)->getName());
+                }else if(player->getSkillMap()->at("Mace Skill") < 10)
+                {
+                    Skill2->setText("Skill 2");
+                }
+                if(player->getSkillMap()->at("Mace Skill") == 20)
+                {
+
+                    Skill1->setText(player->getSkillList()->getSkill(Item::MACE,20)->getName());
+                }else if(player->getSkillMap()->at("Mace Skill") < 20)
+                {
+                    Skill1->setText("Skill 1");
+                }
+
+
+
+        }
+        if(player->getWeapon()->getType() == Item::SWORD)
+        {
+
+                if(player->getSkillMap()->at("Sword Skill") >= 5)
+                {
+
+                    Skill1->setText(player->getSkillList()->getSkill(Item::SWORD,5)->getName());
+                }else if(player->getSkillMap()->at("Sword Skill") < 5)
+                {
+                    Skill1->setText("Skill 1");
+                }
+                if(player->getSkillMap()->at("Sword Skill") >= 10)
+                {
+
+                    Skill2->setText(player->getSkillList()->getSkill(Item::SWORD,10)->getName());
+                }else if(player->getSkillMap()->at("Sword Skill") < 10)
+                {
+                    Skill2->setText("Skill 2");
+                }
+                if(player->getSkillMap()->at("Sword Skill") >= 20)
+                {
+
+                    Skill3->setText(player->getSkillList()->getSkill(Item::SWORD,20)->getName());
+                }else if(player->getSkillMap()->at("Sword Skill") < 20)
+                {
+                    Skill3->setText("Skill 3");
+                }
+
+
+
+        }
+        if(player->getWeapon()->getType() == Item::SPEAR)
+        {
+
+                if(player->getSkillMap()->at("Spear Skill") >= 5)
+                {
+
+                    Skill1->setText(player->getSkillList()->getSkill(Item::SPEAR,5)->getName());
+                }else if(player->getSkillMap()->at("Spear Skill") < 5)
+                {
+                    Skill1->setText("Skill 1");
+                }
+                if(player->getSkillMap()->at("Spear Skill") >= 10)
+                {
+
+                    Skill2->setText(player->getSkillList()->getSkill(Item::SPEAR,10)->getName());
+                }else if(player->getSkillMap()->at("Spear Skill") < 10)
+                {
+                    Skill2->setText("Skill 2");
+                }
+                if(player->getSkillMap()->at("Spear Skill") >= 20)
+                {
+
+                    Skill3->setText(player->getSkillList()->getSkill(Item::SPEAR,20)->getName());
+                }else if(player->getSkillMap()->at("Spear Skill") < 20)
+                {
+                    Skill3->setText("Skill 3");
+                }
+
+
+
+        }
+
 
 }
 

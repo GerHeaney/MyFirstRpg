@@ -19,23 +19,22 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
 
     maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
     currentHealth = maxHealth;
-    attackDamage = 90 + 8* entityLevel->getCurrentLevel() + rand() % 20;
+    attackDamage = 90 + 20* entityLevel->getCurrentLevel() + rand() % 20;
     abilityPower = 50;
     maxAP = 50;
     skillMap["Axe Skill"] = 0;
-    skillMap["Sword Skill"] = 20;
+    skillMap["Sword Skill"] = 0;
     skillMap["Mace Skill"] = 0;
     skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
     Potion *potion = new Potion(gameSetup);
+    Ether * ether = new Ether(gameSetup);
+    potion->setQuantity(48);
+    ether->setQuantity(48);
 
     inventory = inventory->partyInventory();
     inventory->addItem(potion);
-
-
-
-
-    //skillList.push_back(new AxeSkill(gameSetup,Item::AXE,"hack",10,60,));
+    inventory->addItem(ether);
 
 
     std::map<std::string,int>::iterator it = skillMap.begin();
@@ -188,6 +187,7 @@ void MainCharacter::attack(Entity *enemy)
 
 void MainCharacter::useAbility(ISkill *skill, Entity *enemy)
 {
+    abilityPower -=skill->getCost();
     int damage = attackDamage + weapon->getPower()+ (skill->getPower() *2);
 
     enemy->setCurrentHealth(enemy->getCurrentHealth() - damage);
@@ -357,9 +357,10 @@ SkillList *MainCharacter::getSkillList() const
 void MainCharacter::levelUP()
 {
     entityLevel->levelUP();
-    attackDamage = 60 + 8*entityLevel->getCurrentLevel() + rand()% 20;
+    attackDamage = 90 + 20*entityLevel->getCurrentLevel() + rand()% 20;
     maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
     maxAP += 10;
+    currentHealth = maxHealth;
 }
 
 

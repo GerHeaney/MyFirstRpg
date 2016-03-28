@@ -27,14 +27,10 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     skillMap["Mace Skill"] = 0;
     skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
-    Potion *potion = new Potion(gameSetup);
-    Ether * ether = new Ether(gameSetup);
-    potion->setQuantity(48);
-    ether->setQuantity(48);
+
 
     inventory = inventory->partyInventory();
-    inventory->addItem(potion);
-    inventory->addItem(ether);
+
 
 
     std::map<std::string,int>::iterator it = skillMap.begin();
@@ -390,6 +386,7 @@ bool MainCharacter::useItem(Entity *player, std::string item)
                     {
                         player->setCurrentHealth(player->getMaxHealth());
                     }
+                    std::cout << " Potion used" << std::endl;
                     return true;
 
                 }else if((*i)->getQuantity() ==1)

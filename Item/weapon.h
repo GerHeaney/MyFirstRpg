@@ -7,7 +7,7 @@
 class Weapon : public Item
 {
 public:
-   Weapon(SDL_setup *setup, Item::TYPE wType, std::string wName, int wCost, int wPower, std::string path);
+   Weapon(SDL_setup *setup, Item::TYPE wType, std::string wName, int wCost, int wPower, std::string wPath);
     ~Weapon();
     virtual Item::TYPE getType() ;
     virtual void setType(const Item::TYPE &value) ;
@@ -32,6 +32,11 @@ public:
 public:
    virtual bool getEquipped() const;
    virtual void setEquipped(bool value);
+
+   // Item interface
+public:
+   virtual std::string getPath() const;
+   virtual void setPath(const std::string &value);
 };
 
 #endif // WEAPON_H

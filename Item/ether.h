@@ -29,6 +29,11 @@ public:
 public:
     virtual bool getEquipped() const;
     virtual void setEquipped(bool value);
+
+    // Item interface
+public:
+    virtual std::string getPath() const;
+    virtual void setPath(const std::string &value);
 };
 
 #endif // ETHER_H

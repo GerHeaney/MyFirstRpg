@@ -17,8 +17,9 @@ Ether::Ether(SDL_setup *setup)
     name = "Ether";
     cost = 250;
     power = 50;
-    icon = new MenuSprite(setup->getRenderer(),"resources/Items/ether.png");
     quantity = 0;
+    icon = new MenuSprite(setup->getRenderer(),"resources/Items/ether.png");
+
 
 }
 
@@ -94,5 +95,13 @@ bool Ether::getEquipped() const
 }
 
 void Ether::setEquipped(bool value)
+{
+}
+
+std::string Ether::getPath() const
+{
+}
+
+void Ether::setPath(const std::string &value)
 {
 }

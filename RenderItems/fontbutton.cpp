@@ -6,6 +6,8 @@ FontButton::FontButton(SDL_setup *passedSetup,std::string drawText)
     setup = passedSetup;  
     text = drawText;
     textColor = { 250, 250, 250 };
+    mPosition.x = 0;
+    mPosition.y = 0;
 
 
    // mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);

@@ -10,12 +10,24 @@ GameEngine::GameEngine(int width, int height)
     running = true;
 
     setup = new SDL_setup(&quit,width,height);
+    inventory = inventory->partyInventory();
+    Potion *potion = new Potion();
+    Ether * ether = new Ether(setup);
+    potion->setQuantity(99);
+
+     ether->setQuantity(99);
+    inventory->addItem(ether);
+     inventory->addItem(potion);
 
     player2 = new MainCharacter(setup,"Ger","resources/Characters/belf22.png");
     player = new MainCharacter(setup,"Bill","resources/Characters/belf1.png");
+    Weapon * javelin =new Weapon(setup,Item::SPEAR,"Javelin",200,120,"resources/Items/spear.png");
+    Weapon * ironSword = new Weapon(setup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png");
 
-    player->setWeapon(new Weapon(setup,Item::SPEAR,"Javelin",200,120,"resources/Items/spear.png"));
-    player2->setWeapon(new Weapon(setup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png"));
+    player->setWeapon(javelin);
+    player2->setWeapon(ironSword);
+    inventory->addItem(javelin);
+    inventory->addItem(ironSword);
     player->getSkillMap()->at("Spear Skill") = 20;
 
     gameCamera = new Camera();
@@ -23,6 +35,12 @@ GameEngine::GameEngine(int width, int height)
     gameCamera->setCameraH(height);
     party.push_back(player);
     party.push_back(player2);
+
+
+
+
+
+
  }
 
 GameEngine::~GameEngine()

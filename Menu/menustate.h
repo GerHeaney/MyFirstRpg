@@ -40,17 +40,20 @@ private:
           STATE_EQUIP,
           STATE_SKILLS
       };
+    Inventory * inventory;
       States switchState(States state);
       static MenuState  menu;
       MenuSprite * back;
       MenuSprite * options;
       MenuSprite * selected;
       std::vector<FontButton*> buttons;
+      std::vector<FontButton*> weapons;
+      std::vector<FontButton*> items;
       DisplayField * line1;
-      FontButton * Item;
+      FontButton * Items;
       FontButton * Equip;
       FontButton * Skills;
-      FontButton * Weapon;
+      FontButton * Weapons;
       FontButton * Axe;
       FontButton * Mace;
       FontButton * Spear;
@@ -59,7 +62,7 @@ private:
       int state;
       Entity * selectedPlayer;
       bool exit;
-      //Add teh states stuff in main character so i can select a character
+      //Add the states stuff in main character so i can select a character
 
 };
 

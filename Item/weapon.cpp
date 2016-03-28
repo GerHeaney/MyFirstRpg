@@ -1,12 +1,13 @@
 #include "weapon.h"
 
 
-Weapon::Weapon(SDL_setup * setup, Item::TYPE wType, std::string wName, int wCost, int wPower,std::string path)
+Weapon::Weapon(SDL_setup * setup, Item::TYPE wType, std::string wName, int wCost, int wPower,std::string wPath)
 {
    type = wType;
    name = wName;
    cost = wCost;
    power = wPower;
+   path = wPath;
    icon = new MenuSprite(setup->getRenderer(),path.c_str());
    quantity = 0;
 
@@ -88,4 +89,15 @@ bool Weapon::getEquipped() const
 void Weapon::setEquipped(bool value)
 {
     equipped = value;
+}
+
+
+std::string Weapon::getPath() const
+{
+    return path;
+}
+
+void Weapon::setPath(const std::string &value)
+{
+    path = value;
 }

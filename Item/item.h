@@ -35,11 +35,15 @@ public:
     virtual bool getEquipped() const= 0;
     virtual void setEquipped(bool value)= 0;
 
+    virtual std::string getPath() const= 0;
+    virtual void setPath(const std::string &value)= 0;
+
 protected:
 
     int cost;
     int power;
     std::string name;
+    std::string path;
     TYPE type;
     MenuSprite * icon;
     int quantity;
@@ -50,4 +54,3 @@ protected:
 };
 
 #endif // ITEM_H
-

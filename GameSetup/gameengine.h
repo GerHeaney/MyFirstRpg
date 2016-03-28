@@ -85,6 +85,7 @@ private:
      MainCharacter * player2;
     //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
+     Inventory * inventory;
 
 
 

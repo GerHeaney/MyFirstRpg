@@ -101,3 +101,13 @@ bool Potion::getEquipped() const
 void Potion::setEquipped(bool value)
 {
 }
+
+std::string Potion::getPath() const
+{
+    return path;
+}
+
+void Potion::setPath(const std::string &value)
+{
+    path = value;
+}

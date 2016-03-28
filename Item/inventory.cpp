@@ -25,22 +25,18 @@ void Inventory::addItem(Item *item)
     {
 
         if((*i)->getName() == item->getName())
-        {            std::cout << " got to the true condition of the if statement in the for loop" << std::endl;
+        {            std::cout << "list contains " <<item->getName() << std::endl;
             (*i)->setQuantity((*i)->getQuantity() +1);
             contains = true;
             //delete item;
             break;
-
-        }else
-        {
-            contains = false;
-
         }
+
         i++;
     }
     if(!contains)
     {
-        item->setQuantity(1);
+        item->setQuantity(item->getQuantity() +1);
          std::cout << "inventory doesn't contain" <<item->getName()<< " so now one is added" <<std::endl;
         inventoryList.push_back(item);
     }

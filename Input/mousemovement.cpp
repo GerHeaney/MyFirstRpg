@@ -19,6 +19,12 @@ MouseMovement::MouseMovement(SDL_setup *setup, MainCharacter *belf)
 
 }
 
+MouseMovement::~MouseMovement()
+{
+    gameSetup = NULL;
+
+}
+
 double MouseMovement::getDistance(int x1, int y1, int x2, int y2)
 {
     double differenceX = x1 - x2;

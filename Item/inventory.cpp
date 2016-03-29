@@ -7,6 +7,11 @@ Inventory *Inventory::partyInventory()
     return &inventory;
 }
 
+Inventory::~Inventory()
+{
+    inventoryList.clear();
+}
+
 std::list<Item *> *Inventory::getInventory()
 {
     return &inventoryList;

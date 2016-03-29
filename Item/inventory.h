@@ -12,6 +12,7 @@ class Inventory
 {
 public:
     static Inventory * partyInventory();
+    ~Inventory();
 
     std::list<Item *>* getInventory();
     void addItem(Item * item);

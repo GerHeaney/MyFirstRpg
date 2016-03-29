@@ -8,6 +8,7 @@ class Level
 {
 public:
     Level();
+    ~Level();
 
 
     void setuplevels(int firstLevelXP, int lastLevelXP, int levels);

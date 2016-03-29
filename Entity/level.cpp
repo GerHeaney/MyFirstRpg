@@ -17,7 +17,12 @@ Level::Level()
     nextLevelXP = 0;
     lastLevelXP = 0;
     requiredXP = getNextLevelXP();
-       // nextLevelXP = round(A * exp(B * currentLevel));
+    // nextLevelXP = round(A * exp(B * currentLevel));
+}
+
+Level::~Level()
+{
+
 }
 
 

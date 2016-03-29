@@ -106,7 +106,7 @@ public:
 
     // Entity interface
 public:
-    virtual void setLevel(int level);
+    virtual void setLevel(int aLevel);
 
     // Entity interface
 public:

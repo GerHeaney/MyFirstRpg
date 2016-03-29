@@ -9,6 +9,11 @@ BattleSystem::BattleSystem()
 
 }
 
+BattleSystem::~BattleSystem()
+{
+
+}
+
 void BattleSystem::updateBattle(std::vector<Entity *> enemies, std::vector<Entity *> party)
 {
     //Checking for the enemy party's health. If health is 0 enemy is deleted from the list

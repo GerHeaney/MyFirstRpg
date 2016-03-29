@@ -21,8 +21,9 @@ KeyboardMovement::KeyboardMovement(SDL_setup * passedSetup, Entity *passedPlayer
 
 KeyboardMovement::~KeyboardMovement()
 {
-//    delete player;
-//    delete setup;
+    player = NULL;
+    delete player;
+
 
 }
 

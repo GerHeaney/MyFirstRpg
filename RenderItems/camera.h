@@ -7,6 +7,7 @@ class Camera
 {
 public:
     Camera();
+    ~Camera();
 
     int getCameraX();
     void setCameraX(int value);

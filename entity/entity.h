@@ -70,7 +70,7 @@ public:
     virtual int getExperience() = 0;
     virtual void setExperience(int value) = 0;
     virtual void levelUP()= 0;
-    virtual void setLevel(int level)= 0;
+    virtual void setLevel(int aLevel)= 0;
 
 
 

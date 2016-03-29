@@ -50,6 +50,7 @@ GameEngine::~GameEngine()
     delete stage1;
     //delete keyMove;
     delete player;
+    delete gameCamera;
 
 }
 void GameEngine::ChangeState(GameState* state)

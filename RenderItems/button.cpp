@@ -3,6 +3,8 @@
 Button::Button( std::string path)
 {
     buttonPath = path;
+    over = false;
+    clicked = false;
 
 
 
@@ -12,20 +14,29 @@ Button::Button( std::string path)
 }
 void Button::Init(SDL_setup *setup)
 {
-    surface = IMG_Load(buttonPath.c_str());
-    mTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-    selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
-    button = {0,0,surface->w,surface->h};
-    mWidth = surface->w;
-    mHeight = surface->h;
+    textSurface = IMG_Load(buttonPath.c_str());
+    textTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),textSurface);
+
+    overSurface = IMG_Load("resources/MainMenu/selected.png");
+    overTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),overSurface);
+
+    selectedSurface = IMG_Load("resources/MainMenu/pressed.png");
+    selectedTexture = SDL_CreateTextureFromSurface(setup->getRenderer(),selectedSurface);
+    button = {0,0,textSurface->w,textSurface->h};
+    mWidth = textSurface->w;
+    mHeight = textSurface->h;
     pressed = false;
 
 }
 
 Button::~Button()
 {
-    SDL_DestroyTexture(mTexture);
+    SDL_DestroyTexture(textTexture);
+    SDL_FreeSurface(textSurface);
+    SDL_DestroyTexture(overTexture);
+    SDL_FreeSurface(overSurface);
     SDL_DestroyTexture(selectedTexture);
+    SDL_FreeSurface(selectedSurface);
 
 }
 
@@ -37,7 +48,7 @@ void Button::setPosition( int x, int y )
 
 
 }
-void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
+void Button::handleEvent(SDL_setup * setup)
 {
 
 
@@ -74,18 +85,21 @@ void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
         //Mouse is outside button
         if( !inside )
         {
-            selectedTexture = NULL;
+
             render(setup);
+            over = false;
+            clicked = false;
 
         }else{
 
+
+
             //Set mouse over sprite
-            switch(e->type )
+            switch(setup->getMainEvent()->type )
             {
                 case SDL_MOUSEMOTION:
                 std::cout << "over the button" << std::endl;
-                surface = IMG_Load("resources/MainMenu/selected.png");
-                selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
+               over = true;
 
 
 
@@ -94,8 +108,8 @@ void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
                 case SDL_MOUSEBUTTONDOWN:
                 // button pressed
                 std::cout <<"pressed" << std::endl;
-                surface = IMG_Load("resources/MainMenu/pressed.png");
-                selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
+                clicked = true;
+               // render(setup,selectedTexture);
 
 
                 break;
@@ -103,8 +117,8 @@ void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
                 case SDL_MOUSEBUTTONUP:
                 std::cout <<"released" << std::endl;
                 // button released
-                surface = IMG_Load("resources/MainMenu/selected.png");
-                selectedTexture =SDL_CreateTextureFromSurface(setup->getRenderer(),surface);
+             //   render(setup,overTexture);
+
 
                 pressed = true;
 
@@ -113,6 +127,7 @@ void Button::handleEvent( SDL_Event*  e, SDL_setup * setup)
 
 
         }
+
 
 
 
@@ -132,8 +147,16 @@ void Button::render(SDL_setup *setup)
 
 
     //Render to screen
-    SDL_RenderCopy( setup->getRenderer(), mTexture, &button, &renderQuad);
-    SDL_RenderCopy( setup->getRenderer(), selectedTexture, &button, &renderQuad);
+    SDL_RenderCopy( setup->getRenderer(), textTexture, &button, &renderQuad);
+    if(over)
+    {
+        SDL_RenderCopy( setup->getRenderer(), overTexture, &button, &renderQuad);
+    }
+    if(clicked)
+    {
+        SDL_RenderCopy( setup->getRenderer(), selectedTexture, &button, &renderQuad);
+    }
+
 
 
 }
@@ -151,14 +174,6 @@ void Button::setPressed(bool value)
 
 void Button::free()
 {
-    //Free texture if it exists
-    if( mTexture != NULL )
-    {
-        SDL_DestroyTexture( mTexture );
-        mTexture = NULL;
-        mWidth = 0;
-        mHeight = 0;
-    }
 }
 int Button::getWidth()
 {

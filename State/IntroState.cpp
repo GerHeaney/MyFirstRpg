@@ -55,21 +55,22 @@ void IntroState::Update(GameEngine *game)
 }
 void IntroState::HandleEvents(GameEngine *game)
 {
-    while(SDL_PollEvent(game->getSetup()->getMainEvent()))
+    while(SDL_PollEvent(game->getSetup()->getMainEvent())!=0)
     {
-    qButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
-    nButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
-    lButton->handleEvent(game->getSetup()->getMainEvent(),game->getSetup());
-    }
+        qButton->handleEvent(game->getSetup());
+        nButton->handleEvent(game->getSetup());
+        lButton->handleEvent(game->getSetup());
 
-    if(nButton->getPressed() == true)
-    {
-        game->PushState(FieldState::Instance());
-    }
-    if(qButton->getPressed() == true)
-    {
 
-        game->Quit();
+        if(nButton->getPressed() == true)
+        {
+            game->PushState(FieldState::Instance());
+        }
+        if(qButton->getPressed() == true)
+        {
+
+            game->Quit();
+        }
     }
 
 }

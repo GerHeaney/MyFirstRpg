@@ -14,10 +14,11 @@ class Button
 
     public:
         Button(std::string path);
+
         void Init(SDL_setup *setup);
         void setPosition( int x, int y );
         ~Button();
-        void handleEvent(SDL_Event *e, SDL_setup *setup);
+        void handleEvent(SDL_setup * setup);
         bool loadFromFile( std::string path );
         int getWidth();
         int getHeight();
@@ -38,7 +39,7 @@ private:
        // void drawSelected();
 
 
-        SDL_Texture* selectedTexture;
+
 
         //Image dimensions
         int mWidth;
@@ -48,10 +49,16 @@ private:
 protected:
         SDL_setup * setup;
         SDL_Rect  button;
-        SDL_Surface * surface;
-        SDL_Texture* mTexture;
+        SDL_Surface * textSurface;
+        SDL_Surface * overSurface;
+        SDL_Surface * selectedSurface;
+        SDL_Texture * textTexture;
+        SDL_Texture * overTexture;
+        SDL_Texture * selectedTexture;
         SDL_Point mPosition;
         bool pressed;
+        bool over;
+        bool clicked;
 
         //Currently used global sprite
 

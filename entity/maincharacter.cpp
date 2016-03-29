@@ -42,7 +42,11 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
 }
 MainCharacter::~MainCharacter()
 {
-
+    delete playerSprite;
+    delete icon;
+    delete entityLevel;
+    delete skillList;
+    skillMap.clear();
 
 }
 
@@ -360,7 +364,7 @@ void MainCharacter::levelUP()
 }
 
 
-void MainCharacter::setLevel(int level)
+void MainCharacter::setLevel(int aLevel)
 {
 }
 

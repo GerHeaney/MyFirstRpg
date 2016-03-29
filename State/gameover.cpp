@@ -17,7 +17,7 @@ void GameOver::Update(GameEngine *game)
 {
     if(newGame->getPressed())
     {
-        game->ChangeState(IntroState::Instance());
+        game->PushState(IntroState::Instance());
     }
     if(quit->getPressed())
     {

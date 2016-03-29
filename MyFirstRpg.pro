@@ -28,7 +28,6 @@ SOURCES += main.cpp \
     RenderItems/tree.cpp \
     State/fieldstate.cpp \
     State/IntroState.cpp \
-    RenderItems/gamerenderer.cpp \
     Visitor/drawvisitor.cpp \
     Sprite/backgroundsprite.cpp \
     Sprite/csprite.cpp \
@@ -70,7 +69,6 @@ HEADERS  += \
     State/gamestate.h \
     State/IntroState.h \
     GameSetup/gameengine.h \
-    RenderItems/gamerenderer.h \
     Visitor/ivisitor.h \
     Visitor/drawvisitor.h \
     Sprite/backgroundsprite.h \

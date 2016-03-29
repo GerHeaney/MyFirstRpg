@@ -8,6 +8,7 @@ class EnemyList
 {
 public:
     EnemyList();
+    ~EnemyList();
 
     std::vector<std::string> getEnemies() const;
 

@@ -216,7 +216,7 @@ void BattleState::Update(GameEngine *game)
     }
     if(battleSystem->getLostBattle())
     {
-        game->ChangeState(GameOver::Instance());
+        game->PushState(GameOver::Instance());
     }
 
 
@@ -276,7 +276,7 @@ void BattleState::Cleanup()
     delete Ability;
     delete Items;
     delete battleMenu;
-  //  delete battleSystem;
+    delete battleSystem;
     delete visitor;
     delete Skill1;
     delete Skill2;
@@ -909,6 +909,7 @@ void BattleState::setEnemies(GameEngine * game)
         int x = rand() % 11 ;
          std::cout << "enemy in list is" << list.getEnemies().at(x)<<std::endl;
          Enemy * enemy1 = new Enemy(game->getSetup(),list.getEnemies().at(x),"resources/Battle/Enemies/"+ list.getEnemies().at(x)+".png");
+         enemy1->setLevel(game->getParty()->front()->getEntityLevel()->getCurrentLevel());
          enemies.push_back(enemy1);
          amount--;
     }

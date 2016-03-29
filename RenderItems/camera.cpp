@@ -6,6 +6,11 @@ Camera::Camera()
 
 }
 
+Camera::~Camera()
+{
+
+}
+
 int Camera::getCameraX()
 {
     return camera.x;

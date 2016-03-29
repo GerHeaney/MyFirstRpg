@@ -13,23 +13,16 @@ void FieldState::Init(GameEngine *game)
     player = game->getPlayer();
     player->setOrigin(0,0);
     x =1;
- //   std::cout << x;
     move = new KeyboardMovement(game->getSetup(),player,stage1->getSurface()->w,stage1->getSurface()->h);
     player->getSprite()->setX(0);
     player->getSprite()->setY(0);
-    std::cout <<" skillpoints are " << player->getEntityLevel()->getSkillPoints()<< std::endl;
-    Level * level = new Level();
- //   std::cout <<" got to end of field init" << std::endl;
-
-
-   std::cout<<player->getName() <<" is level "  << player->getEntityLevel()->getCurrentLevel()<< std::endl;
-   std::cout<<player->getName() <<" has "  << player->getEntityLevel()->getCurrentXP()<< " xp "<< std::endl;
-   std::cout<<player->getName() <<" needs "  << player->getEntityLevel()->getNextLevelXP()<<" xp for the next level" << std::endl;
-
-
-
-
-   level->setuplevels(300,350000,30);
+//  std::cout <<" skillpoints are " << player->getEntityLevel()->getSkillPoints()<< std::endl;
+//  Level * level = new Level();
+//  std::cout <<" got to end of field init" << std::endl;
+//  std::cout<<player->getName() <<" is level "  << player->getEntityLevel()->getCurrentLevel()<< std::endl;
+//  std::cout<<player->getName() <<" has "  << player->getEntityLevel()->getCurrentXP()<< " xp "<< std::endl;
+//  std::cout<<player->getName() <<" needs "  << player->getEntityLevel()->getNextLevelXP()<<" xp for the next level" << std::endl;
+//  level->setuplevels(300,350000,30);
 
 
 
@@ -94,6 +87,8 @@ void FieldState::Cleanup()
     std::cout <<" got to  field cleanup" << std::endl;
    delete stage1;
    delete move;
+    player = NULL;
+    delete player;
 
 }
 

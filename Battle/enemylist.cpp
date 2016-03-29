@@ -16,6 +16,11 @@ EnemyList::EnemyList()
 
 }
 
+EnemyList::~EnemyList()
+{
+    enemies.clear();
+}
+
 std::vector<std::string> EnemyList::getEnemies() const
 {
     return enemies;

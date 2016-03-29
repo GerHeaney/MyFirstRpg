@@ -617,6 +617,10 @@ void MenuState::Cleanup()
     delete Equip;
     delete Weapons;
     delete selected;
+    delete Axe;
+    delete Mace;
+    delete Spear;
+    delete Sword;
     selectedPlayer = NULL;
     delete selectedPlayer;
 

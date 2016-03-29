@@ -25,6 +25,8 @@ EnemySprite::~EnemySprite()
 {
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(image);
+    renderer = NULL;
+    delete renderer;
 }
 
 

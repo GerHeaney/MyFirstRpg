@@ -14,7 +14,7 @@ Enemy::Enemy(SDL_setup *gameSetup, std::string passedName, std::string path)
    maxHealth = 180 + 100* entityLevel->getCurrentLevel() + rand() % 50;
    currentHealth = maxHealth;
    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
-   experience = 200;
+   experience = 40 + 7*entityLevel->getCurrentLevel();
    setResistance();
 
 
@@ -25,6 +25,7 @@ Enemy::~Enemy()
 {
 
    delete enemySprite;
+   delete entityLevel;
 }
 
 
@@ -316,8 +317,13 @@ void Enemy::levelUP()
 }
 
 
-void Enemy::setLevel(int level)
+void Enemy::setLevel(int aLevel)
 {
+    entityLevel->setCurrentLevel(aLevel);
+    maxHealth = 180 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+    currentHealth = maxHealth;
+    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
+    experience = 40 + 7*entityLevel->getCurrentLevel();
 }
 
 

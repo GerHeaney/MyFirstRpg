@@ -15,6 +15,7 @@ class MouseMovement
 public:
 
     MouseMovement(SDL_setup *setup,MainCharacter *belf);
+    ~MouseMovement();
 
     double getDistance(int x1,int y1,int x2,int y2);
 

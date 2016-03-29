@@ -10,6 +10,7 @@ class BattleSystem
 {
 public:
     BattleSystem();
+    ~BattleSystem();
     void updateBattle(std::vector<Entity *> enemies, std::vector<Entity *> party);
     void setAttacks(std::vector<Entity *> list, bool value);
     void executeAttacks();

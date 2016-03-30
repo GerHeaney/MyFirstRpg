@@ -769,11 +769,14 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
 
 
          std::cout << "checking skills for "<< player->getName()<< std::endl;
+         std::cout <<  player->getName()<< " has "<<player->getWeapon()->getName() <<"equipped"<< std::endl;
+
         if(player->getWeapon()->getType() == Item::AXE)
         {
+             std::cout <<  player->getName()<< " has axe equipped"<< std::endl;
 
 
-                if(player->getSkillMap()->at("Axe Skill") == 5)
+                if(player->getSkillMap()->at("Axe Skill") >= 5)
                 {
 
                     Skill1->setText(player->getSkillList()->getSkill(Item::AXE,5)->getName());
@@ -781,7 +784,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                 {
                     Skill1->setText("Skill 1");
                 }
-                if(player->getSkillMap()->at("Axe Skill") == 10)
+                if(player->getSkillMap()->at("Axe Skill") >= 10)
                 {
 
                     Skill2->setText(player->getSkillList()->getSkill(Item::AXE,10)->getName());
@@ -789,13 +792,13 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                 {
                     Skill2->setText("Skill 2");
                 }
-                if(player->getSkillMap()->at("Axe Skill") == 20)
+                if(player->getSkillMap()->at("Axe Skill") >= 20)
                 {
 
-                    Skill1->setText(player->getSkillList()->getSkill(Item::AXE,20)->getName());
+                    Skill3->setText(player->getSkillList()->getSkill(Item::AXE,20)->getName());
                 }else if(player->getSkillMap()->at("Axe Skill") < 20)
                 {
-                    Skill1->setText("Skill 1");
+                    Skill3->setText("Skill 1");
                 }
 
 
@@ -803,8 +806,9 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
         }
         if(player->getWeapon()->getType() == Item::MACE)
         {
+            std::cout <<  player->getName()<< " has mace equipped"<< std::endl;
 
-                if(player->getSkillMap()->at("Mace Skill") == 5)
+                if(player->getSkillMap()->at("Mace Skill") >= 5)
                 {
 
                     Skill1->setText(player->getSkillList()->getSkill(Item::MACE,5)->getName());
@@ -812,7 +816,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                 {
                     Skill1->setText("Skill 1");
                 }
-                if(player->getSkillMap()->at("Mace Skill") == 10)
+                if(player->getSkillMap()->at("Mace Skill") >= 10)
                 {
 
                     Skill2->setText(player->getSkillList()->getSkill(Item::MACE,10)->getName());
@@ -820,13 +824,13 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                 {
                     Skill2->setText("Skill 2");
                 }
-                if(player->getSkillMap()->at("Mace Skill") == 20)
+                if(player->getSkillMap()->at("Mace Skill") >= 20)
                 {
 
-                    Skill1->setText(player->getSkillList()->getSkill(Item::MACE,20)->getName());
+                    Skill3->setText(player->getSkillList()->getSkill(Item::MACE,20)->getName());
                 }else if(player->getSkillMap()->at("Mace Skill") < 20)
                 {
-                    Skill1->setText("Skill 1");
+                    Skill3->setText("Skill 1");
                 }
 
 
@@ -834,6 +838,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
         }
         if(player->getWeapon()->getType() == Item::SWORD)
         {
+            std::cout <<  player->getName()<< " has sword equipped"<< std::endl;
 
                 if(player->getSkillMap()->at("Sword Skill") >= 5)
                 {
@@ -865,6 +870,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
         }
         if(player->getWeapon()->getType() == Item::SPEAR)
         {
+            std::cout <<  player->getName()<< " has spear equipped"<< std::endl;
 
                 if(player->getSkillMap()->at("Spear Skill") >= 5)
                 {

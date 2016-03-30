@@ -22,10 +22,10 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     attackDamage = 90 + 20* entityLevel->getCurrentLevel() + rand() % 20;
     abilityPower = 50;
     maxAP = 50;
-    skillMap["Axe Skill"] = 0;
-    skillMap["Sword Skill"] = 0;
-    skillMap["Mace Skill"] = 0;
-    skillMap["Spear Skill"] = 0;
+    skillMap["Axe Skill"] = 20;
+    skillMap["Sword Skill"] = 20;
+    skillMap["Mace Skill"] = 20;
+    skillMap["Spear Skill"] = 20;
     skillList = new SkillList();
 
 
@@ -331,6 +331,10 @@ Item *MainCharacter::getWeapon() const
 
 void MainCharacter::setWeapon(Item *value)
 {
+    if(weapon!=NULL)
+    {
+        weapon->setEquipped(false);
+    }
 
     weapon = value;
     weapon->setEquipped(true);

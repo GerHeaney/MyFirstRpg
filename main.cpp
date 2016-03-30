@@ -17,7 +17,7 @@ int main( int argc, char* args[] )
 
 
     GameEngine*  game = new GameEngine(1368,768);
-    game->PushState(IntroState::Instance());
+    game->PushState(FieldState::Instance());
     game->GameLoop();
 
     return 0;

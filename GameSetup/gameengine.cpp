@@ -21,13 +21,19 @@ GameEngine::GameEngine(int width, int height)
 
     player2 = new MainCharacter(setup,"Ger","resources/Characters/belf22.png");
     player = new MainCharacter(setup,"Bill","resources/Characters/belf1.png");
-    Weapon * javelin =new Weapon(setup,Item::SPEAR,"Javelin",200,120,"resources/Items/spear.png");
-    Weapon * ironSword = new Weapon(setup,Item::SWORD,"Iron Sword",50,30,"resources/Items/sword.png");
+    Weapon * javelin =new Weapon(setup,Item::SPEAR,"Javelin",200,100,"resources/Items/spear.png");
+    Weapon * ironSword = new Weapon(setup,Item::SWORD,"Iron Sword",200,100,"resources/Items/sword.png");
+    Weapon * hatchet = new Weapon(setup,Item::AXE,"Hatchet",200,100,"resources/Items/axe.png");
+    Weapon * hammer = new Weapon(setup,Item::MACE,"Hammer",200,100,"resources/Items/mace.png");
+    Weapon * battleAxe = new Weapon(setup,Item::AXE,"Battle Axe",200,170,"resources/Items/axe.png");
 
     player->setWeapon(javelin);
     player2->setWeapon(ironSword);
     inventory->addItem(javelin);
     inventory->addItem(ironSword);
+    inventory->addItem(hatchet);
+    inventory->addItem(hammer);
+    inventory->addItem(battleAxe);
     player->getSkillMap()->at("Spear Skill") = 20;
 
     gameCamera = new Camera();

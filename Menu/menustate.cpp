@@ -157,6 +157,7 @@ void MenuState::Draw(GameEngine *game)
                     Weapons->setText(selectedPlayer->getWeapon()->getName());
                     Weapons->setInside(false);
                     selectedPlayer->setSelected(false);
+                    Equip->setPressed(false);
                     switchState(STATE_EQUIP);
 
 
@@ -184,6 +185,7 @@ void MenuState::Draw(GameEngine *game)
                     Spear->setPressed(false);
                     Axe->setInside(false);
                     selectedPlayer->setSelected(false);
+                    Skills->setPressed(false);
 
                     switchState(STATE_SKILLS);
 
@@ -266,7 +268,17 @@ void MenuState::Draw(GameEngine *game)
                     line1->setPosition(back->getPositionRect().x + offset*11,back->getPositionRect().y+scrpos );
                     line1->setText(game->getParty()->front()->toString((*iItm)->getQuantity()));
                     line1->Display(game->getSetup());
+                    if((*iBtn)->getPressed() && Weapons->getPressed() && !(*iItm)->getEquipped())
+                    {
+                        std::cout << selectedPlayer->getName()<< " just equipped " << (*iItm)->getName() << std::endl;
+                        selectedPlayer->setWeapon((*iItm));
+                        Weapons->setText((*iItm)->getName());
+                        (*iBtn)->setPressed(false);
+                        Weapons->setPressed(false);
+
+                    }
                 }
+
 
                 iItm++;
             }
@@ -279,11 +291,8 @@ void MenuState::Draw(GameEngine *game)
                 selected->setPosition((*iBtn)->getPosition().x - selected->getRect().w,(*iBtn)->getPosition().y + selected->getRect().h/2);
                 selected->accept(&visitor);
             }
-            //            if((*i)->getPressed())
-            //            {
-            //                std::cout <<"inside";
-            //               state = 1;
-            //            }
+
+
 
 
             iBtn++;

@@ -63,6 +63,7 @@ private:
     FontButton * Skill3;
     FontButton * Potions;
     FontButton * Ethers;
+    FontButton * Revives;
     static BattleState battle;
     SDL_Point pos1;
     SDL_Point pos2;

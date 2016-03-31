@@ -22,10 +22,10 @@ MainCharacter::MainCharacter(SDL_setup * gameSetup, std::string playerName,std::
     attackDamage = 90 + 20* entityLevel->getCurrentLevel() + rand() % 20;
     abilityPower = 50;
     maxAP = 50;
-    skillMap["Axe Skill"] = 20;
-    skillMap["Sword Skill"] = 20;
-    skillMap["Mace Skill"] = 20;
-    skillMap["Spear Skill"] = 20;
+    skillMap["Axe Skill"] = 0;
+    skillMap["Sword Skill"] = 0;
+    skillMap["Mace Skill"] = 0;
+    skillMap["Spear Skill"] = 0;
     skillList = new SkillList();
 
 
@@ -370,6 +370,12 @@ void MainCharacter::levelUP()
 
 void MainCharacter::setLevel(int aLevel)
 {
+    entityLevel->setCurrentLevel(aLevel);
+    maxHealth = 150 + 100* entityLevel->getCurrentLevel() + rand() % 50;
+    currentHealth = maxHealth;
+    attackDamage = 90 + 20* entityLevel->getCurrentLevel() + rand() % 20;
+    maxAP += 10 * entityLevel->getCurrentLevel();
+    abilityPower = maxAP;
 }
 
 
@@ -436,6 +442,38 @@ bool MainCharacter::useItem(Entity *player, std::string item)
                     }
                     return true;
                 }
+            }
+
+        }
+        if(item == "Revive")
+        {
+
+            Revive rev;
+            if(rev.getName() == (*i)->getName())
+            {
+                if( (*i)->getQuantity() >1)
+                {
+                    (*i)->setQuantity((*i)->getQuantity() -1);
+                    player->setCurrentHealth(player->getCurrentHealth()+ rev.getPower());
+                    if(player->getCurrentHealth() >= player->getMaxHealth())
+                    {
+                        player->setCurrentHealth(player->getMaxHealth());
+                    }
+                    std::cout << " Revive used" << std::endl;
+                    return true;
+
+                }else if((*i)->getQuantity() ==1)
+                {
+                    inventory->removeItem((*i));
+                    player->setCurrentHealth(player->getCurrentHealth()+ rev.getPower());
+                    if(player->getCurrentHealth() >= player->getMaxHealth())
+                    {
+                        player->setCurrentHealth(player->getMaxHealth());
+                    }
+                    return true;
+                }
+
+
             }
 
         }

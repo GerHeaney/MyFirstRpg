@@ -14,6 +14,7 @@
 #include "Entity/level.h"
 #include "Item/item.h"
 #include "Item/ether.h"
+#include "Item/revive.h"
 #include "Skills/skilllist.h"
 #include "Item/inventory.h"
 

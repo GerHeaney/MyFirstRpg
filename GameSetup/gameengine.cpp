@@ -1,6 +1,8 @@
 #include "gameengine.h"
 #include "State/gamestate.h"
 #include "State/IntroState.h"
+
+#include <Item/revive.h>
 GameEngine::GameEngine(int width, int height)
 {
     srand(time(NULL));
@@ -11,36 +13,56 @@ GameEngine::GameEngine(int width, int height)
 
     setup = new SDL_setup(&quit,width,height);
     inventory = inventory->partyInventory();
+    //For Demo day
     Potion *potion = new Potion();
     Ether * ether = new Ether(setup);
+    Revive * revive = new Revive();
     potion->setQuantity(99);
 
-     ether->setQuantity(99);
+    ether->setQuantity(99);
+    revive->setQuantity(99);
     inventory->addItem(ether);
-     inventory->addItem(potion);
+    inventory->addItem(potion);
+    inventory->addItem(revive);
+
+
 
     player2 = new MainCharacter(setup,"Ger","resources/Characters/belf22.png");
     player = new MainCharacter(setup,"Bill","resources/Characters/belf1.png");
+    player3 = new MainCharacter(setup,"Morgana","resources/Characters/belf3.png");
     Weapon * javelin =new Weapon(setup,Item::SPEAR,"Javelin",200,100,"resources/Items/spear.png");
     Weapon * ironSword = new Weapon(setup,Item::SWORD,"Iron Sword",200,100,"resources/Items/sword.png");
     Weapon * hatchet = new Weapon(setup,Item::AXE,"Hatchet",200,100,"resources/Items/axe.png");
     Weapon * hammer = new Weapon(setup,Item::MACE,"Hammer",200,100,"resources/Items/mace.png");
     Weapon * battleAxe = new Weapon(setup,Item::AXE,"Battle Axe",200,170,"resources/Items/axe.png");
 
+    Weapon * excalibur = new Weapon(setup,Item::SWORD,"Excalibur",1000,1500,"resources/Items/sword.png");
+    Weapon * mjolnir = new Weapon(setup,Item::MACE,"Mjolnir",5000,1500,"resources/Items/mace.png");
+     Weapon * gungnir = new Weapon(setup,Item::SPEAR,"Gungnir",5000,1500,"resources/Items/spear.png");
+
+
     player->setWeapon(javelin);
     player2->setWeapon(ironSword);
+    player3->setWeapon(battleAxe);
+    player3->setCurrentHealth(0);
     inventory->addItem(javelin);
     inventory->addItem(ironSword);
     inventory->addItem(hatchet);
     inventory->addItem(hammer);
     inventory->addItem(battleAxe);
-    player->getSkillMap()->at("Spear Skill") = 20;
+    inventory->addItem(excalibur);
+    inventory->addItem(mjolnir);
+    inventory->addItem(gungnir);
+    player->setLevel(10);
+    player2->setLevel(10);
+    player3->setLevel(10);
 
     gameCamera = new Camera();
     gameCamera->setCameraW(width);
     gameCamera->setCameraH(height);
     party.push_back(player);
     party.push_back(player2);
+    party.push_back(player3);
 
 
 

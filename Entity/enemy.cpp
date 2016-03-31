@@ -322,7 +322,7 @@ void Enemy::setLevel(int aLevel)
     entityLevel->setCurrentLevel(aLevel);
     maxHealth = 180 + 100* entityLevel->getCurrentLevel() + rand() % 50;
     currentHealth = maxHealth;
-    attackDamage = 60 + 8* entityLevel->getCurrentLevel() + rand() % 20;
+    attackDamage = 60 + 15* entityLevel->getCurrentLevel() + rand() % 20;
     experience = 40 + 7*entityLevel->getCurrentLevel();
 }
 

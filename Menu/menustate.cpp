@@ -121,11 +121,11 @@ void MenuState::Draw(GameEngine *game)
                                (*i)->getIcon()->getPositionRect().w/3,(*i)->getIcon()->getPositionRect().y + 90);
             line1->setText("AP: " + (*i)->toString((*i)->getAbilityPower()) + "/" +(*i)->toString((*i)->getMaxAP()));
             line1->Display(game->getSetup());
-            line1->setPosition((*i)->getIcon()->getPositionRect().x+(*i)->getIcon()->getPositionRect().w*2 ,
+            line1->setPosition((*i)->getIcon()->getPositionRect().x+(*i)->getIcon()->getPositionRect().w*3 ,
                                (*i)->getIcon()->getPositionRect().y);
             line1->setText("Current EXP: " + (*i)->toString((*i)->getEntityLevel()->getCurrentXP()));
             line1->Display(game->getSetup());
-            line1->setPosition((*i)->getIcon()->getPositionRect().x+(*i)->getIcon()->getPositionRect().w*4 ,
+            line1->setPosition((*i)->getIcon()->getPositionRect().x+(*i)->getIcon()->getPositionRect().w*5 ,
                                (*i)->getIcon()->getPositionRect().y);
             line1->setText("EXP for next level: " + (*i)->toString((*i)->getEntityLevel()->getRequiredXP()));
             line1->Display(game->getSetup());

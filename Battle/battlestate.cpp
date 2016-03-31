@@ -27,6 +27,7 @@ void BattleState::Init(GameEngine *game)
     Skill3 = new FontButton(game->getSetup(),"Skill 3");
     Potions = new FontButton(game->getSetup(),"Item 1");
     Ethers = new FontButton(game->getSetup(),"Item 2");
+    Revives = new FontButton(game->getSetup(),"Item 3");
     battleMenu = new MenuSprite(game->getRenderer(),"resources/Battle/battleoptions.png");
     battleSystem = new BattleSystem();
     visitor = new DrawVisitor();   
@@ -56,7 +57,7 @@ void BattleState::Init(GameEngine *game)
     int playerpos = 0;
     for(std::vector<Entity*>::iterator i = game->getParty()->begin();i!=game->getParty()->end();)
     {
-        (*i)->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/4 - playerpos,game->getScreenHeight()-game->getScreenHeight()/3 - playerpos);
+        (*i)->getSprite()->setPositionRect(game->getScreenWidth() - game->getScreenWidth()/3 + playerpos,game->getScreenHeight()-game->getScreenHeight()/2 + playerpos);
 
         playerpos +=50;
         i++;
@@ -91,6 +92,8 @@ void BattleState::Init(GameEngine *game)
 
     Potions->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset);
     Ethers->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    Revives->setPosition(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*3);
+
 
 
 
@@ -151,6 +154,10 @@ void BattleState::HandleEvents(GameEngine *game)
             {
                 Ethers->handleEvent();
             }
+            if(Revives->getText() != "Item 3")
+            {
+                Revives->handleEvent();
+            }
 
 
 
@@ -165,6 +172,7 @@ void BattleState::HandleEvents(GameEngine *game)
         Items->setPressed(false);
         Potions->setPressed(false);
         Ethers->setPressed(false);
+        Revives->setPressed(false);
 //        for(std::vector<Entity*>::iterator i = enemies.begin();i!=enemies.end();)
 //        {
 //            (*i)->setSelected(false);
@@ -283,6 +291,7 @@ void BattleState::Cleanup()
     delete Skill3;
     delete Potions;
     delete Ethers;
+    delete Revives;
 
 
     enemies.clear();
@@ -354,6 +363,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                 Skill3->setPressed(false);
                                 Potions->setPressed(false);
                                 Ethers->setPressed(false);
+                                Revives->setPressed(false);
 
                               //  std::cout << "Attack has been pressed";
 
@@ -392,12 +402,14 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
                                 Potions->setPosition(0,0);
                                 Ethers->setPosition(0,0);
+                                Revives->setPosition(0,0);
 
                                 checkSkills(game,(*itrParty));
                                 Attack->setPressed(false);
                                 Items->setPressed(false);
                                 Potions->setPressed(false);
                                 Ethers->setPressed(false);
+                                Revives->setPressed(false);
                          //          std::cout << "Ability has been pressed";
 
                                 battleInfo->setText("Select ability to use");
@@ -539,7 +551,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
 
 
 
-                            if(Items->getPressed() && !Potions->getPressed() && !Ethers->getPressed())
+                            if(Items->getPressed() && !Potions->getPressed() && !Ethers->getPressed() &&!Revives->getPressed())
                             {
                                 Skill1->setPosition(0,0);
                                 Skill2->setPosition(0,0);
@@ -573,15 +585,22 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                     {
 
                                     }
-                                    else if((*iParty)->getMouseOver())
+                                    else if((*iParty)->getMouseOver() && (*iParty)->getCurrentHealth() >0)
                                     {
                                         battleInfo->setText("Use Potion on " + (*iParty)->getName());
                                         battleInfo->Display(game->getSetup());
                                         selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
                                                                 ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
                                         selected->accept(visitor);
+                                    } else if((*iParty)->getMouseOver() &&(*iParty)->getCurrentHealth() <=0)
+                                    {
+                                        battleInfo->setText( (*iParty)->getName() + " is KO'd");
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
                                     }
-                                    if(Potions->getPressed() &&(*iParty)->getSelected())
+                                    if(Potions->getPressed() &&(*iParty)->getSelected() &&(*iParty)->getCurrentHealth() >0)
                                     {
                                         (*itrParty)->useItem((*iParty),"Potion");
                                         (*itrParty)->setCanAttack(false);
@@ -589,6 +608,7 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         Items->setPressed(false);
                                         Potions->setPressed(false);
                                         Ethers->setPressed(false);
+                                        Revives->setPressed(false);
 
                                     }
                                 }
@@ -627,6 +647,45 @@ bool BattleState::PlayerTurn(GameEngine * game)
                                         Ethers->setPressed(false);
                                         Items->setPressed(false);
                                         Potions->setPressed(false);
+                                        Revives->setPressed(false);
+
+                                    }
+                                }
+
+                            }if(Revives->getPressed())
+                            {
+                                for(std::vector<Entity*>::iterator iParty = game->getParty()->begin();iParty < game->getParty()->end();  iParty++)
+                                {
+                                  (*iParty)->isSelected(game->getSetup(),(*iParty)->getSprite());
+                                    if(!(*iParty)->getMouseOver())
+                                    {
+
+                                    }
+                                    else if((*iParty)->getMouseOver() &&(*iParty)->getCurrentHealth() <=0)
+                                    {
+                                        battleInfo->setText("Use Revive on " + (*iParty)->getName());
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
+                                    }
+                                    else if((*iParty)->getMouseOver() &&(*iParty)->getCurrentHealth() >0)
+                                    {
+                                        battleInfo->setText( (*iParty)->getName() + " is not KO'd");
+                                        battleInfo->Display(game->getSetup());
+                                        selected->setPosition((*iParty)->getSprite()->getPositionRect().x-(*iParty)->getSprite()->getPositionRect().w
+                                                                ,(*iParty)->getSprite()->getPositionRect().y + (*iParty)->getSprite()->getRect().h/2);
+                                        selected->accept(visitor);
+                                    }
+                                    if(Revives->getPressed() &&(*iParty)->getSelected() &&(*iParty)->getCurrentHealth() <=0)
+                                    {
+                                        (*itrParty)->useItem((*iParty),"Revive");
+                                        (*itrParty)->setCanAttack(false);
+                                        (*iParty)->setSelected(false);
+                                        Ethers->setPressed(false);
+                                        Items->setPressed(false);
+                                        Potions->setPressed(false);
+                                        Revives->setPressed(false);
 
                                     }
                                 }
@@ -728,6 +787,7 @@ void BattleState::drawItemsMenu(GameEngine * game)
 {
     bool havePotion = false;
     bool haveEther = false;
+    bool haveRevive = false;
     for(std::list<Item*>::iterator i = game->getParty()->front()->getInventory()->getInventory()->begin();i!=game->getParty()->front()->getInventory()->getInventory()->end();)
     {
         std::cout << "here in the draw items menu i have a " << (*i)->getName() <<std::endl;
@@ -741,6 +801,12 @@ void BattleState::drawItemsMenu(GameEngine * game)
              haveEther = true;
              Ethers->setText("Ether");
          }
+         if((*i)->getName() == "Revive" && (*i)->getQuantity() > 0)
+         {
+             haveRevive = true;
+             Revives->setText("Revive");
+         }
+
         i++;
         if(!havePotion)
         {
@@ -749,6 +815,10 @@ void BattleState::drawItemsMenu(GameEngine * game)
         if(!haveEther)
         {
             Ethers->setText("Item 2");
+        }
+        if(!haveRevive)
+        {
+            Revives->setText("Item 3");
         }
 
 
@@ -760,6 +830,10 @@ void BattleState::drawItemsMenu(GameEngine * game)
     if(Ethers->getText() != "Item 2")
     {
         Ethers->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*2);
+    }
+    if(Revives->getText() != "Item 3")
+    {
+        Revives->Draw(battleMenu->getPositionRect().x +20,battleMenu->getPositionRect().y + buttonOffset*3);
     }
 
 
@@ -798,7 +872,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                     Skill3->setText(player->getSkillList()->getSkill(Item::AXE,20)->getName());
                 }else if(player->getSkillMap()->at("Axe Skill") < 20)
                 {
-                    Skill3->setText("Skill 1");
+                    Skill3->setText("Skill 3");
                 }
 
 
@@ -830,7 +904,7 @@ void BattleState::checkSkills(GameEngine * game,Entity * player)
                     Skill3->setText(player->getSkillList()->getSkill(Item::MACE,20)->getName());
                 }else if(player->getSkillMap()->at("Mace Skill") < 20)
                 {
-                    Skill3->setText("Skill 1");
+                    Skill3->setText("Skill 3");
                 }
 
 

@@ -83,6 +83,7 @@ private:
     SDL_setup* setup;
      MainCharacter * player;
      MainCharacter * player2;
+     MainCharacter * player3;
     //KeyboardMovement *keyMove;
     MouseMovement * mouseMove;
      Inventory * inventory;

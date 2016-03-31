@@ -52,7 +52,8 @@ SOURCES += main.cpp \
     Skills/skilllist.cpp \
     Item/ether.cpp \
     State/gameover.cpp \
-    Battle/enemylist.cpp
+    Battle/enemylist.cpp \
+    Item/revive.cpp
 
 HEADERS  += \
     Entity/entity.h \
@@ -97,7 +98,8 @@ HEADERS  += \
     Skills/skilllist.h \
     Item/ether.h \
     State/gameover.h \
-    Battle/enemylist.h
+    Battle/enemylist.h \
+    Item/revive.h
 
 
 
